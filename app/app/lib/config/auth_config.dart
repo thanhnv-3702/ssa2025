@@ -13,8 +13,7 @@ class AuthConfig {
   }
 
   /// OAuth 2.0 web client ID (server) for [GoogleSignIn.serverClientId].
-  static String get serverClientId =>
-      dotenv.maybeGet('GOOGLE_SERVER_CLIENT_ID')?.trim() ?? '';
+  static String get serverClientId => dotenv.maybeGet('GOOGLE_SERVER_CLIENT_ID')?.trim() ?? '';
 
   static const String googleProvider = 'google';
 }

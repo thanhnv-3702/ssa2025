@@ -53,8 +53,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                   ),
                 ),
               ),
-            if (!main.isLoading)
-              Expanded(child: main.isEmpty ? _emptyState() : _list()),
+            if (!main.isLoading) Expanded(child: main.isEmpty ? _emptyState() : _list()),
           ],
         ),
       ),

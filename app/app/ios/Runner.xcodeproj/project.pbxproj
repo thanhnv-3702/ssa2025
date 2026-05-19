@@ -389,7 +389,7 @@
 				DEVELOPMENT_TEAM = 93T42GU8XB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "InnoScreen Dev";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAA 2025 Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 13;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -530,7 +530,7 @@
 				DEVELOPMENT_TEAM = 93T42GU8XB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "InnoScreen Dev";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAA 2025 Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 13;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -563,7 +563,7 @@
 				DEVELOPMENT_TEAM = 93T42GU8XB;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "InnoScreen Dev";
+				INFOPLIST_KEY_CFBundleDisplayName = "SAA 2025 Dev";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				IPHONEOS_DEPLOYMENT_TARGET = 13;
 				LD_RUNPATH_SEARCH_PATHS = (

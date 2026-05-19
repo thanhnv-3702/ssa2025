@@ -7,10 +7,7 @@ class NotificationsJsonParser {
     final root = _unwrapData(json);
     final list = root['items'] ?? root['notifications'] ?? root;
     if (list is! List) return [];
-    return list
-        .whereType<Map>()
-        .map((e) => _parseItem(Map<String, dynamic>.from(e)))
-        .toList();
+    return list.whereType<Map>().map((e) => _parseItem(Map<String, dynamic>.from(e))).toList();
   }
 
   static Map<String, dynamic> _unwrapData(Map<String, dynamic> json) {

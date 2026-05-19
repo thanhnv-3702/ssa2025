@@ -29,7 +29,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/Volumes/MacE/GitHub/pj-cruint-innoscreen-mobile/app/scripts/.venv"
+set -gx VIRTUAL_ENV "/Volumes/MacE/GitHub/pj-cruint-saa2025-mobile/app/scripts/.venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

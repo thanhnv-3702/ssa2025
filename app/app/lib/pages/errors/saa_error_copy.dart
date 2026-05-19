@@ -35,8 +35,7 @@ abstract final class SaaErrorCopy {
       case LoginLanguage.en:
         return const SaaErrorStrings(
           notFoundTitle: 'NOT FOUND',
-          notFoundMessage:
-              "The resource you're looking for doesn't exist\nor has been removed.",
+          notFoundMessage: "The resource you're looking for doesn't exist\nor has been removed.",
           accessDeniedTitle: 'ACCESS DENIED',
           accessDeniedMessage: "You don't have permission to access this resource.",
           goHomeLabel: 'Go back to Home',
@@ -52,8 +51,7 @@ abstract final class SaaErrorCopy {
       case LoginLanguage.vn:
         return const SaaErrorStrings(
           notFoundTitle: 'NOT FOUND',
-          notFoundMessage:
-              'Tài nguyên bạn tìm không tồn tại\nhoặc đã bị gỡ bỏ.',
+          notFoundMessage: 'Tài nguyên bạn tìm không tồn tại\nhoặc đã bị gỡ bỏ.',
           accessDeniedTitle: 'ACCESS DENIED',
           accessDeniedMessage: 'Bạn không có quyền truy cập tài nguyên này.',
           goHomeLabel: 'Về trang chủ',

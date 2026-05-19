@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:base_core/common/config.dart';
 import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 import 'setup_notification_screen.dart';
 import 'setup_notification_vm.dart';

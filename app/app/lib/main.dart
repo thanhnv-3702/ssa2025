@@ -25,9 +25,9 @@ import 'package:saa2025/pages/app_pages.locator.dart';
 import 'package:saa2025/pages/app_pages.router.dart';
 import 'package:saa2025/pages/login/login.dart';
 import 'package:saa2025/pages/utils/const.dart';
+import 'package:saa2025/pages/utils/saa_route_guard.dart';
 import 'package:saa2025/pages/utils/utils.dart';
 import 'package:saa2025/pages/widgets/firebase_messaging/firebase_messaging_background_handler.dart';
-import 'package:saa2025/pages/utils/saa_route_guard.dart';
 import 'package:saa2025/pages/widgets/privacy_overlay_widget.dart';
 import 'package:saa2025/services/auth/auth_service.dart';
 import 'package:saa2025/services/fcm_service.dart';
@@ -118,8 +118,7 @@ class _MyAppState extends State<MyApp> with WidgetsBindingObserver {
   void _loadSavedLanguage(LocalizationService localizationService) {
     final storageService = locator<StorageService>();
     final saved = storageService.getString(StorageKey.keySelectedLanguage.name);
-    final supportedCodes =
-        AppLocalizations.supportedLocales.map((l) => l.languageCode.toLowerCase()).toSet();
+    final supportedCodes = AppLocalizations.supportedLocales.map((l) => l.languageCode.toLowerCase()).toSet();
     Locale locale = Locale(BaseConst.defaultLangue);
 
     if (saved != null && saved.isNotEmpty) {

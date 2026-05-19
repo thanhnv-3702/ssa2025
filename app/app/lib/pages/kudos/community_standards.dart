@@ -13,8 +13,7 @@ class CommunityStandardsState extends StatefulWidget {
   State<StatefulWidget> createState() => CommunityStandards();
 }
 
-class CommunityStandards extends BaseScreenState<CommunityStandardsState, CommunityStandardsVm>
-    with UIMixin {
+class CommunityStandards extends BaseScreenState<CommunityStandardsState, CommunityStandardsVm> with UIMixin {
   String get intro => KudosMockData.communityStandardsIntro;
 
   List<String> get communityRules => KudosMockData.communityStandardsRules;

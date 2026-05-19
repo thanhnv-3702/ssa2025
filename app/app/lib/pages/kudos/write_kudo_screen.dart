@@ -371,44 +371,44 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
             ),
           ),
           Row(
-        children: [
-          Expanded(
-            child: OutlinedButton.icon(
-              onPressed: main.onCancelTap,
-              icon: const Icon(Icons.close, size: 18),
-              label: Text('Hủy', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
-                padding: EdgeInsets.symmetric(vertical: 14.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: main.onCancelTap,
+                  icon: const Icon(Icons.close, size: 18),
+                  label: Text('Hủy', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Gap(12.w),
-          Expanded(
-            child: ElevatedButton.icon(
-              onPressed: main.vm.isSubmitting ? null : () => main.onSendTap(),
-              icon: main.vm.isSubmitting
-                  ? SizedBox(
-                      width: 18.w,
-                      height: 18.w,
-                      child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
-                    )
-                  : const Icon(Icons.send_rounded, size: 18),
-              label: Text(
-                main.vm.isSubmitting ? 'Đang gửi...' : 'Gửi đi',
-                style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+              Gap(12.w),
+              Expanded(
+                child: ElevatedButton.icon(
+                  onPressed: main.vm.isSubmitting ? null : () => main.onSendTap(),
+                  icon: main.vm.isSubmitting
+                      ? SizedBox(
+                          width: 18.w,
+                          height: 18.w,
+                          child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                        )
+                      : const Icon(Icons.send_rounded, size: 18),
+                  label: Text(
+                    main.vm.isSubmitting ? 'Đang gửi...' : 'Gửi đi',
+                    style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: _accent,
+                    foregroundColor: _background,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
+                  ),
+                ),
               ),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: _accent,
-                foregroundColor: _background,
-                padding: EdgeInsets.symmetric(vertical: 14.h),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
-              ),
-            ),
-          ),
-        ],
+            ],
           ),
         ],
       ),

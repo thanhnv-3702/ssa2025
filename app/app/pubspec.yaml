@@ -1,7 +1,7 @@
 name: saa2025
 description: SAA 2025 — Sun* Annual Awards mobile app (iOS).
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
-version: 1.0.81+75
+version: 1.0.0+1
 environment:
   sdk: ">=3.0.0 <4.0.0"
 dependencies:

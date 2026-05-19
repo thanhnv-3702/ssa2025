@@ -40,8 +40,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
         ),
         body: Stack(
           children: [
-            if (main.isLoading)
-              const Center(child: CircularProgressIndicator(color: SaaDesignTokens.accent)),
+            if (main.isLoading) const Center(child: CircularProgressIndicator(color: SaaDesignTokens.accent)),
             Positioned(
               top: 0,
               left: 0,
@@ -50,69 +49,69 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
               child: Image.asset(Assets.homeHomeBg, fit: BoxFit.cover),
             ),
             if (!main.isLoading)
-            SafeArea(
-              child: CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(child: _buildMemberCard(p)),
-                  if (!main.isSelf)
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 0),
-                        child: ElevatedButton.icon(
-                          onPressed: main.onSendKudoTap,
-                          icon: const Icon(Icons.send_rounded),
-                          label: Text(
-                            'Gửi lời cảm ơn tới ${p.name.split(' ').last}...',
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: _accent,
-                            foregroundColor: _background,
-                            padding: EdgeInsets.symmetric(vertical: 14.h),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(28.r),
+              SafeArea(
+                child: CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(child: _buildMemberCard(p)),
+                    if (!main.isSelf)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: EdgeInsets.fromLTRB(20.w, 16.h, 20.w, 0),
+                          child: ElevatedButton.icon(
+                            onPressed: main.onSendKudoTap,
+                            icon: const Icon(Icons.send_rounded),
+                            label: Text(
+                              'Gửi lời cảm ơn tới ${p.name.split(' ').last}...',
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _accent,
+                              foregroundColor: _background,
+                              padding: EdgeInsets.symmetric(vertical: 14.h),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(28.r),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  SliverToBoxAdapter(child: _buildBadges(p)),
-                  SliverToBoxAdapter(child: _buildStats(p)),
-                  SliverToBoxAdapter(child: _sectionTitle('KUDOS')),
-                  SliverPadding(
-                    padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
-                    sliver: main.kudosList.isEmpty
-                        ? SliverToBoxAdapter(
-                            child: Padding(
-                              padding: EdgeInsets.all(24.w),
-                              child: Center(
-                                child: Text(
-                                  'Chưa có Kudos',
-                                  style: TextStyle(color: _textMuted, fontSize: 14.sp),
+                    SliverToBoxAdapter(child: _buildBadges(p)),
+                    SliverToBoxAdapter(child: _buildStats(p)),
+                    SliverToBoxAdapter(child: _sectionTitle('KUDOS')),
+                    SliverPadding(
+                      padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 24.h),
+                      sliver: main.kudosList.isEmpty
+                          ? SliverToBoxAdapter(
+                              child: Padding(
+                                padding: EdgeInsets.all(24.w),
+                                child: Center(
+                                  child: Text(
+                                    'Chưa có Kudos',
+                                    style: TextStyle(color: _textMuted, fontSize: 14.sp),
+                                  ),
                                 ),
                               ),
+                            )
+                          : SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (context, i) {
+                                  final item = main.kudosList[i];
+                                  return Padding(
+                                    padding: EdgeInsets.only(bottom: 12.h),
+                                    child: KudosHighlightCard(
+                                      item: item,
+                                      width: double.infinity,
+                                      onTap: () => main.onKudoTap(item),
+                                    ),
+                                  );
+                                },
+                                childCount: main.kudosList.length,
+                              ),
                             ),
-                          )
-                        : SliverList(
-                            delegate: SliverChildBuilderDelegate(
-                              (context, i) {
-                                final item = main.kudosList[i];
-                                return Padding(
-                                  padding: EdgeInsets.only(bottom: 12.h),
-                                  child: KudosHighlightCard(
-                                    item: item,
-                                    width: double.infinity,
-                                    onTap: () => main.onKudoTap(item),
-                                  ),
-                                );
-                              },
-                              childCount: main.kudosList.length,
-                            ),
-                          ),
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),
@@ -128,9 +127,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             radius: 40.r,
             backgroundColor: const Color(0xFF1A3A4A),
             backgroundImage: p.avatarAsset != null ? AssetImage(p.avatarAsset!) : null,
-            child: p.avatarAsset == null
-                ? Text(p.name[0], style: TextStyle(color: _accent, fontSize: 28.sp))
-                : null,
+            child: p.avatarAsset == null ? Text(p.name[0], style: TextStyle(color: _accent, fontSize: 28.sp)) : null,
           ),
           Gap(16.w),
           Expanded(

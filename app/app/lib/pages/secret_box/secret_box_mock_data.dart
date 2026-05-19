@@ -47,16 +47,14 @@ class SecretBoxMockData {
         const SecretBoxActivityItem(
           id: 'a4',
           type: SecretBoxActivityType.levelUp,
-          body:
-              'Bạn nhận được 12 lời nhắn gửi từ đồng nghiệp và thăng hạng Silver!\n'
+          body: 'Bạn nhận được 12 lời nhắn gửi từ đồng nghiệp và thăng hạng Silver!\n'
               'Tiếp tục lan tỏa năng lượng tích cực đến đồng nghiệp nhé!',
           timeLabel: '1 ngày trước',
         ),
         const SecretBoxActivityItem(
           id: 'a5',
           type: SecretBoxActivityType.kudosHidden,
-          body:
-              'Tiếc quá! Bạn có một lời nhắn bị tạm ẩn vì "vướng" một số tiêu chuẩn! '
+          body: 'Tiếc quá! Bạn có một lời nhắn bị tạm ẩn vì "vướng" một số tiêu chuẩn! '
               'Hãy xem các tiêu chuẩn và gửi lại cho đồng đội nhé!',
           timeLabel: '1 tháng trước',
           actionLabel: 'Tiêu chuẩn cộng đồng',
@@ -64,8 +62,7 @@ class SecretBoxMockData {
         const SecretBoxActivityItem(
           id: 'a6',
           type: SecretBoxActivityType.badgeComplete,
-          body:
-              'Chúc mừng bạn đã thu thập đủ 6 huy hiệu của SAA. '
+          body: 'Chúc mừng bạn đã thu thập đủ 6 huy hiệu của SAA. '
               'Bạn đã nhận được phần quà từ BTC. BTC sẽ liên hệ để gửi quà đến bạn vào cuối sự kiện.',
           timeLabel: '2 tháng trước',
         ),

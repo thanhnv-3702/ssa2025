@@ -23,6 +23,7 @@ class AwardItem {
 
   final String id;
   final String title;
+
   /// Section heading on detail (may differ from card title).
   final String displayTitle;
   final String subtitle;

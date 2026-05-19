@@ -27,9 +27,8 @@ class KudosVm extends AppBaseViewModel with ViewModelMixin {
   List<String> get hashtagFilters =>
       hubData?.hashtagFilters.isNotEmpty == true ? hubData!.hashtagFilters : KudosMockData.hashtagFilters;
 
-  List<String> get departmentFilters => hubData?.departmentFilters.isNotEmpty == true
-      ? hubData!.departmentFilters
-      : KudosMockData.departmentFilters;
+  List<String> get departmentFilters =>
+      hubData?.departmentFilters.isNotEmpty == true ? hubData!.departmentFilters : KudosMockData.departmentFilters;
 
   Future<void> loadHub({
     String? period,

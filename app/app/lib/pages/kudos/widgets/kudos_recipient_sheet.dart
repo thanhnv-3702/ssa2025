@@ -107,8 +107,7 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
                   final s = _results[i];
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundImage:
-                          s.avatarAsset != null ? AssetImage(s.avatarAsset!) : null,
+                      backgroundImage: s.avatarAsset != null ? AssetImage(s.avatarAsset!) : null,
                       child: s.avatarAsset == null ? Text(s.name[0]) : null,
                     ),
                     title: Text(s.name, style: const TextStyle(color: Colors.white)),

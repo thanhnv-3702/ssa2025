@@ -2,11 +2,11 @@ import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/app_pages.router.dart';
+import 'package:saa2025/pages/kudos/kudos_all.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
+import 'package:saa2025/pages/kudos/kudos_navigation.dart';
 import 'package:saa2025/pages/kudos/kudos_screen.dart';
 import 'package:saa2025/pages/kudos/kudos_vm.dart';
-import 'package:saa2025/pages/kudos/kudos_all.dart';
-import 'package:saa2025/pages/kudos/kudos_navigation.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_option_sheet.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
@@ -31,15 +31,23 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   final PageController highlightController = PageController(viewportFraction: 0.88);
 
   String get languageCode => _languageCode;
+
   int get highlightPage => _highlightPage;
+
   String get filterPeriod => _filterPeriod;
+
   String get filterHashtag => _filterHashtag;
+
   String get filterDepartment => _filterDepartment;
 
   List<KudoItem> get highlights => vm.highlights;
+
   List<SpotlightEntry> get filteredSpotlight => vm.spotlight;
+
   List<KudoItem> get allKudos => vm.allKudos;
+
   KudosStats get stats => vm.stats;
+
   bool get isHubLoading => vm.isHubLoading;
 
   int get highlightPageCount => highlights.isEmpty ? 1 : highlights.length;

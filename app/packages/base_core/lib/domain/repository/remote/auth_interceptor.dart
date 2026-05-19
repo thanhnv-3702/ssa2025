@@ -115,7 +115,6 @@ class AuthInterceptor extends Interceptor {
 
   Future<Response> _retryRequest(RequestOptions requestOptions, String? newAccessToken) async {
     final updatedHeaders = Map<String, dynamic>.from(requestOptions.headers);
-    updatedHeaders['inno-auth'] = 'Bearer $newAccessToken';
     final retryData = _cloneData(requestOptions.data);
     final options = requestOptions.copyWith(
       headers: updatedHeaders,

@@ -15,8 +15,7 @@ class AwardKudosPromo extends StatelessWidget {
   static const Color _background = Color(0xFF00101A);
   static const Color _textOnDark = Color(0xFFFFFFFF);
 
-  static const String _note =
-      'ĐIỂM MỚI CỦA SAA 2025\n'
+  static const String _note = 'ĐIỂM MỚI CỦA SAA 2025\n'
       'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. '
       'Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, '
       'cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo '

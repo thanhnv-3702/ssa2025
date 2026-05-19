@@ -1,6 +1,7 @@
 import 'package:base_core/common/base_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 /// Award hero — MoMorph `mm_media_Picture-Award` (160×160).
 class AwardPictureCard extends StatelessWidget {
   const AwardPictureCard({

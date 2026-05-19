@@ -49,9 +49,7 @@ Future<String?> showKudosOptionSheet({
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),
-                  trailing: isSelected
-                      ? const Icon(Icons.check, color: Color(0xFFFFE99E))
-                      : null,
+                  trailing: isSelected ? const Icon(Icons.check, color: Color(0xFFFFE99E)) : null,
                   onTap: () => Navigator.pop(ctx, opt),
                 );
               },

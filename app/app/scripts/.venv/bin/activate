@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/Volumes/MacE/GitHub/pj-cruint-innoscreen-mobile/app/scripts/.venv"
+VIRTUAL_ENV="/Volumes/MacE/GitHub/pj-cruint-saa2025-mobile/app/scripts/.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

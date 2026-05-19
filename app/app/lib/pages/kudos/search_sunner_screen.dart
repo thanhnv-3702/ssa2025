@@ -174,11 +174,8 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
               CircleAvatar(
                 radius: 22.r,
                 backgroundColor: const Color(0xFF1A3A4A),
-                backgroundImage:
-                    sunner.avatarAsset != null ? AssetImage(sunner.avatarAsset!) : null,
-                child: sunner.avatarAsset == null
-                    ? Text(sunner.name[0], style: TextStyle(color: _accent))
-                    : null,
+                backgroundImage: sunner.avatarAsset != null ? AssetImage(sunner.avatarAsset!) : null,
+                child: sunner.avatarAsset == null ? Text(sunner.name[0], style: TextStyle(color: _accent)) : null,
               ),
               Gap(12.w),
               Expanded(

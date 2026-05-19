@@ -33,7 +33,8 @@ const Map<String, String> kErrorMessageMap = {
   'verify_otp_error_03': 'OTP is required.',
   'verify_otp_error_04': 'Invalid or expired code. Please try again.',
   'resend_otp_error_01': 'Email is required.',
-  'request_otp_error_04': 'This email address is currently linked to an account scheduled for deletion. You cannot create a new account with this email until the 30-day cooling-off period has expired.',
+  'request_otp_error_04':
+      'This email address is currently linked to an account scheduled for deletion. You cannot create a new account with this email until the 30-day cooling-off period has expired.',
   'resend_otp_error_02': 'Invalid email format.',
   'resend_otp_error_03': 'This email is already registered. Please Log In or Reset Password.',
   'resend_otp_error_04': 'Too many attempts. Please try again later.',
@@ -82,7 +83,8 @@ const Map<String, String> kErrorMessageMap = {
   'patient_error_2': 'System error, try again later.',
   'patient_error_3': 'System error, try again later.',
   'patient_error_4': 'System error, try again later.',
-  'medical_error_1': 'Your Medical Profile has been archived in our system. Please contact our medical staff for support.',
+  'medical_error_1':
+      'Your Medical Profile has been archived in our system. Please contact our medical staff for support.',
   'medical_error_2':
       'We could not automatically link your account due to a system conflict. For your safety, please contact our support hotline so our staff can assist you.',
   'medical_error_3':

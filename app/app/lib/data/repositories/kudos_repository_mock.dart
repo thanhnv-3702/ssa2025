@@ -23,8 +23,7 @@ class KudosRepositoryMock implements KudosRepository {
       highlights = highlights
           .where(
             (k) => KudosMockData.sunners.any(
-              (s) =>
-                  (s.name == k.receiverName || s.name == k.senderName) && s.department == department,
+              (s) => (s.name == k.receiverName || s.name == k.senderName) && s.department == department,
             ),
           )
           .toList();

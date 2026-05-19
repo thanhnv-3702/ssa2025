@@ -96,7 +96,8 @@ class KudosScreen extends BaseScreen<Kudos> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(main.languageCode, style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600)),
+            Text(main.languageCode,
+                style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600)),
             Gap(4.w),
             Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16.sp),
           ],
@@ -321,30 +322,26 @@ class KudosScreen extends BaseScreen<Kudos> {
                   Wrap(
                     spacing: 8.w,
                     runSpacing: 8.h,
-                    children: main.filteredSpotlight
-                        .map(
-                          (e) {
-                            SunnerProfile? sunner;
-                            for (final s in KudosMockData.sunners) {
-                              if (s.name == e.name) {
-                                sunner = s;
-                                break;
-                              }
-                            }
-                            return ActionChip(
-                              label: Text(
-                                '${e.name} (${e.kudosCount})',
-                                style: TextStyle(color: Colors.white, fontSize: 11.sp),
-                              ),
-                              backgroundColor: const Color(0xFF1A3A4A),
-                              side: BorderSide(color: _accent.withValues(alpha: 0.3)),
-                              onPressed: sunner != null
-                                  ? () => main.onSpotlightSunnerTap(sunner!)
-                                  : null,
-                            );
-                          },
-                        )
-                        .toList(),
+                    children: main.filteredSpotlight.map(
+                      (e) {
+                        SunnerProfile? sunner;
+                        for (final s in KudosMockData.sunners) {
+                          if (s.name == e.name) {
+                            sunner = s;
+                            break;
+                          }
+                        }
+                        return ActionChip(
+                          label: Text(
+                            '${e.name} (${e.kudosCount})',
+                            style: TextStyle(color: Colors.white, fontSize: 11.sp),
+                          ),
+                          backgroundColor: const Color(0xFF1A3A4A),
+                          side: BorderSide(color: _accent.withValues(alpha: 0.3)),
+                          onPressed: sunner != null ? () => main.onSpotlightSunnerTap(sunner!) : null,
+                        );
+                      },
+                    ).toList(),
                   ),
                 ],
               ),
@@ -470,5 +467,4 @@ class KudosScreen extends BaseScreen<Kudos> {
       ),
     );
   }
-
 }

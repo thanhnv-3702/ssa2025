@@ -1,3 +1,4 @@
+import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/app_pages.router.dart';
@@ -9,7 +10,6 @@ import 'package:saa2025/pages/secret_box/secret_box_navigation.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
-import 'package:base_core/presenter/base_screen_state.dart';
 
 import 'awards_screen.dart';
 

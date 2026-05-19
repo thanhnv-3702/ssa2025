@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:saa2025/pages/errors/error_navigation.dart';
 import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
+import 'package:saa2025/pages/kudos/kudos_navigation.dart';
 import 'package:saa2025/pages/kudos/search_sunner_screen.dart';
 import 'package:saa2025/pages/kudos/search_sunner_vm.dart';
-import 'package:saa2025/pages/kudos/kudos_navigation.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 
 /// Search Sunner — MoMorph `3jgwke3E8O` / `hldqjHoSRH`.
@@ -30,6 +30,7 @@ class SearchSunner extends BaseScreenState<SearchSunnerState, SearchSunnerVm> wi
   List<String> recentSearches = List.from(KudosMockData.recentSearches);
   List<SunnerProfile> results = List.from(KudosMockData.sunners);
   Timer? _searchDebounce;
+
   bool get isSearching => searchController.text.trim().isNotEmpty;
 
   @override

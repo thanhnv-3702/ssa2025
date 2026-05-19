@@ -34,14 +34,12 @@ class AwardsJsonParser {
 
   static List<AwardPrizeValue> _parsePrizes(dynamic raw) {
     if (raw is! List) return [];
-    return raw
-        .map((e) {
-          final m = e as Map<String, dynamic>;
-          return AwardPrizeValue(
-            amount: m['amount']?.toString() ?? '',
-            suffix: m['suffix']?.toString() ?? '',
-          );
-        })
-        .toList();
+    return raw.map((e) {
+      final m = e as Map<String, dynamic>;
+      return AwardPrizeValue(
+        amount: m['amount']?.toString() ?? '',
+        suffix: m['suffix']?.toString() ?? '',
+      );
+    }).toList();
   }
 }

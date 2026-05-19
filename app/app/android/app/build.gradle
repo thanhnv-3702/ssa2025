@@ -22,7 +22,7 @@ keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 
 android {
     namespace 'com.sunasterisk.saa2025'
-    compileSdkVersion 35
+    compileSdkVersion 36
     ndkVersion flutter.ndkVersion
     lintOptions {
         //disable 'InvalidPackage'

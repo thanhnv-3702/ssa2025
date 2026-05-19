@@ -5,11 +5,9 @@ import 'package:saa2025/pages/utils/saa_route_guard.dart';
 class SaaApiGuard {
   SaaApiGuard._();
 
-  static bool isForbidden(Object error) =>
-      error is ApiHttpException && error.isForbidden;
+  static bool isForbidden(Object error) => error is ApiHttpException && error.isForbidden;
 
-  static bool isUnauthorized(Object error) =>
-      error is ApiHttpException && error.isUnauthorized;
+  static bool isUnauthorized(Object error) => error is ApiHttpException && error.isUnauthorized;
 
   static void handleIfForbidden(Object error) {
     if (isForbidden(error)) {

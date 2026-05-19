@@ -32,9 +32,7 @@ class AuthService {
   /// Full sign-in: Google (or mock) → POST `/apis/default/api/login` → persist tokens.
   Future<AccountEntity> signInWithGoogle() async {
     final google = await _googleAuth.signIn();
-    final account = AuthConfig.useMockAuth
-        ? await _exchangeMock(google)
-        : await _exchangeWithBackend(google);
+    final account = AuthConfig.useMockAuth ? await _exchangeMock(google) : await _exchangeWithBackend(google);
 
     if (account.accessToken == null || account.accessToken!.isEmpty) {
       throw StateError('Backend did not return access_token');
@@ -60,31 +58,31 @@ class AuthService {
       displayName: google.displayName,
       googleAccessToken: google.accessToken,
       callBack: (event) {
-      if (event is Loading) return;
+        if (event is Loading) return;
 
-      if (event is Success) {
-        final data = event.data;
-        if (data is AccountEntity) {
-          completer.complete(data);
-        } else {
-          completer.completeError(StateError('Invalid login response'));
+        if (event is Success) {
+          final data = event.data;
+          if (data is AccountEntity) {
+            completer.complete(data);
+          } else {
+            completer.completeError(StateError('Invalid login response'));
+          }
+          return;
         }
-        return;
-      }
 
-      if (event is Notify) {
-        completer.completeError(StateError(event.message?.toString() ?? 'Login failed'));
-        return;
-      }
+        if (event is Notify) {
+          completer.completeError(StateError(event.message?.toString() ?? 'Login failed'));
+          return;
+        }
 
-      if (event is Failed) {
-        completer.completeError(StateError(event.error?.toString() ?? 'Login failed'));
-        return;
-      }
+        if (event is Failed) {
+          completer.completeError(StateError(event.error?.toString() ?? 'Login failed'));
+          return;
+        }
 
-      if (event is Exception) {
-        completer.completeError(event);
-      }
+        if (event is Exception) {
+          completer.completeError(event);
+        }
       },
     );
 

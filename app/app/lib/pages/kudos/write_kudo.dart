@@ -127,14 +127,11 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
     setState(() {});
   }
 
-  void onFormatBold() =>
-      KudosUtils.applyTextWrapper(controller: messageController, wrapper: '**');
+  void onFormatBold() => KudosUtils.applyTextWrapper(controller: messageController, wrapper: '**');
 
-  void onFormatItalic() =>
-      KudosUtils.applyTextWrapper(controller: messageController, wrapper: '_');
+  void onFormatItalic() => KudosUtils.applyTextWrapper(controller: messageController, wrapper: '_');
 
-  void onFormatStrike() =>
-      KudosUtils.applyTextWrapper(controller: messageController, wrapper: '~~');
+  void onFormatStrike() => KudosUtils.applyTextWrapper(controller: messageController, wrapper: '~~');
 
   void onFormatQuote() {
     final text = messageController.text;

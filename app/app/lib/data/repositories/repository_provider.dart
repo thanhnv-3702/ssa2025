@@ -13,15 +13,12 @@ import 'package:saa2025/data/repositories/notifications_repository_remote.dart';
 class RepositoryProvider {
   RepositoryProvider._();
 
-  static final KudosRepository kudos =
-      ApiConfig.useMockApi ? KudosRepositoryMock() : KudosRepositoryRemote();
+  static final KudosRepository kudos = ApiConfig.useMockApi ? KudosRepositoryMock() : KudosRepositoryRemote();
 
-  static final AwardsRepository awards =
-      ApiConfig.useMockApi ? AwardsRepositoryMock() : AwardsRepositoryRemote();
+  static final AwardsRepository awards = ApiConfig.useMockApi ? AwardsRepositoryMock() : AwardsRepositoryRemote();
 
-  static final NotificationsRepository notifications = ApiConfig.useMockApi
-      ? NotificationsRepositoryMock()
-      : NotificationsRepositoryRemote();
+  static final NotificationsRepository notifications =
+      ApiConfig.useMockApi ? NotificationsRepositoryMock() : NotificationsRepositoryRemote();
 
   /// Mock repo instance when API mock is on (mark-read updates badge source).
   static NotificationsRepositoryMock? get notificationsMock =>

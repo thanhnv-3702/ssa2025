@@ -1,8 +1,8 @@
+import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/awards/awards_mock_data.dart';
 import 'package:saa2025/pages/rules/rules_vm.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
-import 'package:base_core/presenter/base_screen_state.dart';
 
 import 'rules_screen.dart';
 

@@ -25,6 +25,7 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
   String? _lastRewardLabel;
   List<SecretBoxActivityItem> _activities = SecretBoxMockData.initialActivities();
   Timer? _openTimer;
+
   SecretBoxVisualState get visualState => _visualState;
 
   int get unopenedCount => _unopenedCount;
@@ -100,9 +101,7 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
 
   void onActivityTap(SecretBoxActivityItem item) {
     setState(() {
-      _activities = _activities
-          .map((a) => a.id == item.id ? _copyRead(a) : a)
-          .toList();
+      _activities = _activities.map((a) => a.id == item.id ? _copyRead(a) : a).toList();
     });
 
     if (item.type == SecretBoxActivityType.secretBoxEarned && _unopenedCount > 0) {

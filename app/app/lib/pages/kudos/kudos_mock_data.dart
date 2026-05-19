@@ -47,8 +47,7 @@ class KudosMockData {
       senderName: 'Lê Văn C',
       receiverName: 'Phạm Thị D',
       title: 'NGƯỜI TRUYỀN ĐỘNG LỰC',
-      message:
-          'Bạn luôn mang năng lượng tích cực đến mọi cuộc họp. Cảm ơn vì đã là người đồng đội tuyệt vời!',
+      message: 'Bạn luôn mang năng lượng tích cực đến mọi cuộc họp. Cảm ơn vì đã là người đồng đội tuyệt vời!',
       postedAt: '14:30 - 10/29/2025',
       senderAvatarAsset: Assets.kudosKudosAvatar2,
       receiverAvatarAsset: Assets.kudosKudosAvatar1,
@@ -236,9 +235,7 @@ class KudosMockData {
   static List<KudoItem> kudosForSunner(String sunnerId) {
     final profile = findSunnerById(sunnerId);
     if (profile == null) return [];
-    return allKudos
-        .where((k) => k.receiverName == profile.name || k.senderName == profile.name)
-        .toList();
+    return allKudos.where((k) => k.receiverName == profile.name || k.senderName == profile.name).toList();
   }
 
   static List<SunnerProfile> searchSunners(String query) {

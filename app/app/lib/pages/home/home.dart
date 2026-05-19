@@ -5,10 +5,10 @@ import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/app_pages.router.dart';
-import 'package:saa2025/pages/home/home_models.dart';
-import 'package:saa2025/pages/home/home_vm.dart';
 import 'package:saa2025/pages/awards/award_detail.dart';
 import 'package:saa2025/pages/awards/awards_mock_data.dart';
+import 'package:saa2025/pages/home/home_models.dart';
+import 'package:saa2025/pages/home/home_vm.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/rules/rules.dart';
 import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
@@ -31,6 +31,7 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
   Timer? _countdownTimer;
   HomeCountdown _countdown = HomeCountdown.zero;
   String _languageCode = 'VN';
+
   HomeCountdown get countdown => _countdown;
 
   String get languageCode => _languageCode;
@@ -44,20 +45,17 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
   List<HomeAwardItem> get awards => const [
         HomeAwardItem(
           title: 'Top Talent',
-          description:
-              'Giải thưởng Top Talent vinh danh những cá nhân xuất sắc trên mọi phương diện trong năm 2025.',
+          description: 'Giải thưởng Top Talent vinh danh những cá nhân xuất sắc trên mọi phương diện trong năm 2025.',
           imageAsset: Assets.homeHomeAwardTalent,
         ),
         HomeAwardItem(
           title: 'Top Project',
-          description:
-              'Giải thưởng Top Project vinh danh các tập thể dự án xuất sắc và có tác động lớn.',
+          description: 'Giải thưởng Top Project vinh danh các tập thể dự án xuất sắc và có tác động lớn.',
           imageAsset: Assets.homeHomeAwardProject,
         ),
         HomeAwardItem(
           title: 'Top Project Leader',
-          description:
-              'Giải thưởng Top Project Leader vinh danh những nhà lãnh đạo dự án tiêu biểu.',
+          description: 'Giải thưởng Top Project Leader vinh danh những nhà lãnh đạo dự án tiêu biểu.',
           imageAsset: Assets.homeHomeAwardLeader,
         ),
       ];

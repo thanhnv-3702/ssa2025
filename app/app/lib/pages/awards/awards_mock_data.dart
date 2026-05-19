@@ -4,8 +4,7 @@ import 'package:saa2025/pages/awards/awards_models.dart';
 class AwardsMockData {
   AwardsMockData._();
 
-  static const rulesIntro =
-      'Sun* Annual Awards 2025 (SAA 2025) là chương trình vinh danh hàng năm dành cho Sunner, '
+  static const rulesIntro = 'Sun* Annual Awards 2025 (SAA 2025) là chương trình vinh danh hàng năm dành cho Sunner, '
       'tôn vinh những đóng góp xuất sắc của cá nhân và tập thể trong năm.';
 
   static const rulesSections = [

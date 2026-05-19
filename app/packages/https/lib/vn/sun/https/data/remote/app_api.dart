@@ -6,12 +6,10 @@ import 'package:base_core/common/config.dart';
 import 'package:base_core/common/data_exception.dart';
 import 'package:base_core/domain/network/api.dart';
 import 'package:base_core/domain/repository/remote/dio_interceptor.dart';
-import 'package:base_core/storage/storage.dart';
 import 'package:dio/dio.dart';
 import 'package:https/vn/sun/https/data/dto/account_dto.dart';
 import 'package:https/vn/sun/https/data/dto/msg_dto.dart';
 import 'package:https/vn/sun/https/data/remote/api_http_exception.dart';
-import 'package:stacked/stacked_annotations.dart';
 
 class AppAPI extends API {
   AppAPI(Dio dio, String baseUrl) : super(dio, baseUrl);
@@ -26,19 +24,8 @@ class AppAPI extends API {
     MethodType methodType = MethodType.post,
   }) async {
     try {
-      Map<String, dynamic>? header;
-      if (isAuth) {
-        final storageService = StackedLocator.instance<StorageService>();
-        final accessToken = storageService.getToken();
-        header = {'inno-auth': 'Bearer $accessToken'};
-        logger.d(
-          'NEON accessToken = $accessToken',
-        );
-      }
+      Map<String, dynamic>? header = {};
       if (headers != null) {
-        if (header == null) {
-          header = {};
-        }
         header.addAll(headers);
       }
 

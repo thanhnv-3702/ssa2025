@@ -130,9 +130,7 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
           CircleAvatar(
             radius: 28.r,
             backgroundColor: const Color(0xFF1A3A4A),
-            backgroundImage: kudo.receiverAvatarAsset != null
-                ? AssetImage(kudo.receiverAvatarAsset!)
-                : null,
+            backgroundImage: kudo.receiverAvatarAsset != null ? AssetImage(kudo.receiverAvatarAsset!) : null,
             child: kudo.receiverAvatarAsset == null
                 ? Text(
                     kudo.receiverName.isNotEmpty ? kudo.receiverName[0] : '?',

@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Volumes/MacE/Documents/flutter"
-export "FLUTTER_APPLICATION_PATH=/Volumes/MacE/GitHub/pj-cruint-innoscreen-mobile/packages/https"
+export "FLUTTER_APPLICATION_PATH=/Volumes/MacE/GitHub/ssa2025/app/packages/https"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"

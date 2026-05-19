@@ -2,8 +2,8 @@ import 'package:base_core/presenter/base_screen.dart';
 import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:saa2025/generated/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 
 extension BaseScreenExt on BaseScreen {
   AppLocalizations get tr => AppLocalizations.of(context);

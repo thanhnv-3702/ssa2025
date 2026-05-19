@@ -1,4 +1,4 @@
-#!/Volumes/MacE/GitHub/pj-cruint-innoscreen-mobile/app/scripts/.venv/bin/python3
+#!/Volumes/MacE/GitHub/pj-cruint-saa2025-mobile/app/scripts/.venv/bin/python3
 import sys
 from httpx import main
 if __name__ == '__main__':

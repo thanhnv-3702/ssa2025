@@ -141,9 +141,7 @@ class SecretBoxPanel extends StatelessWidget {
     return _boxAsset(
       Assets.secretBoxSecretBoxClosed,
       glow: isOpening,
-      overlay: isOpening
-          ? Icon(Icons.auto_awesome, size: 64.sp, color: _accent.withValues(alpha: 0.9))
-          : null,
+      overlay: isOpening ? Icon(Icons.auto_awesome, size: 64.sp, color: _accent.withValues(alpha: 0.9)) : null,
     );
   }
 

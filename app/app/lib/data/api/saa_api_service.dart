@@ -27,14 +27,11 @@ class SaaApiService {
 
   Future<Map<String, dynamic>> fetchNotifications() => _api.getNotifications();
 
-  Future<Map<String, dynamic>> submitKudo(Map<String, dynamic> body) =>
-      _api.postKudo(body: body);
+  Future<Map<String, dynamic>> submitKudo(Map<String, dynamic> body) => _api.postKudo(body: body);
 
-  Future<Map<String, dynamic>> fetchSunnerProfile(String sunnerId) =>
-      _api.getSunnerProfile(sunnerId: sunnerId);
+  Future<Map<String, dynamic>> fetchSunnerProfile(String sunnerId) => _api.getSunnerProfile(sunnerId: sunnerId);
 
-  Future<Map<String, dynamic>> fetchSunnerKudos(String sunnerId) =>
-      _api.getSunnerKudos(sunnerId: sunnerId);
+  Future<Map<String, dynamic>> fetchSunnerKudos(String sunnerId) => _api.getSunnerKudos(sunnerId: sunnerId);
 
   Future<Map<String, dynamic>> searchSunners(String query, {int limit = 50}) {
     return _api.searchSunners(query: query, limit: limit);

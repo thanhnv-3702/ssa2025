@@ -40,9 +40,7 @@ Future<void> showSaaLanguageSheet({
                   _languageLabel(lang),
                   style: const TextStyle(color: Colors.white),
                 ),
-                trailing: currentCode == lang.code
-                    ? const Icon(Icons.check, color: Color(0xFFFFE99E))
-                    : null,
+                trailing: currentCode == lang.code ? const Icon(Icons.check, color: Color(0xFFFFE99E)) : null,
                 onTap: () {
                   locator<StorageService>().setString(
                     StorageKey.keySelectedLanguage.name,
