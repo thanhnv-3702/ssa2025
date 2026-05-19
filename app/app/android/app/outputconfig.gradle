@@ -1,0 +1,12 @@
+android.applicationVariants.all { variant ->
+    def appName = "saa2025"
+    def cmd = "git rev-parse --short HEAD"
+    def commitId = cmd.execute().text.trim()
+
+    def flavorName = variant.flavorName ?: "prod"
+    def versionName = "${variant.versionName}"
+    variant.outputs.all { output ->
+        outputFileName = "apk-${flavorName}-${variant.buildType.name}_${versionName}.apk"
+        // outputFileName = "${appName}_${flavorName}_${versionName}_${variant.buildType.name}_${commitId}.apk"
+    }
+}

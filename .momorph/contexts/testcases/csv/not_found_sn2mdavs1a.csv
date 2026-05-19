@@ -1,0 +1,6 @@
+Section,TC_ID,Page_Name,Category,Sub_Category,Sub_Sub_Category,Test_Objective,Precondition,Test_Data,Steps,Expected_Result,Specs,Priority,Testcase_Type,Test_Result,Executed_Date,Tester,Note
+ACCESSING,TC_NOTFOUND_ACC_001,[iOS] Not Found,Check access permission,In-app navigation,Non-existent resource triggers 404 screen,Verify that accessing a removed or non-existent resource within the app displays the 404 error screen,"User is using the app, a previously existing resource has been removed",A resource that has been removed or does not exist,"1. Open the app
+2. Navigate to a resource that has been removed or does not exist
+3. Observe the screen displayed","404 error screen displayed with header, illustration, and Go back to Home button",Yes,High,Access control and security,,,,
+FUNCTION,TC_NOTFOUND_FUN_003,[iOS] Not Found,Check component interaction,Go back to Home button,Tap to navigate to Home,Verify tapping Go back to Home button navigates to the Home screen,User is on the 404 error screen,,"1. Trigger 404 error by accessing a non-existent resource
+2. Tap the Go back to Home button",Home screen displayed,Yes,High,Normal_Others,,,,

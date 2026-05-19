@@ -1,0 +1,103 @@
+name: app
+repository:
+  type: github
+  origin: https://github.com/example/flutter-mobile-template
+  owner: example
+  name: flutter_mobile_template
+
+packages:
+  - app
+  - packages/*
+  - plugins/*
+
+command:
+  version:
+    linkToCommits: true
+    workspaceChangelog: true
+
+  bootstrap:
+    runPubGetInParallel: true
+    usePubspecOverrides: true
+    environment:
+      sdk: '>=3.0.0 <4.0.0'
+    dependencies:
+      dio: ^5.4.1
+      json_serializable: ^6.8.0
+      freezed_annotation: ^2.4.4
+      flutter_screenutil: ^5.9.2
+      synchronized: ^3.3.1
+      intl: ^0.19.0
+      win32: ^5.13.0
+      fl_chart: 1.0.0
+
+    dev_dependencies:
+      test: ^1.25.7
+      build_runner: ^2.4.15
+      flutter_gen: ^5.7.0
+      json_annotation: ^4.9.0
+      freezed: ^2.5.7
+      lints: ^5.0.0
+      flutter_lints: ^5.0.0
+      custom_lint: ^0.6.7
+
+  clean:
+    hooks:
+      post: |
+        melos exec --flutter --concurrency=1 -- "flutter clean" \
+        & (find . -name "pubspec.lock" -or -name "Podfile.lock" | xargs rm -Rf)
+scripts:
+  build:pub_get:
+    run: melos exec -- "flutter pub get"
+    description: Run pub get in all packages
+
+  gen-l10n:app:
+    run: melos exec --file-exists=l10n.yaml -- "flutter gen-l10n"
+    description: Generate localization only for the main app module
+
+  analyze:
+    run: |
+      melos exec -c 6 -- \
+        dart analyze . --fatal-infos
+    description: flutter lint 检查
+
+  build:clean:
+    run: |
+      find . -name "pubspec.lock" | xargs rm -Rf \
+      find . -name "*release.apk" | xargs rm -Rf \
+      find . -name "*.ipa" | xargs rm -Rf \
+      cd ios || exit \
+      pod install \
+      pod update \
+    packageFilters:
+      scope: 'saa2025'
+    description: main app
+
+  build:app:android:
+    description: flutter android
+    packageFilters:
+      scope: 'saa2025'
+    env:
+      DEFAULT_ENABLE_LOG: true
+      DEFAULT_ENTRY_POINT: app
+    run:
+      melos exec --fail-fast -- flutter build apk --release
+  build:app:ios:
+    description: flutter ios
+    packageFilters:
+      scope: 'saa2025'
+    env:
+      DEFAULT_ENABLE_LOG: true
+      DEFAULT_ENTRY_POINT: app
+    run: |
+      melos exec --fail-fast -- flutter build ipa --release  --export-options-plist=ExportOptions.plist
+
+  generate:gen-l10n:
+    run: |
+      melos run gen-l10n:app
+
+  generate:build_runner:
+    run: |
+      melos exec -- "flutter packages pub run build_runner build --delete-conflicting-outputs"
+    packageFilters:
+      dependsOn: 'build_runner'
+    description: build runner

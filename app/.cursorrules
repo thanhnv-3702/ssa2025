@@ -1,0 +1,226 @@
+# Cursor Rules for SAA 2025
+
+## Project Overview
+Flutter mobile app **SAA 2025** (Sun* Annual Awards) — package `saa2025`, bundle `com.sunasterisk.saa2025`. Melos monorepo, Clean MVVM + Stacked.
+
+## Project Structure
+
+### Monorepo Structure
+- Root: Melos workspace configuration
+- `app/`: Main Flutter application
+- `packages/`: Shared packages (base_core, database, https)
+- `plugins/`: Custom plugins
+
+### Key Directories
+- `app/lib/pages/`: Feature pages organized by feature name
+- `packages/base_core/`: Core utilities, base classes, and shared resources
+- `packages/database/`: Database layer using Floor
+- `packages/https/`: Network layer using Dio + Retrofit
+
+## Architecture Pattern
+
+### MVVM with Stacked
+- **View**: `*_screen.dart` files extending `BaseScreen`
+- **ViewModel**: `*_vm.dart` files extending `AppBaseViewModel`
+- **State**: Main feature file (e.g., `login.dart`) extending `BaseScreenState`
+- Use `@StackedApp` annotation for routing and dependency injection
+
+### File Naming Conventions
+- Files: `snake_case` (e.g., `login_screen.dart`, `login_vm.dart`)
+- Classes: `PascalCase` (e.g., `LoginScreen`, `LoginVm`)
+- Variables/Methods: `camelCase` (e.g., `isEmailValid`, `handleResponseAPI`)
+- Constants: `camelCase` in const files (e.g., `AppColors`, `AppFonts`)
+
+### Feature Structure Pattern
+Each feature should have:
+```
+feature_name/
+  - feature_name.dart          # Main state widget
+  - feature_name_screen.dart   # UI screen
+  - feature_name_vm.dart       # ViewModel
+  - model/                     # Feature-specific models (if needed)
+```
+
+## Code Style & Linting
+
+### Analysis Options
+- Follow `analysis_options.yaml` rules:
+  - Use single quotes (`prefer_single_quotes`)
+  - Avoid `print` statements (use `logger` instead)
+  - Require trailing commas (`require_trailing_commas`)
+  - Type inference is allowed (`always_specify_types: false`)
+
+### Import Organization
+1. Dart SDK imports
+2. Flutter imports
+3. Package imports (third-party)
+4. Local imports (relative paths)
+5. Generated files (usually last)
+
+### Code Generation
+Always run code generation after changes:
+- `melos run generate:build_runner` - For all generated code
+- `melos run generate:gen-l10n` - For localization
+- Use `--delete-conflicting-outputs` flag with build_runner
+
+## Dependencies & Packages
+
+### Core Stack
+- **State Management**: `stacked: ^3.4.0` with `stacked_services`
+- **Dependency Injection**: `injectable: ^2.5.1` + `get_it: ^8.2.0`
+- **Routing**: `auto_route: ^9.0.0` via Stacked Services
+- **Networking**: `dio: ^5.4.1` + `retrofit: ^4.2.0`
+- **Database**: `floor: ^1.5.0` (SQLite)
+- **UI**: `flutter_screenutil: ^5.9.2` for responsive design
+- **Localization**: Flutter gen-l10n
+
+### Key Packages
+- `bot_toast: ^4.1.3` - Toast notifications
+- `flutter_easyloading: ^3.0.5` - Loading indicators
+- `cached_network_image: ^3.3.0` - Image caching
+- `logger: ^2.6.1` - Logging (use `logger.d()`, `logger.e()`, etc.)
+
+## Coding Guidelines
+
+### ViewModels
+- Extend `AppBaseViewModel` from `base_core`
+- Use mixins like `ViewModelMixin` for common functionality
+- Access dependencies via `getIt<Type>()` or `locator<Type>()`
+- Handle API responses with `handleResponseAPI<T>()` pattern
+- Use `storageService` for local storage operations
+
+### Screens
+- Extend `BaseScreen<StateWidget>` from `base_core`
+- Implement `screen()` method returning the main widget
+- Use `ScreenUtil` for responsive sizing (`.w`, `.h`, `.sp`)
+- Access view model via `main.vm` or `main` reference
+- Use `AppColors`, `AppFonts` from `base_core/resources.dart`
+
+### State Widgets
+- Extend `BaseScreenState<StateWidget, ViewModel>`
+- Implement `initViewModel()` returning ViewModel instance
+- Implement `initWidget()` returning the Screen widget
+- Use `beforeBuild()` for initialization logic
+- Access services via `navigator`, `storage`, `tr` (translations)
+
+### Models & Entities
+- Domain entities: `*_entity.dart` (e.g., `AccountEntity`)
+- Data DTOs: `*_dto.dart` (e.g., `AccountDto`)
+- Use `json_serializable` for serialization when needed
+- Floor entities: Use `@entity` annotation with `@primaryKey`
+
+### API & Networking
+- Use Retrofit for API definitions
+- DTOs in `data/dto/` directory
+- Entities in `domain/model/` directory
+- Use cases in `domain/usecase/` directory
+- Repositories in `domain/repository/` directory
+
+### Localization
+- Use `tr.` prefix for translations (e.g., `tr.txtLog`)
+- Translation files in `app/l10n/` directory
+- Run `melos run generate:gen-l10n` after adding translations
+
+### Storage
+- Use `StorageService` from `base_core/storage/storage.dart`
+- Access via `locator<StorageService>()` or `storageService`
+- Use `StorageKey` enum for key names
+- Methods: `setString()`, `getString()`, `setBool()`, `getBool()`, etc.
+
+### UI Components
+- Use base widgets from `base_core/res/widgets/`:
+  - `AppElevatedButton` for buttons
+  - `TextFieldCs` for text inputs
+  - `TextCs` for text
+- Use `Gap` widget for spacing
+- Use `SvgPicture.asset()` for SVG images
+- Use `Image.asset()` for PNG/WebP images
+- Access assets via generated `Assets` class
+
+### Responsive Design
+- Always use `ScreenUtil` for sizing:
+  - Width: `.w` (e.g., `20.w`)
+  - Height: `.h` (e.g., `40.h`)
+  - Font size: `.sp` (e.g., `16.sp`)
+- Design size: `375x812` (iPhone X standard)
+- Use `MediaQuery` for special cases only
+
+## Melos Commands
+
+### Common Workflows
+- `melos bootstrap` - Setup all packages
+- `melos run generate:build_runner` - Generate code
+- `melos run generate:gen-l10n` - Generate localizations
+- `melos run analyze` - Run linting
+- `melos run build:app:android` - Build Android release
+- `melos run build:app:ios` - Build iOS release
+
+## Best Practices
+
+### Error Handling
+- Use `handleResponseAPI<T>()` pattern in ViewModels
+- Show toasts via `handleToast()` or `Utils.showToast()`
+- Handle loading states with `handleLoading()`
+- Use `logger` for debugging, not `print`
+
+### State Management
+- Keep business logic in ViewModels
+- Keep UI logic in State widgets
+- Use `setState()` only in State widgets for UI updates
+- ViewModels should be stateless regarding UI
+
+### Navigation
+- Use `NavigationService` from Stacked Services
+- Access via `navigator` in State widgets
+- Use route constants from `Routes` class
+- Pass arguments via route arguments
+
+### Testing
+- Write unit tests for ViewModels
+- Test use cases and repositories
+- Mock dependencies using GetIt
+
+### Performance
+- Use `cached_network_image` for network images
+- Implement proper disposal of controllers
+- Use `const` constructors where possible
+- Avoid unnecessary rebuilds
+
+### Security
+- Store sensitive data securely using `StorageService`
+- Use environment variables via `flutter_dotenv`
+- Never commit `.env` files
+- Validate user inputs
+
+## Environment Configuration
+- Use `.env`, `.stag.env`, `.prod.env` files
+- Load via `dotenv.load(fileName: Utils.envPath)`
+- Access via `dotenv.env['KEY']`
+
+## Code Generation Annotations
+- `@StackedApp` - For app-level routing and DI
+- `@StackedRoute` - For individual routes
+- `@injectable` - For dependency injection
+- `@JsonSerializable` - For JSON serialization
+- `@entity` - For Floor database entities
+- `@RestApi` - For Retrofit API interfaces
+
+## Fonts
+- Font family: PlusJakartaSans
+- Weights: Light (300), Regular (400), Medium (500), SemiBold (600), Bold (700)
+- Access via `AppFonts` from `base_core/resources.dart`
+
+## Important Notes
+- Always run code generation after adding annotations
+- Keep generated files in version control
+- Use trailing commas for better git diffs
+- Follow the existing code patterns in the project
+- When adding new features, follow the existing structure
+- Use mixins for shared functionality (e.g., `UIMixin`, `ViewModelMixin`)
+- Access base functionality from `base_core` package
+- Maintain separation between app and packages
+
+
+
+
+

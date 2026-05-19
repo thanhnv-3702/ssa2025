@@ -1,0 +1,11 @@
+include: package:lints/recommended.yaml
+
+formatter:
+  page_width: 120
+
+linter:
+  rules:
+    - prefer_single_quotes
+    - avoid_print
+    - require_trailing_commas
+    - always_specify_types: false

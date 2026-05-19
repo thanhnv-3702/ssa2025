@@ -1,0 +1,378 @@
+I. TỔNG QUAN ỨNG DỤNG CAP
+
+Tên ứng dụng: CAP – Cảnh sát An Phường
+Mục tiêu:
+
+Hỗ trợ người dân gửi tín hiệu cầu cứu khẩn cấp nhanh nhất.
+
+Rút ngắn thời gian phản ứng của lực lượng Công an cấp cơ sở.
+
+Tăng hiệu quả quản lý an ninh trật tự tại địa phương.
+
+Hình thành hệ sinh thái tương tác số giữa người dân và chính quyền.
+
+II. TÍNH NĂNG CỐT LÕI: SOS KHẨN CẤP
+1. Kịch bản sử dụng
+
+Khi người dân gặp tình huống nguy hiểm (cướp giật, bạo lực gia đình, tai nạn, đột nhập, đe doạ…), chỉ cần:
+
+👉 Mở app → Nhấn nút SOS (hoặc nhấn giữ 3 giây)
+👉 Hệ thống tự động:
+
+Xác định vị trí GPS chính xác theo thời gian thực
+
+Gửi tín hiệu khẩn cấp đến:
+
+Công an xã/phường gần nhất
+
+Trực ban Công an cấp huyện (dự phòng)
+
+Gửi SMS dự phòng nếu mất internet
+
+Kích hoạt ghi âm và ghi hình nền (tùy chọn)
+
+Phát tín hiệu cảnh báo âm thanh lớn (có thể bật/tắt)
+
+2. Luồng xử lý kỹ thuật
+Bước 1: Xác định vị trí
+
+Sử dụng:
+
+GPS
+
+WiFi triangulation
+
+Cell tower location
+
+Độ chính xác mục tiêu: 3–10m
+
+Cập nhật vị trí mỗi 3–5 giây khi ở trạng thái SOS
+
+Bước 2: Tìm Công an gần nhất
+
+Hệ thống backend:
+
+Tích hợp bản đồ hành chính
+
+Cơ sở dữ liệu:
+
+Tọa độ trụ sở Công an xã/phường
+
+Số điện thoại trực ban
+
+Tài khoản cán bộ trực
+
+Thuật toán:
+
+User Location → Tìm bán kính 5km → Lấy đơn vị gần nhất → Gửi cảnh báo
+
+Nếu:
+
+Không có phản hồi sau 30 giây → tự động chuyển cấp lên huyện/tỉnh.
+
+Bước 3: Gửi cảnh báo theo 3 lớp
+
+Thông báo đẩy (Push Notification)
+
+SMS trực tiếp đến số trực ban
+
+Cuộc gọi tự động AI thông báo vị trí
+
+III. GIAO DIỆN NGƯỜI DÙNG
+1. Màn hình chính
+
+Nút SOS lớn (màu đỏ)
+
+Tình trạng kết nối: “Đã kết nối Công an phường X”
+
+Bản đồ mini hiển thị vị trí
+
+2. Khi đang SOS
+
+Đồng hồ đếm thời gian
+
+Trạng thái:
+
+Đã gửi tín hiệu
+
+Đơn vị đang tiếp nhận
+
+Cán bộ đang di chuyển (theo GPS nếu tích hợp)
+
+
+IV. HỆ THỐNG DÀNH CHO CÔNG AN
+1. Dashboard quản lý
+
+Trên web/app nội bộ:
+
+Danh sách SOS đang hoạt động
+
+Bản đồ hiển thị điểm khẩn cấp
+
+Thông tin người gửi:
+
+Họ tên
+
+SĐT
+
+CCCD (nếu đã định danh)
+
+Lịch sử cảnh báo
+
+2. Tính năng cho cán bộ trực
+
+Nhận cảnh báo rung mạnh + âm thanh
+
+Bấm “Tiếp nhận”
+
+Điều phối cán bộ gần nhất
+
+Ghi nhận kết quả xử lý
+
+V. TÍNH NĂNG BỔ SUNG
+1. SOS âm thầm
+
+Nhấn nút nguồn 5 lần → gửi SOS ngầm (không hiển thị trên màn hình)
+4. Báo tin ANTT
+
+Gửi hình ảnh vi phạm
+
+Phản ánh tệ nạn
+
+Ẩn danh
+I. TỔNG QUAN ỨNG DỤNG CAP
+
+Mục tiêu:
+
+Rút ngắn thời gian phản ứng khi có tình huống nguy hiểm
+
+Giúp người dân kết nối trực tiếp Công an phường theo vị trí thực tế
+
+Tạo kênh báo tin an ninh trật tự (ANTT) nhanh chóng, thuận tiện, có thể ẩn danh
+
+II. TÍNH NĂNG 1: SOS – ĐỊNH VỊ GPS & CHỈ ĐƯỜNG CHÍNH XÁC
+1. Mục tiêu
+
+Khi người dân gặp nguy hiểm, chỉ cần nhấn nút SOS → hệ thống:
+
+Xác định vị trí GPS chính xác
+
+Xác định Công an phường sở tại
+
+Gửi cảnh báo khẩn cấp
+
+Hỗ trợ chỉ đường nhanh nhất cho tổ công tác
+
+2. Luồng hoạt động
+Người dân nhấn SOS
+↓
+App lấy GPS (lat, long, accuracy)
+↓
+Gửi dữ liệu về Server
+↓
+Xác định phường theo bản đồ hành chính
+↓
+Gửi cảnh báo đến tài khoản trực ban phường
+↓
+Hiển thị bản đồ chỉ đường cho cán bộ
+3. Công nghệ định vị
+
+GPS + WiFi + Cell Tower (Fused Location)
+
+Cập nhật vị trí mỗi 3–5 giây khi đang SOS
+
+Độ chính xác mục tiêu: 3–10 mét (đô thị)
+
+4. Giao diện phía Công an
+
+Hiển thị:
+
+Họ tên / SĐT người gửi (nếu không ẩn)
+
+Vị trí realtime trên bản đồ
+
+Khoảng cách đến hiện trường
+
+Nút “Chỉ đường nhanh”
+
+Trạng thái xử lý: Tiếp nhận → Đang di chuyển → Hoàn thành
+
+5. Cơ chế nâng cao
+
+Nếu 30 giây không có cán bộ xác nhận → tự động báo lên cấp trên
+
+Ghi log toàn bộ quá trình xử lý
+
+Có thể bật chế độ SOS âm thầm
+
+III. TÍNH NĂNG 2: GỌI CÔNG AN PHƯỜNG THEO VỊ TRÍ HIỆN TẠI
+1. Mục tiêu
+
+Người dân không cần biết mình thuộc phường nào, chỉ cần bấm:
+
+👉 “Gọi Công an nơi tôi đang đứng”
+
+2. Luồng xử lý
+App lấy GPS
+↓
+Gửi tọa độ về hệ thống
+↓
+Đối chiếu bản đồ hành chính (Polygon)
+↓
+Trả về:
+   - Tên Công an phường
+   - Địa chỉ
+   - Số trực ban
+↓
+Người dân bấm gọi trực tiếp
+3. Yêu cầu kỹ thuật
+
+Cơ sở dữ liệu ranh giới hành chính chuẩn (GeoJSON)
+
+Lưu số trực ban cập nhật 24/7
+
+Cache dữ liệu offline khi mất mạng
+
+4. Trường hợp đặc biệt
+
+Người đứng gần ranh giới phường → hệ thống chọn theo tọa độ nằm trong polygon
+
+Không bật GPS → yêu cầu cấp quyền hoặc nhập địa chỉ thủ công
+
+IV. TÍNH NĂNG 3: BÁO TIN AN NINH TRẬT TỰ (ANTT)
+1. Mục tiêu
+
+Tạo kênh phản ánh:
+
+Vi phạm pháp luật
+
+Tệ nạn xã hội
+
+Hành vi nghi vấn
+
+Vấn đề trật tự đô thị
+
+Có thể gửi:
+
+Hình ảnh
+
+Video
+
+Nội dung mô tả
+
+Vị trí hiện tại
+
+2. Các chế độ báo tin
+1️⃣ Báo tin có danh tính
+
+Xác thực bằng số điện thoại
+
+Có thể liên hệ lại
+
+2️⃣ Báo tin ẩn danh
+
+Không hiển thị danh tính người gửi
+Hệ thống vẫn lưu ID nội bộ để tránh spam
+
+Không cho cán bộ xem thông tin định danh
+
+3. Luồng xử lý báo tin
+Người dân gửi ảnh/video + nội dung
+↓
+App đính kèm GPS
+↓
+Upload lên Server
+↓
+Xác định phường sở tại
+↓
+Chuyển đến Công an phường phụ trách
+↓
+Cán bộ tiếp nhận và phản hồi trạng thái
+4. Quản lý phía Công an
+
+Giao diện hiển thị:
+
+Danh sách báo tin theo mức độ ưu tiên
+
+Hình ảnh đính kèm
+
+Vị trí bản đồ
+
+Trạng thái xử lý:
+
+Chưa xử lý
+
+Đang xác minh
+
+Đã xử lý
+
+Phản hồi cho người dân (nếu không ẩn danh)
+
+5. Cơ chế chống lạm dụng
+
+Giới hạn số lần gửi trong ngày
+
+AI phát hiện nội dung spam
+
+Lọc hình ảnh không phù hợp
+
+Log IP & thiết bị
+
+V. KIẾN TRÚC DỮ LIỆU CHÍNH
+1. Bảng Đơn vị Công an
+
+| ID | Tên phường | Mã hành chính | SĐT trực ban | Polygon |
+
+2. Bảng SOS
+
+| ID | Người gửi | Lat | Long | Thời gian | Trạng thái |
+
+3. Bảng Báo tin ANTT
+
+| ID | Nội dung | Ảnh | Vị trí | Ẩn danh | Trạng thái | Đơn vị xử lý |
+
+VI. BẢO MẬT & RIÊNG TƯ
+
+Vì xử lý:
+
+Dữ liệu cá nhân
+
+Vị trí thời gian thực
+
+Hình ảnh nhạy cảm
+
+Hệ thống cần:
+
+Mã hóa HTTPS
+
+Phân quyền chặt chẽ theo cấp hành chính
+
+Log truy cập cán bộ
+
+Không công khai người báo tin ẩn danh
+
+Backup định kỳ
+
+VII. CHỈ SỐ HIỆU NĂNG MỤC TIÊU
+Tiêu chí	Mục tiêu
+Thời gian gửi SOS	≤ 3 giây
+Xác định phường	≤ 1 giây
+Hiển thị số trực ban	≤ 2 giây
+Upload ảnh	≤ 5 giây
+Uptime	≥ 99.9%
+VIII. GIÁ TRỊ TỔNG THỂ
+Đối với người dân
+
+Cảm giác an toàn hơn
+
+Kênh phản ánh nhanh, minh bạch
+
+Không cần nhớ số điện thoại địa bàn
+
+Đối với Công an phường
+
+Nhận thông tin chính xác, có vị trí rõ ràng
+
+Giảm thời gian hỏi lại địa chỉ
+
+Có dữ liệu điện tử phục vụ quản lý

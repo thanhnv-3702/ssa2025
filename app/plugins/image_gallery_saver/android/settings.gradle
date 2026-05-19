@@ -1,0 +1,3 @@
+package plugins.image_gallery_saver.android
+
+rootProject.name = 'image_gallery_saver'

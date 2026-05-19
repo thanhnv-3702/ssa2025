@@ -1,0 +1,10 @@
+# melos_managed_dependency_overrides: base_core,database,image_gallery_saver,pull_to_refresh
+dependency_overrides:
+  base_core:
+    path: ../base_core
+  database:
+    path: ../database
+  image_gallery_saver:
+    path: ../../plugins/image_gallery_saver
+  pull_to_refresh:
+    path: ../../plugins/pull_to_refresh-2.0.0

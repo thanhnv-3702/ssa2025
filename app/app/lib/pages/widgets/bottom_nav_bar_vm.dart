@@ -1,0 +1,4 @@
+import 'package:base_core/presenter/viewmodel/base_vm.dart';
+import 'package:saa2025/pages/utils/mixin/vm_mixin.dart';
+
+class BottomNavBarVm extends AppBaseViewModel with ViewModelMixin {}

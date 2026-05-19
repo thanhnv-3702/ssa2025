@@ -1,0 +1,30 @@
+name: https
+publish_to: 'none'
+version: 1.0.0+100
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  base_core:
+    path: ../base_core
+  database:
+    path: ../database
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  injectable_generator: ^2.4.2
+  floor_generator: ^1.5.0
+  retrofit_generator: ^9.1.7
+  build_runner: ^2.4.15
+
+flutter:
+  uses-material-design: true
+  assets:
+    - .env
+    - .stag.env
+    - .prod.env

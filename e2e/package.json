@@ -1,0 +1,19 @@
+{
+  "name": "saa2025-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright E2E — SAA 2025 (MoMorph design QA + future web)",
+  "scripts": {
+    "test": "playwright test",
+    "test:ui": "playwright test --ui",
+    "test:headed": "playwright test --headed",
+    "report": "playwright show-report",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^22.10.0",
+    "dotenv": "^16.4.5",
+    "typescript": "^5.7.2"
+  }
+}

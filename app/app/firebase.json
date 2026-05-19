@@ -1,0 +1,30 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "innoscreen-3b556",
+          "appId": "1:995572163169:android:6725257d97596fdb80c020",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "innoscreen-3b556",
+          "appId": "1:995572163169:ios:a7de2c3021a0241e80c020",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "innoscreen-3b556",
+          "configurations": {
+            "android": "1:995572163169:android:6725257d97596fdb80c020",
+            "ios": "1:995572163169:ios:a7de2c3021a0241e80c020"
+          }
+        }
+      }
+    }
+  }
+}

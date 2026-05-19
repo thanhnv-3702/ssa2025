@@ -1,0 +1,9 @@
+name: flutter_mobile_template_workspace
+description: Melos workspace — SAA 2025 (Sun* Annual Awards).
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dev_dependencies:
+  melos: ^6.3.2

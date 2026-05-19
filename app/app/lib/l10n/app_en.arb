@@ -1,0 +1,45 @@
+{
+  "@@locale": "en",
+  "allowNotification": "Allow notification",
+  "@errorTooManyLoginAttempts": {
+    "description": "Lockout toast",
+    "placeholders": {
+      "minutes": {
+        "type": "int",
+        "example": "15"
+      }
+    }
+  },
+  "errorTooManyLoginAttempts": "Too many failed attempts. Please try again in {minutes} minutes or reset your password",
+  "biometricAuthReason": "Please authenticate to login",
+  "notificationEmptyDescription": "We'll notify you here about\nappointments, forms, and\nupdates to your medical records.",
+  "notificationEmptyTitle": "You're All Caught Up",
+  "notifications": "Notifications",
+  "errorBiometricNotAvailable": "Biometric authentication is not available on this device",
+  "errorBiometricSavedCredentialsMissing": "Please log in with email and password first to use biometric login",
+  "errorEmailInvalid": "Invalid email format.",
+  "errorEmailRequired": "Email is required.",
+  "errorLoginInvalid": "Incorrect email or password.",
+  "errorLoginSuccess": "Login successfully",
+  "errorPasswordRequired": "Password is required",
+  "@newVersionAvailable": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "newVersionAvailable": "A new version ({version}) is available",
+  "currentVersion": "Current Version",
+  "latestVersion": "Latest Version",
+  "systemError": "System error, try again later.",
+  "updateAvailable": "Update Available",
+  "updateDownloadUrlNotFound": "Download URL not found",
+  "updateDownloaded": "Update downloaded. Installing..",
+  "downloadingUpdate": "Downloading update..",
+  "updateLater": "Later",
+  "updateFailed": "Failed to download update",
+  "updateNow": "Update Now",
+  "version": "Version",
+  "whatsNew": "What's New"
+}
