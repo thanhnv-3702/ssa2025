@@ -23,7 +23,8 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
   int _rewardIndex = 0;
   String? _lastRewardTitle;
   String? _lastRewardLabel;
-  List<SecretBoxActivityItem> _activities = SecretBoxMockData.initialActivities();
+  List<SecretBoxActivityItem> _activities = SecretBoxMockData.allActivities();
+  bool _activitiesExpanded = false;
   Timer? _openTimer;
 
   SecretBoxVisualState get visualState => _visualState;
@@ -35,6 +36,14 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
   String? get lastRewardLabel => _lastRewardLabel;
 
   List<SecretBoxActivityItem> get activities => _activities;
+
+  List<SecretBoxActivityItem> get visibleActivities {
+    if (_activitiesExpanded) return _activities;
+    return _activities.take(SecretBoxMockData.figmaVisibleCount).toList();
+  }
+
+  bool get canShowMore =>
+      !_activitiesExpanded && _activities.length > SecretBoxMockData.figmaVisibleCount;
 
   @override
   SecretBoxVm initViewModel() => SecretBoxVm();
@@ -64,6 +73,7 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
       timeLabel: item.timeLabel,
       isUnread: false,
       actionLabel: item.actionLabel,
+      communityLinkAction: item.communityLinkAction,
     );
   }
 
@@ -117,4 +127,6 @@ class SecretBoxPage extends BaseScreenState<SecretBoxState, SecretBoxVm> with UI
       );
     }
   }
+
+  void onShowMore() => setState(() => _activitiesExpanded = true);
 }

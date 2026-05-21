@@ -334,30 +334,34 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           Gap(12.h),
           _statRow(tr.profileStatsSecretBoxUnopenedLabel, '25'),
           Gap(12.h),
-          Container(
-            height: 40.h,
-            decoration: BoxDecoration(
-              color: AppColors.accentGold,
-              borderRadius: BorderRadius.circular(4.r),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  tr.profileOpenSecretBoxButton,
-                  style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.background,
-                    height: 20 / 14,
-                  ),
+          if (main.isSelf)
+            GestureDetector(
+              onTap: main.onOpenSecretBoxTap,
+              child: Container(
+                height: 40.h,
+                decoration: BoxDecoration(
+                  color: AppColors.accentGold,
+                  borderRadius: BorderRadius.circular(4.r),
                 ),
-                Gap(8.w),
-                SvgPicture.asset(Assets.kudosGift, width: 24.sp),
-              ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      tr.profileOpenSecretBoxButton,
+                      style: TextStyle(
+                        fontFamily: 'Montserrat',
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.background,
+                        height: 20 / 14,
+                      ),
+                    ),
+                    Gap(8.w),
+                    SvgPicture.asset(Assets.kudosGift, width: 24.sp),
+                  ],
+                ),
+              ),
             ),
-          ),
         ],
       ),
     );

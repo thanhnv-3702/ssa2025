@@ -5,17 +5,20 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/pages/secret_box/secret_box_models.dart';
 import 'package:saa2025/theme/app_colors.dart';
 
+/// Single row in Figma `3:20868` Notification list.
 class SecretBoxActivityTile extends StatelessWidget {
   const SecretBoxActivityTile({
     super.key,
     required this.item,
     this.onTap,
     this.onActionTap,
+    this.showBottomBorder = true,
   });
 
   final SecretBoxActivityItem item;
   final VoidCallback? onTap;
   final VoidCallback? onActionTap;
+  final bool showBottomBorder;
 
   @override
   Widget build(BuildContext context) {
@@ -24,72 +27,105 @@ class SecretBoxActivityTile extends StatelessWidget {
       child: InkWell(
         onTap: onTap,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: AppColors.divider)),
+          padding: EdgeInsets.all(8.w),
+          decoration: BoxDecoration(
+            border: showBottomBorder
+                ? const Border(bottom: BorderSide(color: AppColors.divider))
+                : null,
           ),
           child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               _icon(),
               Gap(16.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.body,
-                      style: TextStyle(
-                        fontFamily: item.isUnread ? BaseConst.fontBold : BaseConst.fontRegular,
-                        fontSize: 14.sp,
-                        height: 20 / 14,
-                        letterSpacing: 0.25,
-                        color: AppColors.textOnDark,
-                      ),
-                    ),
-                    if (item.actionLabel != null) ...[
-                      Gap(8.h),
-                      TextButton(
-                        onPressed: onActionTap,
-                        style: TextButton.styleFrom(
-                          padding: EdgeInsets.zero,
-                          minimumSize: Size.zero,
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        ),
-                        child: Text(
-                          item.actionLabel!,
-                          style: TextStyle(
-                            fontFamily: BaseConst.fontBold,
-                            fontSize: 14.sp,
-                            color: AppColors.accent,
-                          ),
-                        ),
-                      ),
-                    ],
-                    Gap(8.h),
-                    Text(
-                      item.timeLabel,
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontRegular,
-                        fontSize: 12.sp,
-                        color: AppColors.gray,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              if (item.isUnread)
+              Expanded(child: _content()),
+              if (item.isUnread) ...[
+                Gap(8.w),
                 Container(
                   width: 8.w,
                   height: 8.w,
-                  margin: EdgeInsets.only(top: 4.h),
                   decoration: const BoxDecoration(
                     color: AppColors.unreadDot,
                     shape: BoxShape.circle,
                   ),
                 ),
+              ],
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _content() {
+    final bodyStyle = TextStyle(
+      fontFamily: item.isUnread ? BaseConst.fontBold : BaseConst.fontRegular,
+      fontSize: 14.sp,
+      height: 20 / 14,
+      letterSpacing: 0.25,
+      color: AppColors.textOnDark,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ...item.body.split('\n').map(
+              (line) => Text(line, style: bodyStyle),
+            ),
+        if (item.actionLabel != null) ...[
+          Gap(8.h),
+          _actionLink(),
+        ],
+        Gap(8.h),
+        Text(
+          item.timeLabel,
+          style: TextStyle(
+            fontFamily: BaseConst.fontRegular,
+            fontSize: 12.sp,
+            height: 16 / 12,
+            color: AppColors.gray,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _actionLink() {
+    if (item.communityLinkAction) {
+      return GestureDetector(
+        onTap: onActionTap,
+        behavior: HitTestBehavior.opaque,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              item.actionLabel!,
+              style: TextStyle(
+                fontFamily: BaseConst.fontMedium,
+                fontSize: 14.sp,
+                height: 20 / 14,
+                color: AppColors.textPrimary,
+                decoration: TextDecoration.underline,
+                decorationColor: AppColors.textPrimary,
+              ),
+            ),
+            Gap(4.w),
+            Icon(Icons.open_in_new, size: 24.sp, color: AppColors.textPrimary),
+          ],
+        ),
+      );
+    }
+
+    return GestureDetector(
+      onTap: onActionTap,
+      behavior: HitTestBehavior.opaque,
+      child: Text(
+        item.actionLabel!,
+        style: TextStyle(
+          fontFamily: BaseConst.fontBold,
+          fontSize: 14.sp,
+          height: 20 / 14,
+          color: AppColors.accent,
         ),
       ),
     );
@@ -108,9 +144,15 @@ class SecretBoxActivityTile extends StatelessWidget {
         icon = Icons.trending_up;
       case SecretBoxActivityType.kudosHidden:
         icon = Icons.visibility_off_outlined;
+      case SecretBoxActivityType.kudosModerationReview:
+        icon = Icons.rate_review_outlined;
       case SecretBoxActivityType.badgeComplete:
         icon = Icons.emoji_events_outlined;
     }
-    return Icon(icon, color: AppColors.accent, size: 24.sp);
+    return SizedBox(
+      width: 24.w,
+      height: 24.w,
+      child: Icon(icon, color: AppColors.accent, size: 24.sp),
+    );
   }
 }

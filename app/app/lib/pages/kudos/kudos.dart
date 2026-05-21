@@ -10,6 +10,7 @@ import 'package:saa2025/pages/kudos/kudos_vm.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_option_sheet.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
+import 'package:saa2025/pages/secret_box/secret_box_navigation.dart';
 import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
@@ -25,9 +26,9 @@ class KudosState extends StatefulWidget {
 class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, NotificationBadgeMixin {
   String _languageCode = 'EN';
   int _highlightPage = 0;
-  late String _filterPeriod;
-  late String _filterHashtag;
-  late String _filterDepartment;
+  String _filterPeriod = '';
+  String _filterHashtag = '';
+  String _filterDepartment = '';
 
   final PageController highlightController = PageController(viewportFraction: 0.88);
   final GlobalKey hashtagButtonKey = GlobalKey();
@@ -202,9 +203,7 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
     );
   }
 
-  void onOpenSecretBoxTap() {
-    // TODO: Implement secret box opening functionality
-  }
+  void onOpenSecretBoxTap() => openSecretBox(context);
 
   @override
   void dispose() {

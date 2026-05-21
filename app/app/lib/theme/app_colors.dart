@@ -6,6 +6,7 @@ abstract final class AppColors {
 
   // --- Backgrounds ---
   static const Color background = Color(0xFF00101A);
+  static const Color background2 = Color(0xFF10181F);
   static const Color backgroundTransparent = Color(0x0000101A);
   static const Color containerDark = Color(0xFF00070C);
   static const Color fieldBackground = Color(0xFF0A1F2E);

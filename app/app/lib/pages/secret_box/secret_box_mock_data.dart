@@ -23,6 +23,14 @@ class SecretBoxMockData {
     ),
   ];
 
+  static List<SecretBoxActivityItem> allActivities() => [
+        ...initialActivities(),
+        ...additionalActivities(),
+      ];
+
+  static int get figmaVisibleCount => initialActivities().length;
+
+  /// Notification rows on Figma `3:20868` (order and copy).
   static List<SecretBoxActivityItem> initialActivities() => [
         const SecretBoxActivityItem(
           id: 'a1',
@@ -42,7 +50,6 @@ class SecretBoxMockData {
           type: SecretBoxActivityType.secretBoxEarned,
           body: 'Chúc mừng! Bạn vừa nhận được lượt mở Secret Box mới! Click vào đây để mở ngay nhé!',
           timeLabel: '1 ngày trước',
-          isUnread: true,
         ),
         const SecretBoxActivityItem(
           id: 'a4',
@@ -58,13 +65,44 @@ class SecretBoxMockData {
               'Hãy xem các tiêu chuẩn và gửi lại cho đồng đội nhé!',
           timeLabel: '1 tháng trước',
           actionLabel: 'Tiêu chuẩn cộng đồng',
+          communityLinkAction: true,
         ),
         const SecretBoxActivityItem(
           id: 'a6',
           type: SecretBoxActivityType.badgeComplete,
           body: 'Chúc mừng bạn đã thu thập đủ 6 huy hiệu của SAA. '
-              'Bạn đã nhận được phần quà từ BTC. BTC sẽ liên hệ để gửi quà đến bạn vào cuối sự kiện.',
-          timeLabel: '2 tháng trước',
+              'Bạn đã nhận được phần quà từ BTC chính là Khăn Root Further. '
+              'BTC sẽ liên hệ để gửi quà đến bạn vào cuối sự kiện.',
+          timeLabel: '1 tháng trước',
+        ),
+        const SecretBoxActivityItem(
+          id: 'a7',
+          type: SecretBoxActivityType.kudosModerationReview,
+          body: 'Có 2 lời nhắn cần bạn xem xét!\n'
+              'Một lời nhắn vừa bị hệ thống gắn cờ nghi ngờ vi phạm tiêu chuẩn. '
+              'Vui lòng kiểm tra và xác nhận trạng thái: Hợp lệ / Tạm ẩn / Reject.',
+          timeLabel: '1 tháng trước',
+        ),
+      ];
+
+  static List<SecretBoxActivityItem> additionalActivities() => [
+        const SecretBoxActivityItem(
+          id: 'a8',
+          type: SecretBoxActivityType.kudosReceived,
+          body: 'Sunner Trần Thị B vừa gửi đến bạn lời ghi nhận đầy yêu thương!',
+          timeLabel: '3 tháng trước',
+        ),
+        const SecretBoxActivityItem(
+          id: 'a9',
+          type: SecretBoxActivityType.secretBoxEarned,
+          body: 'Chúc mừng! Bạn vừa nhận được lượt mở Secret Box mới! Click vào đây để mở ngay nhé!',
+          timeLabel: '4 tháng trước',
+        ),
+        const SecretBoxActivityItem(
+          id: 'a10',
+          type: SecretBoxActivityType.levelUp,
+          body: 'Bạn nhận được 8 lời nhắn gửi từ đồng nghiệp và thăng hạng Bronze!',
+          timeLabel: '5 tháng trước',
         ),
       ];
 }

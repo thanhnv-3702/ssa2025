@@ -7,7 +7,7 @@ import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/secret_box/secret_box_models.dart';
 import 'package:saa2025/theme/app_colors.dart';
 
-/// Secret box hero — MoMorph `mms_Box image` + Standby (`-LIblaeusT` … `xptNUunBS_`).
+/// Secret box hero — Figma `3:20877` Open secret box (chưa mở).
 class SecretBoxPanel extends StatelessWidget {
   const SecretBoxPanel({
     super.key,
@@ -26,32 +26,37 @@ class SecretBoxPanel extends StatelessWidget {
 
   bool get _isStandby => visualState == SecretBoxVisualState.standby;
 
+  static const double _hairline = 0.456;
+
   @override
   Widget build(BuildContext context) {
     final tr = AppLocalizations.of(context);
     return Column(
       children: [
-        Text(
-          _isStandby ? tr.secretBoxStandbyTitle : tr.secretBoxExploreTitle,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: BaseConst.fontBold,
-            fontSize: 18.sp,
-            height: 24 / 18,
-            color: AppColors.accent,
+        if (_isStandby) ...[
+          Text(
+            tr.secretBoxStandbyTitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: BaseConst.fontBold,
+              fontSize: 18.sp,
+              height: 24 / 18,
+              color: AppColors.accent,
+            ),
           ),
-        ),
-        Gap(8.h),
-        Text(
-          _subtitle(tr),
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontFamily: BaseConst.fontMedium,
-            fontSize: 14.sp,
-            height: 20 / 14,
-            color: AppColors.textOnDark,
+          Gap(8.h),
+          Text(
+            tr.secretBoxStandbySubtitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: BaseConst.fontMedium,
+              fontSize: 14.sp,
+              height: 20 / 14,
+              color: AppColors.textOnDark,
+            ),
           ),
-        ),
+        ] else
+          _closedHeader(tr),
         Gap(24.h),
         if (_isStandby)
           _standbyGift()
@@ -62,7 +67,7 @@ class SecretBoxPanel extends StatelessWidget {
               scale: visualState == SecretBoxVisualState.opening ? 1.08 : 1.0,
               duration: const Duration(milliseconds: 400),
               curve: Curves.easeOutBack,
-              child: _boxImage(),
+              child: _boxImage(tr),
             ),
           ),
         if (_isStandby && lastRewardLabel != null) ...[
@@ -91,30 +96,70 @@ class SecretBoxPanel extends StatelessWidget {
             ),
           ),
         ],
-        Gap(24.h),
-        const Divider(color: AppColors.divider, height: 1),
-        Gap(16.h),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              tr.secretBoxUnopenedLabel,
-              style: TextStyle(
-                fontFamily: BaseConst.fontRegular,
-                fontSize: 12.sp,
-                color: AppColors.textOnDark.withValues(alpha: 0.9),
+        if (!_isStandby) ...[
+          Gap(24.h),
+          const Divider(color: AppColors.divider, height: _hairline, thickness: _hairline),
+          Gap(16.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                tr.secretBoxUnopenedLabel,
+                style: TextStyle(
+                  fontFamily: BaseConst.fontRegular,
+                  fontSize: 12.sp,
+                  height: 16 / 12,
+                  color: AppColors.textOnDark,
+                ),
               ),
-            ),
-            Gap(6.w),
-            Text(
-              unopenedCount.toString().padLeft(2, '0'),
-              style: TextStyle(
-                fontFamily: BaseConst.fontBold,
-                fontSize: 18.sp,
-                color: AppColors.accent,
+              Gap(5.w),
+              Text(
+                unopenedCount.toString().padLeft(2, '0'),
+                style: TextStyle(
+                  fontFamily: BaseConst.fontBold,
+                  fontSize: 18.sp,
+                  height: 24 / 18,
+                  color: AppColors.accent,
+                ),
               ),
+            ],
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _closedHeader(AppLocalizations tr) {
+    return Column(
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Text(
+            tr.secretBoxExploreTitle,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: BaseConst.fontBold,
+              fontSize: 18.sp,
+              height: 24 / 18,
+              color: AppColors.accent,
             ),
-          ],
+          ),
+        ),
+        Gap(8.h),
+        const Divider(color: AppColors.divider, height: _hairline, thickness: _hairline),
+        Gap(8.h),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 20.w),
+          child: Text(
+            _subtitle(tr),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontFamily: BaseConst.fontMedium,
+              fontSize: 14.sp,
+              height: 20 / 14,
+              color: AppColors.textOnDark,
+            ),
+          ),
         ),
       ],
     );
@@ -135,7 +180,7 @@ class SecretBoxPanel extends StatelessWidget {
 
   Widget _standbyGift() => _boxAsset(Assets.secretBoxSecretBoxGift, glow: true);
 
-  Widget _boxImage() {
+  Widget _boxImage(AppLocalizations tr) {
     final isOpening = visualState == SecretBoxVisualState.opening;
     return _boxAsset(
       Assets.secretBoxSecretBoxClosed,
@@ -145,25 +190,26 @@ class SecretBoxPanel extends StatelessWidget {
   }
 
   Widget _boxAsset(String asset, {bool glow = false, Widget? overlay}) {
-    return Container(
-      width: 280.w,
-      height: 280.w,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(16.r),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.glowGold.withValues(alpha: glow ? 0.45 : 0.2),
-            blurRadius: glow ? 28 : 10,
-            spreadRadius: glow ? 2 : 0,
-          ),
-        ],
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Image.asset(asset, width: 280.w, height: 280.w, fit: BoxFit.contain),
-          if (overlay != null) overlay,
-        ],
+    return SizedBox(
+      width: 320.w,
+      height: 320.w,
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.glowGold.withValues(alpha: glow ? 0.45 : 0.2),
+              blurRadius: glow ? 28 : 10,
+              spreadRadius: glow ? 2 : 0,
+            ),
+          ],
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(asset, width: 320.w, height: 320.w, fit: BoxFit.contain),
+            if (overlay != null) overlay,
+          ],
+        ),
       ),
     );
   }

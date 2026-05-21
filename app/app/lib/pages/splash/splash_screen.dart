@@ -31,7 +31,7 @@ class SplashScreen extends BaseScreen<Splash> {
         children: [
           Image.asset(
             Assets.splashIcLogo,
-            width: 193.w,
+            width: 256.w,
           ),
         ],
       ),

@@ -7,6 +7,7 @@ import 'package:saa2025/pages/kudos/kudos_navigation.dart';
 import 'package:saa2025/pages/kudos/sunner_profile_screen.dart';
 import 'package:saa2025/pages/kudos/sunner_profile_vm.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
+import 'package:saa2025/pages/secret_box/secret_box_navigation.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
 
@@ -90,5 +91,10 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
       currentCode: _languageCode,
       onLanguageChanged: (code) => setState(() => _languageCode = code),
     );
+  }
+
+  void onOpenSecretBoxTap() {
+    if (!isSelf) return;
+    openSecretBox(context);
   }
 }

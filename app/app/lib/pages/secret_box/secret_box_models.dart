@@ -18,6 +18,7 @@ enum SecretBoxActivityType {
   secretBoxEarned,
   levelUp,
   kudosHidden,
+  kudosModerationReview,
   badgeComplete,
 }
 
@@ -41,12 +42,18 @@ class SecretBoxActivityItem {
     required this.timeLabel,
     this.isUnread = false,
     this.actionLabel,
+    this.communityLinkAction = false,
   });
 
   final String id;
   final SecretBoxActivityType type;
+
+  /// Body copy; use `\n` for multiple lines (Figma notification rows).
   final String body;
   final String timeLabel;
   final bool isUnread;
   final String? actionLabel;
+
+  /// Underlined white link + trailing icon (Figma `Button tiêu chuẩn cộng đồng`).
+  final bool communityLinkAction;
 }
