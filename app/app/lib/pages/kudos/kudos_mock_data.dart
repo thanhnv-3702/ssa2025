@@ -329,19 +329,4 @@ class KudosMockData {
         .toList();
   }
 
-  static const communityStandardsIntro =
-      'Sun* Kudos là không gian ghi nhận và cảm ơn đồng đội. Mọi lời gửi cần mang tính xây dựng, tôn trọng và chân thành.';
-
-  static const communityStandardsRules = [
-    'Ghi nhận cụ thể hành vi hoặc đóng góp thực tế.',
-    'Không sử dụng ngôn từ xúc phạm, phân biệt hoặc quấy rối.',
-    'Tôn trọng quyền riêng tư khi gửi ẩn danh.',
-    'Hashtag phản ánh đúng nội dung lời cảm ơn.',
-  ];
-
-  static const privacyStandards = [
-    'Thông tin người nhận chỉ hiển thị trong phạm vi công ty.',
-    'Kudos ẩn danh không tiết lộ danh tính người gửi.',
-    'Không chia sẻ nội dung Kudos ra bên ngoài khi chưa được phép.',
-  ];
 }

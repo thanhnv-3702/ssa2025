@@ -9,6 +9,7 @@ import 'package:saa2025/pages/awards/award_detail.dart';
 import 'package:saa2025/pages/awards/awards_mock_data.dart';
 import 'package:saa2025/pages/home/home_models.dart';
 import 'package:saa2025/pages/home/home_vm.dart';
+import 'package:saa2025/pages/kudos/community_standards.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/rules/rules.dart';
 import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
@@ -130,7 +131,11 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
     );
   }
 
-  void onFabKudosListTap() => eventBus.fire(ChangeTabEvent(2));
+  void onFabKudosListTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const CommunityStandardsState()),
+    );
+  }
 
   @override
   void dispose() {

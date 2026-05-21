@@ -11,6 +11,7 @@ import 'package:saa2025/pages/kudos/sunner_profile.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_option_sheet.dart';
 import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/pages/utils/language_flag.dart';
 import 'package:saa2025/theme/app_colors.dart';
 
 class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
@@ -148,9 +149,9 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              Assets.flagsVn,
-              width: 24.w,
-              height: 24.h,
+              languageFlagAsset(main.languageCode),
+              width: main.languageCode == 'EN' ? 14.w : 24.w,
+              height: main.languageCode == 'EN' ? 14.w : 24.w,
             ),
             Gap(4.w),
             Text(main.languageCode, style: HomeStyles.languageCode),

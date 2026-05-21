@@ -11,6 +11,7 @@ import 'package:saa2025/pages/home/home.dart';
 import 'package:saa2025/pages/home/home_models.dart';
 import 'package:saa2025/pages/home/home_styles.dart';
 import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/pages/utils/language_flag.dart';
 import 'package:saa2025/theme/app_colors.dart';
 
 /// SAA 2025 home — MoMorph `OuH1BUTYT0` / Figma `6885:8978` ([iOS] Home).
@@ -127,9 +128,9 @@ class HomeScreen extends BaseScreen<Home> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              Assets.flagsVn,
-              width: 24.w,
-              height: 24.h,
+              languageFlagAsset(main.languageCode),
+              width: main.languageCode == 'EN' ? 14.w : 24.w,
+              height: main.languageCode == 'EN' ? 14.w : 24.w,
             ),
             Gap(4.w),
             Text(main.languageCode, style: HomeStyles.languageCode),

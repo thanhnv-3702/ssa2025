@@ -16,6 +16,7 @@ import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_filter_dropdown.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
 import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/pages/utils/language_flag.dart';
 import 'package:saa2025/theme/app_colors.dart';
 import 'package:saa2025/theme/saa_design_tokens.dart';
 
@@ -106,9 +107,9 @@ class KudosScreen extends BaseScreen<Kudos> {
           mainAxisSize: MainAxisSize.min,
           children: [
             SvgPicture.asset(
-              Assets.flagsVn,
-              width: 24.w,
-              height: 24.h,
+              languageFlagAsset(main.languageCode),
+              width: main.languageCode == 'EN' ? 14.w : 24.w,
+              height: main.languageCode == 'EN' ? 14.w : 24.w,
             ),
             Gap(4.w),
             Text(main.languageCode, style: HomeStyles.languageCode),
