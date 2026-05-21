@@ -6,8 +6,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/pages/home/home_styles.dart';
 import 'package:saa2025/pages/login/login.dart';
 import 'package:saa2025/theme/app_colors.dart';
+
+import '../utils/language_flag.dart';
 
 /// SAA 2025 login — aligned with MoMorph screen `8HGlvYGJWq` ([iOS] Login).
 class LoginScreen extends BaseScreen<Login> {
@@ -123,7 +126,7 @@ class LoginScreen extends BaseScreen<Login> {
             left: 20.w,
             bottom: 8.h,
             child: Image.asset(
-              Assets.loginLoginHeaderLogo,
+              Assets.homeHomeLogo,
               width: 48.w,
               height: 44.h,
               fit: BoxFit.contain,
@@ -132,73 +135,36 @@ class LoginScreen extends BaseScreen<Login> {
           Positioned(
             right: 20.w,
             bottom: 8.h,
-            child: _buildLanguageSelector(),
+            child: _buildLanguageChip(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildLanguageSelector() {
-    return Material(
-      color: AppColors.transparent,
-      child: InkWell(
-        onTap: main.onLanguageTap,
-        borderRadius: BorderRadius.circular(4.r),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _buildFlag(main.selectedLanguageCode),
-              Gap(4.w),
-              Text(
-                main.selectedLanguageCode,
-                style: TextStyle(
-                  fontFamily: BaseConst.fontMedium,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                  height: 20 / 14,
-                  color: AppColors.textOnDark,
-                ),
-              ),
-              Gap(4.w),
-              SvgPicture.asset(
-                Assets.commonIcDown,
-                width: 24.w,
-                height: 24.h,
-                colorFilter: const ColorFilter.mode(AppColors.textOnDark, BlendMode.srcIn),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFlag(String code) {
-    if (code == 'VN') {
-      return ClipRRect(
-        borderRadius: BorderRadius.circular(2.r),
-        child: SizedBox(
-          width: 24.w,
-          height: 18.h,
-          child: Column(
-            children: [
-              Expanded(child: Container(color: AppColors.flagVnRed)),
-              Expanded(child: Container(color: AppColors.flagVnYellow)),
-            ],
-          ),
-        ),
-      );
-    }
-    return SizedBox(
-      width: 24.w,
-      height: 24.h,
-      child: Center(
-        child: Text(
-          code,
-          style: TextStyle(fontSize: 10.sp, color: AppColors.textOnDark, fontWeight: FontWeight.w600),
+  Widget _buildLanguageChip() {
+    return InkWell(
+      onTap: main.onLanguageTap,
+      borderRadius: BorderRadius.circular(4.r),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(8.w, 4.h, 0, 4.h),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(
+              languageFlagAsset(main.selectedLanguageCode),
+              width: main.selectedLanguageCode == 'EN' ? 14.w : 24.w,
+              height: main.selectedLanguageCode == 'EN' ? 14.w : 24.w,
+            ),
+            Gap(4.w),
+            Text(main.selectedLanguageCode, style: HomeStyles.languageCode),
+            SvgPicture.asset(
+              Assets.commonIcDown2,
+              width: 24.w,
+              height: 24.h,
+              colorFilter: const ColorFilter.mode(AppColors.textPrimary, BlendMode.srcIn),
+            ),
+          ],
         ),
       ),
     );
