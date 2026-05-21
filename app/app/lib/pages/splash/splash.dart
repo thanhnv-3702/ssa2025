@@ -5,8 +5,6 @@ import 'package:saa2025/main.dart' as main_app;
 import 'package:saa2025/pages/app_pages.router.dart';
 import 'package:saa2025/pages/splash/splash_vm.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
-import 'package:saa2025/pages/widgets/update_dialog.dart';
-import 'package:saa2025/services/version_check_service.dart';
 
 import '../login/login.dart';
 import 'splash_screen.dart';
@@ -30,41 +28,8 @@ class Splash extends BaseScreenState<SplashState, SplashVM> with UIMixin {
   @override
   void beforeBuild() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //if (kDebugMode) {
       _runTask();
-      return;
-      // }
-      //_checkForUpdate();
     });
-  }
-
-  Future<void> _checkForUpdate() async {
-    try {
-      final versionCheckService = VersionCheckService();
-      final result = await versionCheckService.checkForUpdate();
-      logger.d('Version Check - Current: ${result.currentVersion}, Latest: ${result.latestVersion}');
-      logger.d('Version Check - Has Update: ${result.hasUpdate}, Required: ${result.isRequired}');
-      logger.d('Version Check - Download URL: ${result.downloadUrl}');
-
-      if (result.hasUpdate && context.mounted) {
-        logger.d('Update available: ${result.latestVersion}');
-        showDialog(
-          context: context,
-          barrierDismissible: !result.isRequired,
-          builder: (dialogContext) => UpdateDialogState(
-            updateInfo: result,
-            version: result.latestVersion,
-            isRequired: result.isRequired,
-          ),
-        );
-      } else {
-        logger.d('No update available. Current: ${result.currentVersion}');
-        _runTask();
-      }
-    } catch (e) {
-      logger.e('Error checking for update: $e');
-      _runTask();
-    }
   }
 
   void _runTask() {
