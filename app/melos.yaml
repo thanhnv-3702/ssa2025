@@ -32,6 +32,7 @@ command:
 
     dev_dependencies:
       test: ^1.25.7
+      retrofit_generator: ">=9.1.7 <9.6.0"
       build_runner: ^2.4.15
       flutter_gen: ^5.7.0
       json_annotation: ^4.9.0
