@@ -1,6 +1,5 @@
 import 'package:base_core/common/config.dart';
 import 'package:base_core/presenter/base_screen_state.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/main.dart' as main_app;
 import 'package:saa2025/pages/app_pages.router.dart';
@@ -31,11 +30,11 @@ class Splash extends BaseScreenState<SplashState, SplashVM> with UIMixin {
   @override
   void beforeBuild() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (kDebugMode) {
-        _runTask();
-        return;
-      }
-      _checkForUpdate();
+      //if (kDebugMode) {
+      _runTask();
+      return;
+      // }
+      //_checkForUpdate();
     });
   }
 
