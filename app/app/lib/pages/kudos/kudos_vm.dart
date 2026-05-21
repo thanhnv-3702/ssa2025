@@ -19,6 +19,11 @@ class KudosVm extends AppBaseViewModel with ViewModelMixin {
 
   List<SpotlightEntry> get spotlight => hubData?.spotlight ?? KudosMockData.spotlight;
 
+  List<SpotlightActivity> get spotlightActivities =>
+      hubData?.spotlightActivities.isNotEmpty == true
+          ? hubData!.spotlightActivities
+          : KudosMockData.spotlightActivities;
+
   List<KudoItem> get allKudos => hubData?.allKudos ?? KudosMockData.allKudos;
 
   List<String> get periodFilters =>

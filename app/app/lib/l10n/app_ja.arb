@@ -1,0 +1,12 @@
+{
+  "@@locale": "ja",
+  "accessDeniedMessage": "このリソースへのアクセス権限がありません。",
+  "accessDeniedTitle": "ACCESS DENIED",
+  "errorAccessDeniedMessage": "このリソースへのアクセス権限がありません。",
+  "errorAccessDeniedTitle": "ACCESS DENIED",
+  "errorGoHome": "ホームに戻る",
+  "errorNotFoundMessage": "お探しのリソースは存在しないか、\n削除されました。",
+  "errorNotFoundTitle": "NOT FOUND",
+  "loginCopyright": "著作権は Sun* © 2025 に帰属します",
+  "loginDescription": "SAA 2025の旅を始めましょう。\nログインして探索してください！"
+}

@@ -13,6 +13,9 @@ class KudosJsonParser {
       stats: _parseStats(root['stats'] as Map<String, dynamic>? ?? {}),
       highlights: _parseKudoList(root['highlights']),
       spotlight: _parseSpotlight(root['spotlight']),
+      spotlightActivities: _parseSpotlightActivities(
+        root['spotlight_activities'] ?? root['spotlightActivities'],
+      ),
       allKudos: _parseKudoList(root['all_kudos'] ?? root['allKudos']),
       periodFilters: _stringList(root['period_filters'] ?? root['periodFilters']),
       hashtagFilters: _stringList(root['hashtag_filters'] ?? root['hashtagFilters']),
@@ -84,6 +87,20 @@ class KudosJsonParser {
           );
         })
         .where((e) => e.name.isNotEmpty)
+        .toList();
+  }
+
+  static List<SpotlightActivity> _parseSpotlightActivities(dynamic raw) {
+    if (raw is! List) return [];
+    return raw
+        .map((e) {
+          final m = e as Map<String, dynamic>;
+          return SpotlightActivity(
+            time: m['time']?.toString() ?? '',
+            personName: m['person_name']?.toString() ?? m['personName']?.toString() ?? '',
+          );
+        })
+        .where((e) => e.personName.isNotEmpty)
         .toList();
   }
 

@@ -1,4 +1,5 @@
 import 'package:base_core/presenter/base_screen_state.dart';
+import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/data/repositories/repository_provider.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
@@ -7,6 +8,7 @@ import 'package:saa2025/pages/kudos/sunner_profile_screen.dart';
 import 'package:saa2025/pages/kudos/sunner_profile_vm.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
+import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
 
 /// Profile — MoMorph `hSH7L8doXB` (self) / `bEpdheM0yU` (other).
 class SunnerProfileState extends StatefulWidget {
@@ -19,8 +21,10 @@ class SunnerProfileState extends StatefulWidget {
 }
 
 class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfileVm> with UIMixin {
-  String languageCode = 'VN';
+  String _languageCode = 'EN';
   String kudosFilter = 'sent'; // 'sent' or 'received'
+
+  String get languageCode => _languageCode;
 
   SunnerProfile get profile => vm.profile ?? widget.profile;
 
@@ -54,7 +58,15 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
 
   @override
   void beforeBuild() {
+    _loadLanguage();
     vm.load(widget.profile.id, fallback: widget.profile);
+  }
+
+  void _loadLanguage() {
+    final saved = storage.getString(StorageKey.keySelectedLanguage.name);
+    if (saved == 'en') _languageCode = 'EN';
+    if (saved == 'ja') _languageCode = 'JA';
+    if (saved == 'vi') _languageCode = 'VN';
   }
 
   @override
@@ -72,5 +84,11 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
 
   void onKudoTap(KudoItem item) => openKudoDetail(context, item);
 
-  void onLanguageTap() {}
+  void onLanguageTap() {
+    showSaaLanguageSheet(
+      context: context,
+      currentCode: _languageCode,
+      onLanguageChanged: (code) => setState(() => _languageCode = code),
+    );
+  }
 }

@@ -132,6 +132,7 @@
   "kudosSendCtaPrompt": "Who would you like to send kudos to today?",
   "kudosSpotlightSearch": "Search",
   "kudosSpotlightSectionTitle": "SPOTLIGHT BOARD",
+  "kudosSpotlightReceivedNewKudo": "received a new Kudo",
   "kudosSpotlightTotalCount": "{count} KUDOS",
   "@kudosSpotlightTotalCount": {
     "placeholders": {
@@ -247,7 +248,7 @@
   "viewKudoTitle": "Kudo",
   "whatsNew": "What's new",
   "writeKudoAddHashtagChip": "+ Hashtag (max 5)",
-  "writeKudoAddImageButton": "Image (max {max})",
+  "writeKudoAddImageButton": "+ Image (max {max})",
   "@writeKudoAddImageButton": {
     "placeholders": {
       "max": {
@@ -282,8 +283,9 @@
   "writeKudoSendSuccessToast": "Kudos sent successfully!",
   "writeKudoSendingButton": "Sending…",
   "writeKudoSubtitle": "Send appreciation and recognition to your teammate",
-  "writeKudoTitle": "Write Kudo",
+  "writeKudoTitle": "New Kudo",
   "writeKudoTitleHint": "Give an honor title…",
+  "writeKudoTitleHelper": "Example: The person who motivates me.\nThis title will appear as your Kudo headline.",
   "writeKudoTitleLabel": "Honor title",
   "writeKudoTitleRequiredToast": "Please enter an honor title",
   "writeKudoValidationBanner": "Fill in Recipient, Message, and Hashtag to send Kudos!"

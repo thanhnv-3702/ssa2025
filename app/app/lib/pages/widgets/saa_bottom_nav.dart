@@ -60,7 +60,9 @@ class SaaBottomNav extends StatelessWidget {
                         width: 24.w,
                         height: 24.h,
                         colorFilter: ColorFilter.mode(
-                            active ? AppColors.bottomNavActive : AppColors.bottomNavInactive, BlendMode.srcIn),
+                          active ? AppColors.bottomNavActive : AppColors.bottomNavInactive,
+                          BlendMode.srcIn,
+                        ),
                       ),
                       SizedBox(height: 4.h),
                       Text(

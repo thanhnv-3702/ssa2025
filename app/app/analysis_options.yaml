@@ -1,5 +1,9 @@
 include: package:lints/recommended.yaml
 
+analyzer:
+  exclude:
+    - lib/pages/app_pages.router.dart
+
 formatter:
   page_width: 120
 

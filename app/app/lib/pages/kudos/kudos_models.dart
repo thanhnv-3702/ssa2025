@@ -49,6 +49,17 @@ class SpotlightEntry {
   final int kudosCount;
 }
 
+/// Live activity line on the spotlight board (Figma `2038:4891`).
+class SpotlightActivity {
+  const SpotlightActivity({
+    required this.time,
+    required this.personName,
+  });
+
+  final String time;
+  final String personName;
+}
+
 class SunnerProfile {
   const SunnerProfile({
     required this.id,

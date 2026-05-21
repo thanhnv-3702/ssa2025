@@ -38,6 +38,24 @@ extension AppLocalizationsKudosFilters on AppLocalizations {
         kudosFilterDepartmentHr,
         kudosFilterDepartmentSales,
       ];
+
+  /// Repository/API param for hub hashtag filter; `null` = all (localized label).
+  String? kudosHubHashtagParam(String selectedLabel) {
+    if (selectedLabel == kudosFilterHashtagAll) return null;
+    return selectedLabel;
+  }
+
+  /// Repository/API param for hub department filter; `null` = no department filter.
+  String? kudosHubDepartmentParam(String selectedLabel) {
+    if (selectedLabel == kudosFilterDepartmentDefault) return null;
+    return selectedLabel;
+  }
+
+  /// Repository/API param for hub period filter; `null` = all time.
+  String? kudosHubPeriodParam(String selectedLabel) {
+    if (selectedLabel == kudosFilterPeriodAll) return null;
+    return selectedLabel;
+  }
 }
 
 extension StringExt on String {

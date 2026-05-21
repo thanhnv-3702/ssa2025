@@ -93,8 +93,14 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
       children: [
         Row(
           children: [
-            Text(tr.searchSunnerRecentTitle,
-                style: TextStyle(color: AppColors.textPrimary, fontSize: 16.sp, fontWeight: FontWeight.w700)),
+            Text(
+              tr.searchSunnerRecentTitle,
+              style: TextStyle(
+                color: AppColors.textPrimary,
+                fontSize: 16.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
             const Spacer(),
             TextButton(
               onPressed: main.onViewAllRecentTap,

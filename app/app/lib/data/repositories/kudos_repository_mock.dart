@@ -16,10 +16,10 @@ class KudosRepositoryMock implements KudosRepository {
   }) async {
     await Future<void>.delayed(const Duration(milliseconds: 120));
     var highlights = List<KudoItem>.from(KudosMockData.highlights);
-    if (hashtag != null && hashtag != 'Tất cả') {
+    if (hashtag != null && hashtag.isNotEmpty) {
       highlights = highlights.where((k) => k.hashtags.contains(hashtag)).toList();
     }
-    if (department != null && department != 'Phòng ban') {
+    if (department != null && department.isNotEmpty) {
       highlights = highlights
           .where(
             (k) => KudosMockData.sunners.any(
@@ -30,7 +30,7 @@ class KudosRepositoryMock implements KudosRepository {
     }
 
     var spotlight = List<SpotlightEntry>.from(KudosMockData.spotlight);
-    if (department != null && department != 'Tất cả') {
+    if (department != null && department.isNotEmpty) {
       spotlight = spotlight
           .where(
             (e) => KudosMockData.sunners.any((s) => s.name == e.name && s.department == department),
@@ -42,10 +42,11 @@ class KudosRepositoryMock implements KudosRepository {
       stats: KudosMockData.stats,
       highlights: highlights,
       spotlight: spotlight,
+      spotlightActivities: KudosMockData.spotlightActivities,
       allKudos: KudosMockData.allKudos,
-      periodFilters: KudosMockData.periodFilters,
-      hashtagFilters: KudosMockData.hashtagFilters,
-      departmentFilters: KudosMockData.departmentFilters,
+      periodFilters: const [],
+      hashtagFilters: const [],
+      departmentFilters: const [],
     );
   }
 

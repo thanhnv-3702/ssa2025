@@ -97,9 +97,8 @@ Future<String?> showKudosDropdown({
   return completer.future;
 }
 
-/// Bottom sheet chọn một option (filter, hashtag, phòng ban…) - deprecated, use showKudosDropdown.
-@Deprecated('Use showKudosDropdown instead')
-Future<String?> showKudosOptionSheet({
+/// Bottom sheet for filters without an anchor button (e.g. period).
+Future<String?> showKudosFilterBottomSheet({
   required BuildContext context,
   required String title,
   required List<String> options,
@@ -156,3 +155,18 @@ Future<String?> showKudosOptionSheet({
     },
   );
 }
+
+/// Bottom sheet chọn một option — deprecated, use [showKudosDropdown] or [showKudosFilterBottomSheet].
+@Deprecated('Use showKudosDropdown or showKudosFilterBottomSheet instead')
+Future<String?> showKudosOptionSheet({
+  required BuildContext context,
+  required String title,
+  required List<String> options,
+  String? selected,
+}) =>
+    showKudosFilterBottomSheet(
+      context: context,
+      title: title,
+      options: options,
+      selected: selected,
+    );

@@ -14,10 +14,10 @@ class SaaApiService {
   }) {
     final query = <String, dynamic>{};
     if (period != null && period.isNotEmpty) query['period'] = period;
-    if (hashtag != null && hashtag.isNotEmpty && hashtag != 'Tất cả') {
+    if (hashtag != null && hashtag.isNotEmpty) {
       query['hashtag'] = hashtag;
     }
-    if (department != null && department.isNotEmpty && department != 'Tất cả') {
+    if (department != null && department.isNotEmpty) {
       query['department'] = department;
     }
     return _api.getKudosHub(query: query.isEmpty ? null : query);

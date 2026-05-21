@@ -47,6 +47,8 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
 
   List<SpotlightEntry> get filteredSpotlight => vm.spotlight;
 
+  List<SpotlightActivity> get spotlightActivities => vm.spotlightActivities;
+
   List<KudoItem> get allKudos => vm.allKudos;
 
   KudosStats get stats => vm.stats;
@@ -73,16 +75,16 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
     initNotificationBadge();
     highlightController.addListener(_onHighlightScroll);
     vm.loadHub(
-      period: _filterPeriod,
-      hashtag: _filterHashtag,
-      department: _filterDepartment,
+      period: tr.kudosHubPeriodParam(_filterPeriod),
+      hashtag: tr.kudosHubHashtagParam(_filterHashtag),
+      department: tr.kudosHubDepartmentParam(_filterDepartment),
     );
   }
 
   Future<void> _reloadHub() => vm.loadHub(
-        period: _filterPeriod,
-        hashtag: _filterHashtag,
-        department: _filterDepartment,
+        period: tr.kudosHubPeriodParam(_filterPeriod),
+        hashtag: tr.kudosHubHashtagParam(_filterHashtag),
+        department: tr.kudosHubDepartmentParam(_filterDepartment),
       );
 
   void _loadLanguage() {
@@ -153,7 +155,7 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   }
 
   Future<void> onFilterPeriodTap() async {
-    final picked = await showKudosOptionSheet(
+    final picked = await showKudosFilterBottomSheet(
       context: context,
       title: tr.kudosFilterPeriodTitle,
       options: periodFilters,

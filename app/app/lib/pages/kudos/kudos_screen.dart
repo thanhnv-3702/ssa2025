@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:base_core/common/base_const.dart';
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:base_core/res/extension.dart';
 import 'package:flutter/material.dart';
@@ -470,6 +471,8 @@ class KudosScreen extends BaseScreen<Kudos> {
                 },
               ).toList(),
             ),
+            Gap(20),
+            _buildSpotlightActivityFeed(),
           ],
         ),
         Positioned(
@@ -485,6 +488,83 @@ class KudosScreen extends BaseScreen<Kudos> {
           ),
         ),
       ],
+    );
+  }
+
+  /// Figma `2038:4891` — stacked activity lines with fade toward older items.
+  Widget _buildSpotlightActivityFeed() {
+    final activities = main.spotlightActivities;
+    if (activities.isEmpty) return const SizedBox.shrink();
+
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          for (var i = 0; i < activities.length; i++) ...[
+            if (i > 0) Gap(5.h),
+            _buildSpotlightActivityLine(
+              activities[i],
+              opacity: _spotlightActivityOpacity(i, activities.length),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+
+  double _spotlightActivityOpacity(int index, int total) {
+    const opacities = [0.1, 0.3, 0.5, 0.7, 1.0, 1.0];
+    if (total <= opacities.length) return opacities[index];
+    final step = index / (total - 1);
+    if (step < 0.2) return 0.1;
+    if (step < 0.4) return 0.3;
+    if (step < 0.6) return 0.5;
+    if (step < 0.8) return 0.7;
+    return 1.0;
+  }
+
+  Widget _buildSpotlightActivityLine(SpotlightActivity activity, {required double opacity}) {
+    SunnerProfile? sunner;
+    for (final s in KudosMockData.sunners) {
+      if (s.name == activity.personName) {
+        sunner = s;
+        break;
+      }
+    }
+
+    final baseStyle = TextStyle(
+      fontFamily: BaseConst.fontBold,
+      fontSize: 6.sp,
+      height: 1.2,
+      letterSpacing: 0.03,
+    );
+
+    return Opacity(
+      opacity: opacity,
+      child: InkWell(
+        onTap: sunner != null ? () => main.onSpotlightSunnerTap(sunner!) : null,
+        child: Text.rich(
+          TextSpan(
+            children: [
+              TextSpan(
+                text: activity.time,
+                style: baseStyle.copyWith(color: AppColors.gray),
+              ),
+              TextSpan(
+                text: ' ${activity.personName} ',
+                style: baseStyle.copyWith(color: AppColors.textPrimary),
+              ),
+              TextSpan(
+                text: tr.kudosSpotlightReceivedNewKudo,
+                style: baseStyle.copyWith(color: AppColors.textPrimary),
+              ),
+            ],
+          ),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
+        ),
+      ),
     );
   }
 
@@ -535,7 +615,7 @@ class KudosScreen extends BaseScreen<Kudos> {
                     Assets.kudosArrowCross,
                     width: 24,
                     colorFilter: ColorFilter.mode(AppColors.textPrimary, BlendMode.srcIn),
-                  )
+                  ),
                 ],
               ),
               onTap: main.onViewAllKudosTap,

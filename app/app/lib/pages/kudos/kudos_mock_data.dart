@@ -27,6 +27,16 @@ class KudosMockData {
     SpotlightEntry(name: 'Nguyễn Hoàng Linh', kudosCount: 22),
   ];
 
+  /// Newest last — matches Figma fade stack (oldest top, newest bottom).
+  static const spotlightActivities = [
+    SpotlightActivity(time: '08:10PM', personName: 'Lê Kiều Trang'),
+    SpotlightActivity(time: '08:15PM', personName: 'Nguyễn Văn Quy'),
+    SpotlightActivity(time: '08:20PM', personName: 'Mai Phương Thúy'),
+    SpotlightActivity(time: '08:25PM', personName: 'Dương Thúy An'),
+    SpotlightActivity(time: '08:28PM', personName: 'Đỗ Hoàng Hiệp'),
+    SpotlightActivity(time: '08:30PM', personName: 'Nguyễn Bá Chức'),
+  ];
+
   static final highlights = [
     KudoItem(
       id: '1',

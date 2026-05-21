@@ -25,9 +25,7 @@ class SplashScreen extends BaseScreen<Splash> {
   Widget _mainBody() {
     return Container(
       alignment: Alignment.center,
-      decoration: BoxDecoration(
-        gradient: AppColors.gradient3,
-      ),
+      color: AppColors.background,
       child: Stack(
         alignment: Alignment.center,
         children: [

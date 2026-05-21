@@ -1,4 +1,4 @@
-# melos_managed_dependency_overrides: base_core,database,https,image_gallery_saver,pull_to_refresh
+# melos_managed_dependency_overrides: base_core,database,https,image_gallery_saver,pull_to_refresh,intl
 dependency_overrides:
   base_core:
     path: ../packages/base_core
@@ -8,6 +8,7 @@ dependency_overrides:
     path: ../packages/https
   image_gallery_saver:
     path: ../plugins/image_gallery_saver
+  intl: 0.20.2
   local_auth_android:
     path: ../plugins/local_auth_android_patched
   pull_to_refresh:

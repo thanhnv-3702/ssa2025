@@ -144,6 +144,27 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
     setState(() {});
   }
 
+  void onFormatNumber() {
+    final text = messageController.text;
+    final sel = messageController.selection;
+    if (!sel.isValid) return;
+    final lineStart = text.lastIndexOf('\n', sel.start - 1) + 1;
+    messageController.text = text.replaceRange(lineStart, lineStart, '1. ');
+    setState(() {});
+  }
+
+  void onFormatLink() {
+    final text = messageController.text;
+    final sel = messageController.selection;
+    if (!sel.isValid || sel.start == sel.end) {
+      Utils.showToast(tr.kudoFormatSelectTextToast);
+      return;
+    }
+    final selected = text.substring(sel.start, sel.end);
+    messageController.text = text.replaceRange(sel.start, sel.end, '[$selected](url)');
+    setState(() {});
+  }
+
   KudoDraft? _buildDraft() {
     if (selectedRecipient == null && recipientController.text.trim().isEmpty) {
       return null;
