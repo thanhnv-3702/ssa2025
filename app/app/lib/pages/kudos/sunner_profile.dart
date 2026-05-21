@@ -19,6 +19,9 @@ class SunnerProfileState extends StatefulWidget {
 }
 
 class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfileVm> with UIMixin {
+  String languageCode = 'VN';
+  String kudosFilter = 'sent'; // 'sent' or 'received'
+
   SunnerProfile get profile => vm.profile ?? widget.profile;
 
   bool get isSelf {
@@ -26,9 +29,25 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
     return me != null && me.id == profile.id;
   }
 
-  List<KudoItem> get kudosList => vm.kudos;
+  List<KudoItem> get kudosList {
+    if (kudosFilter == 'sent') {
+      return vm.kudos.where((k) => k.senderName == profile.name).toList();
+    } else {
+      return vm.kudos.where((k) => k.receiverName == profile.name).toList();
+    }
+  }
+
+  int get sentCount => vm.kudos.where((k) => k.senderName == profile.name).length;
+  
+  int get receivedCount => vm.kudos.where((k) => k.receiverName == profile.name).length;
 
   bool get isLoading => vm.isLoading;
+  
+  void onFilterChange(String filter) {
+    setState(() {
+      kudosFilter = filter;
+    });
+  }
 
   @override
   SunnerProfileVm initViewModel() => SunnerProfileVm();
@@ -52,4 +71,6 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
   }
 
   void onKudoTap(KudoItem item) => openKudoDetail(context, item);
+
+  void onLanguageTap() {}
 }

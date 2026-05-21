@@ -15,7 +15,7 @@ class AwardKudosPromo extends StatelessWidget {
   static const Color _background = Color(0xFF00101A);
   static const Color _textOnDark = Color(0xFFFFFFFF);
 
-  static const String _note = 'ĐIỂM MỚI CỦA SAA 2025\n'
+  static const String _noteBody =
       'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. '
       'Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, '
       'cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo '
@@ -49,13 +49,22 @@ class AwardKudosPromo extends StatelessWidget {
           child: Image.asset(Assets.homeHomeKudosBanner, width: double.infinity, fit: BoxFit.cover),
         ),
         Gap(16.h),
-        Text(
-          _note,
-          style: TextStyle(
-            fontFamily: BaseConst.fontLight,
-            fontSize: 13.sp,
-            height: 20 / 13,
-            color: _textOnDark.withValues(alpha: 0.9),
+        Text.rich(
+          TextSpan(
+            style: TextStyle(
+              fontFamily: BaseConst.fontLight,
+              fontSize: 14.sp,
+              height: 20 / 14,
+              letterSpacing: 0.25,
+              color: _textOnDark.withValues(alpha: 0.9),
+            ),
+            children: [
+              TextSpan(
+                text: 'ĐIỂM MỚI CỦA SAA 2025\n',
+                style: TextStyle(fontFamily: BaseConst.fontMedium),
+              ),
+              TextSpan(text: _noteBody),
+            ],
           ),
         ),
         Gap(16.h),

@@ -1,10 +1,14 @@
+import 'dart:math';
+
 import 'package:base_core/presenter/base_screen.dart';
+import 'package:base_core/res/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/pages/home/home_styles.dart';
 import 'package:saa2025/pages/kudos/kudos.dart';
 import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
@@ -18,14 +22,8 @@ class KudosScreen extends BaseScreen<Kudos> {
 
   static const Color _background = SaaDesignTokens.background;
   static const Color _accent = SaaDesignTokens.accent;
+  static const Color _gray = SaaDesignTokens.gray;
   static const Color _textMuted = Color(0xB3FFFFFF);
-
-  static const LinearGradient _headerGradient = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Color(0xFF00101A), Color(0x4D00101A), Color(0x3300101A), Color(0x0000101A)],
-    stops: [0.0, 0.76, 0.88, 1.0],
-  );
 
   @override
   Widget screen() {
@@ -36,15 +34,35 @@ class KudosScreen extends BaseScreen<Kudos> {
       ),
       child: Scaffold(
         backgroundColor: _background,
-        body: CustomScrollView(
-          slivers: [
-            SliverToBoxAdapter(child: _buildHeader()),
-            SliverToBoxAdapter(child: _buildHero()),
-            SliverToBoxAdapter(child: _buildSendCta()),
-            SliverToBoxAdapter(child: _buildHighlightSection()),
-            SliverToBoxAdapter(child: _buildSpotlightSection()),
-            SliverToBoxAdapter(child: _buildAllKudosSection()),
-            SliverToBoxAdapter(child: Gap(100.h)),
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: Image.asset(Assets.homeHomeBg, fit: BoxFit.cover),
+            ),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF00101A),
+                    Color(0xFF00101A),
+                    Color(0x0000101A),
+                  ],
+                ),
+              ),
+            ),
+            CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(child: _buildHeader()),
+                SliverToBoxAdapter(child: _buildHero()),
+                SliverToBoxAdapter(child: _buildSendCta()),
+                SliverToBoxAdapter(child: _buildHighlightSection()),
+                SliverToBoxAdapter(child: _buildSpotlightSection()),
+                SliverToBoxAdapter(child: _buildAllKudosSection()),
+                SliverToBoxAdapter(child: Gap(100.h)),
+              ],
+            ),
           ],
         ),
       ),
@@ -57,20 +75,21 @@ class KudosScreen extends BaseScreen<Kudos> {
       child: Stack(
         children: [
           Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 104.h,
-            child: const DecoratedBox(decoration: BoxDecoration(gradient: _headerGradient)),
+            left: 20.w,
+            bottom: 8.h,
+            child: Image.asset(
+              Assets.homeHomeLogo,
+              width: 48.w,
+              height: 44.h,
+            ),
           ),
-          Positioned(left: 20.w, bottom: 8.h, child: Image.asset(Assets.homeHomeHeaderLogo, width: 48.w, height: 44.h)),
           Positioned(
             right: 12.w,
             bottom: 8.h,
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _languageChip(),
+                _buildLanguageChip(),
                 Gap(8.w),
                 _iconButton(Assets.homeHomeIcSearch, main.onSearchTap),
                 Gap(4.w),
@@ -83,23 +102,28 @@ class KudosScreen extends BaseScreen<Kudos> {
     );
   }
 
-  Widget _languageChip() {
+  Widget _buildLanguageChip() {
     return InkWell(
       onTap: main.onLanguageTap,
-      borderRadius: BorderRadius.circular(20.r),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
-          borderRadius: BorderRadius.circular(20.r),
-        ),
+      borderRadius: BorderRadius.circular(4.r),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(8.w, 4.h, 0, 4.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(main.languageCode,
-                style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600)),
+            SvgPicture.asset(
+              Assets.flagsVn,
+              width: 24.w,
+              height: 24.h,
+            ),
             Gap(4.w),
-            Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16.sp),
+            Text(main.languageCode, style: HomeStyles.languageCode),
+            SvgPicture.asset(
+              Assets.commonIcDown,
+              width: 24.w,
+              height: 24.h,
+              colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
+            ),
           ],
         ),
       ),
@@ -112,7 +136,15 @@ class KudosScreen extends BaseScreen<Kudos> {
       borderRadius: BorderRadius.circular(24.r),
       child: Padding(
         padding: EdgeInsets.all(8.w),
-        child: SvgPicture.asset(asset, width: 24.w, height: 24.w),
+        child: SvgPicture.asset(
+          asset,
+          width: 24.w,
+          height: 24.w,
+          colorFilter: ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
+          ),
+        ),
       ),
     );
   }
@@ -139,7 +171,6 @@ class KudosScreen extends BaseScreen<Kudos> {
   Widget _buildHero() {
     return Stack(
       children: [
-        Image.asset(Assets.homeHomeBg, width: double.infinity, fit: BoxFit.cover),
         Padding(
           padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 24.h),
           child: Column(
@@ -147,10 +178,16 @@ class KudosScreen extends BaseScreen<Kudos> {
             children: [
               Text(
                 'Hệ thống ghi nhận và cảm ơn',
-                style: TextStyle(color: _textMuted, fontSize: 14.sp),
+                style: TextStyle(color: _accent, fontSize: 14.sp),
               ),
               Gap(12.h),
-              SvgPicture.asset(Assets.kudosKudosLogo, width: 200.w),
+              Row(
+                children: [
+                  SvgPicture.asset(Assets.kudosKudosLogo, height: 38.w),
+                  Gap(8.w),
+                  SvgPicture.asset(Assets.kudosKudosText, height: 38.w),
+                ],
+              ),
             ],
           ),
         ),
@@ -162,24 +199,40 @@ class KudosScreen extends BaseScreen<Kudos> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Material(
-        color: _accent,
-        borderRadius: BorderRadius.circular(28.r),
+        color: _accent.withValues(alpha: 0.1),
+        borderRadius: BorderRadius.circular(4.r),
         child: InkWell(
           onTap: main.onSendKudoTap,
-          borderRadius: BorderRadius.circular(28.r),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 14.h),
+          borderRadius: BorderRadius.circular(4.r),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color(0xFFEA9E1A).withValues(alpha: 0.1),
+              border: Border.all(color: const Color(0xFF998C5F)),
+              borderRadius: BorderRadius.circular(4.r),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
             child: Row(
               children: [
-                SvgPicture.asset(Assets.kudosKudosPen, width: 20.w, height: 20.w),
-                Gap(12.w),
+                SvgPicture.asset(
+                  Assets.kudosKudosPen,
+                  colorFilter: ColorFilter.mode(
+                    Colors.white,
+                    BlendMode.srcIn,
+                  ),
+                  width: 24.w,
+                  height: 24.w,
+                ),
+                Gap(8.w),
                 Expanded(
                   child: Text(
                     'Hôm nay, bạn muốn gửi kudos đến ai?',
-                    style: TextStyle(color: _background, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 ),
-                Icon(Icons.chevron_right, color: _background, size: 24.sp),
               ],
             ),
           ),
@@ -197,32 +250,67 @@ class KudosScreen extends BaseScreen<Kudos> {
           _sectionHeader('HIGHLIGHT', showFilters: true),
           Gap(16.h),
           SizedBox(
-            height: 280.h,
-            child: PageView.builder(
-              controller: main.highlightController,
-              itemCount: main.highlightPageCount,
-              onPageChanged: main.onHighlightPageChanged,
-              itemBuilder: (_, i) {
-                if (main.highlights.isEmpty) {
-                  return Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    child: Center(
-                      child: Text(
-                        'Không có Kudos phù hợp bộ lọc',
-                        style: TextStyle(color: _textMuted, fontSize: 14.sp),
+            height: 255.h,
+            child: Stack(
+              children: [
+                PageView.builder(
+                  controller: main.highlightController,
+                  itemCount: main.highlightPageCount,
+                  onPageChanged: main.onHighlightPageChanged,
+                  itemBuilder: (_, i) {
+                    if (main.highlights.isEmpty) {
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.w),
+                        child: Center(
+                          child: Text(
+                            'Không có Kudos phù hợp bộ lọc',
+                            style: TextStyle(color: _textMuted, fontSize: 14.sp),
+                          ),
+                        ),
+                      );
+                    }
+                    final item = main.highlights[i];
+                    return Padding(
+                      padding: EdgeInsets.only(left: i == 0 ? 20.w : 8.w, right: 8.w),
+                      child: KudosHighlightCard(
+                        item: item,
+                        onTap: () => main.onKudoTap(item),
+                      ),
+                    );
+                  },
+                ),
+                Container(
+                  height: double.infinity,
+                  width: 28,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Color(0xFF00101A),
+                        Color(0xFF00101A).withValues(alpha: 0.5),
+                        Color(0xFF00101A).withValues(alpha: 0),
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  child: Container(
+                    height: double.infinity,
+                    width: 28,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          Color(0xFF00101A).withValues(alpha: 0),
+                          Color(0xFF00101A).withValues(alpha: 0.5),
+                          Color(0xFF00101A),
+                        ],
                       ),
                     ),
-                  );
-                }
-                final item = main.highlights[i];
-                return Padding(
-                  padding: EdgeInsets.only(left: i == 0 ? 20.w : 8.w, right: 8.w),
-                  child: KudosHighlightCard(
-                    item: item,
-                    onTap: () => main.onKudoTap(item),
                   ),
-                );
-              },
+                  top: 0,
+                  bottom: 0,
+                  right: 0,
+                ),
+              ],
             ),
           ),
           Gap(12.h),
@@ -243,8 +331,12 @@ class KudosScreen extends BaseScreen<Kudos> {
           _pagerArrow(Icons.chevron_left, main.onHighlightPrev, enabled: main.highlightPage > 0),
           Gap(16.w),
           Text(
-            '$current/$total',
-            style: TextStyle(color: _accent, fontSize: 14.sp, fontWeight: FontWeight.w600),
+            '$current',
+            style: TextStyle(color: _accent, fontSize: 14.sp, fontWeight: FontWeight.w800),
+          ),
+          Text(
+            '/$total',
+            style: TextStyle(color: _gray, fontSize: 14.sp, fontWeight: FontWeight.w800),
           ),
           Gap(16.w),
           _pagerArrow(
@@ -260,7 +352,7 @@ class KudosScreen extends BaseScreen<Kudos> {
   Widget _pagerArrow(IconData icon, VoidCallback onTap, {required bool enabled}) {
     return InkWell(
       onTap: enabled ? onTap : null,
-      child: Icon(icon, color: enabled ? _accent : _textMuted, size: 28.sp),
+      child: Icon(icon, color: enabled ? Colors.white : _textMuted, size: 28.sp),
     );
   }
 
@@ -275,80 +367,131 @@ class KudosScreen extends BaseScreen<Kudos> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Container(
-              padding: EdgeInsets.all(16.w),
               decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [Color(0xFF0A2A3A), Color(0xFF00101A)],
-                ),
                 borderRadius: BorderRadius.circular(12.r),
                 border: Border.all(color: const Color(0x33FFE99E)),
               ),
-              child: Column(
+              child: Stack(
                 children: [
-                  Row(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                        decoration: BoxDecoration(
-                          color: _accent,
-                          borderRadius: BorderRadius.circular(16.r),
-                        ),
-                        child: Text(
-                          '${main.stats.totalKudos} KUDOS',
-                          style: TextStyle(
-                            color: _background,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w800,
+                  Positioned.fill(
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12.r),
+                      child: Stack(
+                        children: [
+                          Image.asset(
+                            Assets.kudosKudosSpotlightBg,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
                           ),
-                        ),
+                          Container(
+                            color: Colors.black.withValues(alpha: 0.7),
+                          ),
+                        ],
                       ),
-                      const Spacer(),
-                      GestureDetector(
-                        onTap: main.onSpotlightSearchTap,
-                        child: Text(
-                          'Tìm kiếm Sunner',
-                          style: TextStyle(
-                            color: _accent,
-                            fontSize: 12.sp,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                  Gap(16.h),
-                  Wrap(
-                    spacing: 8.w,
-                    runSpacing: 8.h,
-                    children: main.filteredSpotlight.map(
-                      (e) {
-                        SunnerProfile? sunner;
-                        for (final s in KudosMockData.sunners) {
-                          if (s.name == e.name) {
-                            sunner = s;
-                            break;
-                          }
-                        }
-                        return ActionChip(
-                          label: Text(
-                            '${e.name} (${e.kudosCount})',
-                            style: TextStyle(color: Colors.white, fontSize: 11.sp),
-                          ),
-                          backgroundColor: const Color(0xFF1A3A4A),
-                          side: BorderSide(color: _accent.withValues(alpha: 0.3)),
-                          onPressed: sunner != null ? () => main.onSpotlightSunnerTap(sunner!) : null,
-                        );
-                      },
-                    ).toList(),
-                  ),
+                  _buildSpotlightContent().marginAll(12),
                 ],
               ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildSpotlightContent() {
+    return Stack(
+      children: [
+        Column(
+          children: [
+            Row(
+              children: [
+                GestureDetector(
+                  onTap: main.onSpotlightSearchTap,
+                  child: Container(
+                    padding: EdgeInsets.only(left: 6.w, top: 2.h, bottom: 2.h, right: 32.w),
+                    decoration: BoxDecoration(
+                      color: _accent.withValues(alpha: 0.1),
+                      borderRadius: BorderRadius.circular(13.464.r),
+                      border: Border.all(color: const Color(0xFF998C5F)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.search, color: Colors.white, size: 12.w),
+                        Gap(8.w),
+                        Text(
+                          'Tìm kiếm',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w500,
+                            letterSpacing: 0.03,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+                  child: Text(
+                    '${main.stats.totalKudos} KUDOS',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Gap(16.h),
+            Wrap(
+              spacing: 8.w,
+              runSpacing: 8.h,
+              children: main.filteredSpotlight.map(
+                (e) {
+                  SunnerProfile? sunner;
+                  for (final s in KudosMockData.sunners) {
+                    if (s.name == e.name) {
+                      sunner = s;
+                      break;
+                    }
+                  }
+                  return InkWell(
+                    child: Text(
+                      e.name,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 8.sp,
+                        fontWeight: FontWeight.w500,
+                        letterSpacing: 0.06,
+                      ),
+                    ).marginOnly(top: Random().nextInt(12).toDouble()),
+                    onTap: sunner != null ? () => main.onSpotlightSunnerTap(sunner!) : null,
+                  );
+                },
+              ).toList(),
+            ),
+          ],
+        ),
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: InkWell(
+            child: SvgPicture.asset(
+              Assets.kudosKudosPanZoom,
+              width: 12.w,
+              height: 12.w,
+            ),
+            onTap: () {},
+          ),
+        ),
+      ],
     );
   }
 
@@ -359,33 +502,103 @@ class KudosScreen extends BaseScreen<Kudos> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _sectionHeader('ALL KUDOS'),
-          Gap(16.h),
+          Gap(24.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: _buildStatsRow(),
+            child: _buildUserStats(),
           ),
-          Gap(16.h),
+          Gap(24.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: _buildTopGiftReceivers(),
+          ),
+          Gap(24.h),
+          Center(
             child: Column(
               children: main.allKudos
                   .take(3)
                   .map(
-                    (item) => KudosListTileCard(
-                      item: item,
-                      onTap: () => main.onKudoTap(item),
+                    (item) => Padding(
+                      padding: EdgeInsets.only(bottom: 12.h),
+                      child: KudosListTileCard(
+                        item: item,
+                        onTap: () => main.onKudoTap(item),
+                      ),
                     ),
                   )
                   .toList(),
             ),
           ),
-          Gap(8.h),
           Center(
-            child: TextButton(
-              onPressed: main.onViewAllKudosTap,
-              child: Text(
-                'Xem thêm',
-                style: TextStyle(color: _accent, fontSize: 14.sp, fontWeight: FontWeight.w600),
+            child: InkWell(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'View all Kudos',
+                    style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  ),
+                  SvgPicture.asset(
+                    Assets.kudosArrowCross,
+                    width: 24,
+                    colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                  )
+                ],
+              ),
+              onTap: main.onViewAllKudosTap,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildUserStats() {
+    return Container(
+      padding: EdgeInsets.all(12.w),
+      decoration: BoxDecoration(
+        color: const Color(0xFF00070C),
+        borderRadius: BorderRadius.circular(8.r),
+        border: Border.all(color: const Color(0xFF998C5F), width: 0.794),
+      ),
+      child: Column(
+        children: [
+          _statRow('Số Kudos bạn nhận được:', '25'),
+          Gap(12.h),
+          _statRow('Số Kudos bạn đã gửi:', '25'),
+          Gap(12.h),
+          _statRowWithIcon('Số tim bạn nhận được:', '25'),
+          Gap(12.h),
+          Container(height: 0.794, color: const Color(0xFF2E3940)),
+          Gap(12.h),
+          _statRow('Số Secret Box bạn đã mở:', '25'),
+          Gap(12.h),
+          _statRow('Số Secret Box chưa mở:', '25'),
+          Gap(12.h),
+          Material(
+            color: _accent,
+            borderRadius: BorderRadius.circular(4.r),
+            child: InkWell(
+              onTap: main.onOpenSecretBoxTap,
+              borderRadius: BorderRadius.circular(4.r),
+              child: Container(
+                height: 40.h,
+                padding: EdgeInsets.symmetric(horizontal: 12.w),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Mở Secret Box',
+                      style: TextStyle(
+                        color: _background,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Gap(8.w),
+                    SvgPicture.asset(Assets.kudosGift, width: 24.sp),
+                  ],
+                ),
               ),
             ),
           ),
@@ -394,32 +607,131 @@ class KudosScreen extends BaseScreen<Kudos> {
     );
   }
 
-  Widget _buildStatsRow() {
-    final s = main.stats;
+  Widget _statRow(String label, String value) {
     return Row(
       children: [
-        Expanded(child: _statBox('${s.totalKudos}', 'Kudos')),
-        Gap(8.w),
-        Expanded(child: _statBox('${s.totalReceivers}', 'Người nhận')),
-        Gap(8.w),
-        Expanded(child: _statBox('${s.totalSenders}', 'Người gửi')),
+        Expanded(
+          child: Text(
+            label,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w300,
+              height: 20 / 14,
+              letterSpacing: 0.25,
+            ),
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: _accent,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w700,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
       ],
     );
   }
 
-  Widget _statBox(String value, String label) {
+  Widget _statRowWithIcon(String label, String value) {
+    return Row(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w300,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
+        Spacer(),
+        Image.asset(Assets.kudosX2, width: 24.sp),
+        Spacer(),
+        Text(
+          value,
+          style: TextStyle(
+            color: _accent,
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w700,
+            height: 20 / 14,
+            letterSpacing: 0.25,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTopGiftReceivers() {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 12.h),
+      padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF0A1F2E),
+        color: const Color(0xFF00070C),
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0x33FFE99E)),
+        border: Border.all(color: const Color(0xFF998C5F), width: 0.794),
       ),
       child: Column(
         children: [
-          Text(value, style: TextStyle(color: _accent, fontSize: 18.sp, fontWeight: FontWeight.w800)),
-          Gap(4.h),
-          Text(label, style: TextStyle(color: _textMuted, fontSize: 11.sp)),
+          Text(
+            '10 SUNNER NHẬN QUÀ MỚI NHẤT',
+            style: TextStyle(
+              color: _accent,
+              fontSize: 14.sp,
+              fontWeight: FontWeight.w700,
+              height: 20 / 14,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          Gap(12.7.h),
+          ...List.generate(
+            3,
+            (i) => Padding(
+              padding: EdgeInsets.only(bottom: i < 2 ? 12.7.h : 0),
+              child: Row(
+                children: [
+                  Container(
+                    width: 32.w,
+                    height: 32.w,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(Icons.person, color: Colors.white, size: 20.sp),
+                  ),
+                  Gap(6.35.w),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Huỳnh Dương Xuân',
+                          style: TextStyle(
+                            color: _accent,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w700,
+                            height: 20 / 14,
+                          ),
+                        ),
+                        Gap(1.59.h),
+                        Text(
+                          'Nhận được 1 áo phông SAA',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 12.sp,
+                            height: 16 / 12,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -433,33 +745,36 @@ class KudosScreen extends BaseScreen<Kudos> {
         children: [
           Text(
             'Sun* Annual Awards 2025',
-            style: TextStyle(color: _textMuted, fontSize: 11.sp),
+            style: TextStyle(color: _textMuted, fontSize: 12.sp),
           ),
           Gap(4.h),
-          Row(
-            children: [
-              Container(width: 4.w, height: 20.h, color: _accent),
-              Gap(8.w),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.sp,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1,
-                ),
-              ),
-            ],
+          Container(height: 1, color: const Color(0xFF2E3940)),
+          Gap(4.h),
+          Text(
+            title,
+            style: TextStyle(
+              color: _accent,
+              fontSize: 22.sp,
+              fontWeight: FontWeight.w500,
+              height: 28 / 22,
+            ),
           ),
           if (showFilters) ...[
-            Gap(12.h),
+            Gap(16.h),
             Wrap(
               spacing: 8.w,
               runSpacing: 8.h,
               children: [
-                KudosFilterDropdown(label: main.filterPeriod, onTap: main.onFilterPeriodTap),
-                KudosFilterDropdown(label: main.filterHashtag, onTap: main.onFilterHashtagTap),
-                KudosFilterDropdown(label: main.filterDepartment, onTap: main.onFilterDepartmentTap),
+                KudosFilterDropdown(
+                  label: main.filterHashtag,
+                  onTap: main.onFilterHashtagTap,
+                  buttonKey: main.hashtagButtonKey,
+                ),
+                KudosFilterDropdown(
+                  label: main.filterDepartment,
+                  onTap: main.onFilterDepartmentTap,
+                  buttonKey: main.departmentButtonKey,
+                ),
               ],
             ),
           ],

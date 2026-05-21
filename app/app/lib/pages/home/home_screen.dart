@@ -1,4 +1,5 @@
-import 'package:base_core/common/base_const.dart';
+import 'dart:ui';
+
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,16 +9,13 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/home/home.dart';
 import 'package:saa2025/pages/home/home_models.dart';
-import 'package:saa2025/theme/saa_design_tokens.dart';
+import 'package:saa2025/pages/home/home_styles.dart';
 
-/// SAA 2025 home — MoMorph screen `OuH1BUTYT0` ([iOS] Home).
+/// SAA 2025 home — MoMorph `OuH1BUTYT0` / Figma `6885:8978` ([iOS] Home).
 class HomeScreen extends BaseScreen<Home> {
   HomeScreen(super.main, super.context);
 
-  static const Color _background = SaaDesignTokens.background;
-  static const Color _accent = SaaDesignTokens.accent;
-  static const Color _textOnDark = SaaDesignTokens.textOnDark;
-
+  /// Figma `6885:9057` — fades to fully transparent; layer opacity 0.9.
   static const LinearGradient _headerGradient = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
@@ -25,10 +23,16 @@ class HomeScreen extends BaseScreen<Home> {
       Color(0xFF00101A),
       Color(0x4D00101A),
       Color(0x3300101A),
+      Color(0x2600101A),
+      Color(0x1A00101A),
+      Color(0x0D00101A),
       Color(0x0000101A),
     ],
-    stops: [0.0, 0.76, 0.88, 1.0],
+    stops: [0.0, 0.7644, 0.8462, 0.887, 0.9279, 0.9639, 1.0],
   );
+
+  static const double _headerHeight = 104;
+  static const double _headerMarginBottom = 40;
 
   @override
   Widget screen() {
@@ -38,7 +42,7 @@ class HomeScreen extends BaseScreen<Home> {
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: HomeStyles.background,
         body: Stack(
           children: [
             _buildScrollBody(),
@@ -50,26 +54,36 @@ class HomeScreen extends BaseScreen<Home> {
   }
 
   Widget _buildScrollBody() {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(child: _buildHeader()),
-        SliverToBoxAdapter(
-          child: Stack(
-            children: [
-              Image.asset(Assets.homeHomeBg, width: double.infinity, fit: BoxFit.cover),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
+    final contentTop = (_headerHeight + _headerMarginBottom).h;
+    return Stack(
+      children: [
+        Image.asset(Assets.homeHomeBg, width: double.infinity, fit: BoxFit.cover),
+        Container(
+          width: double.infinity,
+          height: double.infinity,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Color(0xFF00101A),
+                Color(0xFF00101A),
+                Color(0x0000101A),
+              ],
+            ),
+          ),
+        ),
+        CustomScrollView(
+          slivers: [
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20.w, contentTop, 20.w, 0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Gap(8.h),
                     Image.asset(Assets.homeHomeRootFurther, width: 247.w, fit: BoxFit.contain),
-                    Gap(16.h),
-                    _buildCountdownSection(),
-                    Gap(16.h),
-                    _buildHeroActions(),
                     Gap(32.h),
-                    _buildThemeNote(),
+                    _buildHeroBlock(),
+                    Gap(32.h),
+                    Text(main.themeNote, style: HomeStyles.bodyLight),
                     Gap(32.h),
                     _buildAwardsSection(),
                     Gap(32.h),
@@ -78,26 +92,27 @@ class HomeScreen extends BaseScreen<Home> {
                   ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+        Positioned(top: 0, left: 0, right: 0, child: _buildHeader()),
       ],
     );
   }
 
+  /// Figma `mms_1_header` — overlays hero; transparent gradient, 40px gap before content.
   Widget _buildHeader() {
     return SizedBox(
-      height: 96.h,
+      height: _headerHeight.h,
       child: Stack(
         children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 104.h,
-            child: const DecoratedBox(decoration: BoxDecoration(gradient: _headerGradient)),
+          Positioned.fill(
+            child: Opacity(
+              opacity: 0.9,
+              child: const DecoratedBox(decoration: BoxDecoration(gradient: _headerGradient)),
+            ),
           ),
-          Positioned(left: 20.w, bottom: 8.h, child: Image.asset(Assets.homeHomeHeaderLogo, width: 48.w, height: 44.h)),
+          Positioned(left: 20.w, bottom: 8.h, child: Image.asset(Assets.homeHomeLogo, width: 48.w, height: 44.h)),
           Positioned(
             right: 12.w,
             bottom: 8.h,
@@ -122,42 +137,23 @@ class HomeScreen extends BaseScreen<Home> {
       onTap: main.onLanguageTap,
       borderRadius: BorderRadius.circular(4.r),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
+        padding: EdgeInsets.fromLTRB(8.w, 4.h, 0, 4.h),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _vnFlag(),
-            Gap(4.w),
-            Text(
-              main.languageCode,
-              style: TextStyle(
-                fontFamily: BaseConst.fontMedium,
-                fontSize: 14.sp,
-                color: _textOnDark,
-              ),
+            SvgPicture.asset(
+              Assets.flagsVn,
+              width: 24.w,
+              height: 24.h,
             ),
+            Gap(4.w),
+            Text(main.languageCode, style: HomeStyles.languageCode),
             SvgPicture.asset(
               Assets.commonIcDown,
-              width: 20.w,
-              height: 20.h,
-              colorFilter: const ColorFilter.mode(_textOnDark, BlendMode.srcIn),
+              width: 24.w,
+              height: 24.h,
+              colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _vnFlag() {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(2.r),
-      child: SizedBox(
-        width: 24.w,
-        height: 16.h,
-        child: Column(
-          children: [
-            Expanded(child: Container(color: const Color(0xFFDA251D))),
-            Expanded(child: Container(color: const Color(0xFFFFD700))),
           ],
         ),
       ),
@@ -176,7 +172,7 @@ class HomeScreen extends BaseScreen<Home> {
             child: Container(
               width: 8.w,
               height: 8.h,
-              decoration: const BoxDecoration(color: Color(0xFFFF5247), shape: BoxShape.circle),
+              decoration: const BoxDecoration(color: HomeStyles.notificationDot, shape: BoxShape.circle),
             ),
           ),
       ],
@@ -193,9 +189,20 @@ class HomeScreen extends BaseScreen<Home> {
           asset,
           width: 24.w,
           height: 24.h,
-          colorFilter: const ColorFilter.mode(_textOnDark, BlendMode.srcIn),
+          colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
         ),
       ),
+    );
+  }
+
+  Widget _buildHeroBlock() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildCountdownSection(),
+        Gap(24.h),
+        _buildHeroActions(),
+      ],
     );
   }
 
@@ -204,129 +211,132 @@ class HomeScreen extends BaseScreen<Home> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Coming soon',
-          style: TextStyle(
-            fontFamily: BaseConst.fontSemiBold,
-            fontSize: 16.sp,
-            color: _accent,
-          ),
-        ),
-        Gap(12.h),
+        Text('Coming soon', style: HomeStyles.comingSoon),
+        Gap(8.h),
         Row(
           children: [
             _countdownUnit(c.days, 'DAYS'),
-            Gap(8.w),
+            Gap(16.w),
             _countdownUnit(c.hours, 'HOURS'),
-            Gap(8.w),
-            _countdownUnit(c.minutes, 'MINUTES'),
+            Gap(16.w),
+            _countdownUnit(c.minutes, 'MINUTES', wide: true),
           ],
         ),
-        Gap(16.h),
+        Gap(24.h),
         _infoRow('Thời gian: ', '26/12/2025'),
         Gap(8.h),
         _infoRow('Địa điểm:', 'Âu Cơ Art Center'),
         Gap(8.h),
         Text(
           'Tường thuật trực tiếp tại Group Facebook Sun* Family',
-          style: TextStyle(
-            fontFamily: BaseConst.fontLight,
-            fontSize: 12.sp,
-            height: 16 / 12,
-            color: _textOnDark.withValues(alpha: 0.85),
-          ),
+          style: HomeStyles.bodyLight,
         ),
       ],
     );
   }
 
-  Widget _countdownUnit(int value, String label) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 8.h),
-        decoration: BoxDecoration(
-          color: Colors.white.withValues(alpha: 0.08),
-          borderRadius: BorderRadius.circular(4.r),
-          border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-        ),
-        child: Column(
+  Widget _countdownUnit(int value, String label, {bool wide = false}) {
+    final digits = value.toString().padLeft(2, '0').split('');
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              value.toString().padLeft(2, '0'),
-              style: TextStyle(
-                fontFamily: BaseConst.fontSemiBold,
-                fontSize: 20.sp,
-                color: _accent,
-              ),
-            ),
-            Gap(4.h),
-            Text(
-              label,
-              style: TextStyle(
-                fontFamily: BaseConst.fontMedium,
-                fontSize: 10.sp,
-                color: _textOnDark.withValues(alpha: 0.7),
-              ),
-            ),
+            for (var i = 0; i < digits.length; i++) ...[
+              if (i > 0) Gap(8.w),
+              _digitBox(digits[i]),
+            ],
           ],
         ),
-      ),
+        Gap(4.h),
+        SizedBox(
+          width: wide ? 92.w : 72.w,
+          child: Text(label, style: HomeStyles.countdownLabel),
+        ),
+      ],
     );
   }
 
-  Widget _infoRow(String label, String value) {
-    return RichText(
-      text: TextSpan(
-        style: TextStyle(
-          fontFamily: BaseConst.fontRegular,
-          fontSize: 14.sp,
-          height: 20 / 14,
-          color: _textOnDark,
-        ),
+  /// Figma `6885:8992` — glass digit cell behind `Digital Numbers` glyph.
+  Widget _digitBox(String digit) {
+    return SizedBox(
+      width: 32.w,
+      height: 56.h,
+      child: Stack(
+        alignment: Alignment.center,
         children: [
-          TextSpan(
-            text: label,
-            style: TextStyle(color: _textOnDark.withValues(alpha: 0.7)),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8.r),
+            child: BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 16.64, sigmaY: 16.64),
+              child: Opacity(
+                opacity: 0.5,
+                child: Container(
+                  width: 32.w,
+                  height: 56.h,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8.r),
+                    border: Border.all(color: HomeStyles.accent, width: 0.5),
+                    gradient: const LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Color(0xFFFFFFFF), Color(0x1AFFFFFF)],
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-          TextSpan(text: value),
+          Text(digit, style: HomeStyles.countdownDigit),
         ],
       ),
     );
   }
 
-  Widget _buildHeroActions() {
-    return Column(
+  Widget _infoRow(String label, String value) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _yellowButton('ABOUT AWARD', main.onAboutAwardTap),
-        Gap(12.h),
-        _outlineButton('ABOUT KUDOS', main.onAboutKudosTap),
+        Text(label, style: HomeStyles.infoLabel),
+        Gap(8.w),
+        Flexible(child: Text(value, style: HomeStyles.infoValue)),
       ],
     );
   }
 
-  Widget _yellowButton(String label, VoidCallback onTap) {
+  Widget _buildHeroActions() {
+    return Row(
+      children: [
+        Expanded(child: _filledButton('ABOUT AWARD', main.onAboutAwardTap)),
+        Gap(16.w),
+        Expanded(child: _outlineButton('ABOUT KUDOS', main.onAboutKudosTap)),
+      ],
+    );
+  }
+
+  Widget _filledButton(String label, VoidCallback onTap) {
     return Material(
-      color: _accent,
+      color: HomeStyles.accent,
       borderRadius: BorderRadius.circular(4.r),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(4.r),
-        child: SizedBox(
-          width: double.infinity,
-          height: 40.h,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: BaseConst.fontMedium,
-                  fontSize: 14.sp,
-                  color: _background,
+              Flexible(
+                child: Text(
+                  label,
+                  style: HomeStyles.buttonLabel,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Gap(8.w),
-              SvgPicture.asset(Assets.homeHomeIcArrow, width: 20.w, height: 20.h),
+              SvgPicture.asset(Assets.homeHomeIcArrow, width: 24.w, height: 24.h),
             ],
           ),
         ),
@@ -336,53 +346,38 @@ class HomeScreen extends BaseScreen<Home> {
 
   Widget _outlineButton(String label, VoidCallback onTap) {
     return Material(
-      color: Colors.transparent,
+      color: HomeStyles.accentSurface10,
       borderRadius: BorderRadius.circular(4.r),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(4.r),
         child: Container(
-          width: double.infinity,
-          height: 40.h,
-          alignment: Alignment.center,
+          padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4.r),
-            border: Border.all(color: _textOnDark.withValues(alpha: 0.4)),
+            border: Border.all(color: HomeStyles.borderMuted),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                  fontFamily: BaseConst.fontMedium,
-                  fontSize: 14.sp,
-                  color: _textOnDark,
+              Flexible(
+                child: Text(
+                  label,
+                  style: HomeStyles.buttonLabelOutline,
+                  textAlign: TextAlign.center,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
               Gap(8.w),
               SvgPicture.asset(
                 Assets.homeHomeIcArrow,
-                width: 20.w,
-                height: 20.h,
-                colorFilter: const ColorFilter.mode(_textOnDark, BlendMode.srcIn),
+                width: 24.w,
+                height: 24.h,
+                colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
               ),
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildThemeNote() {
-    return Text(
-      main.themeNote,
-      style: TextStyle(
-        fontFamily: BaseConst.fontLight,
-        fontSize: 13.sp,
-        height: 20 / 13,
-        letterSpacing: 0.25,
-        color: _textOnDark.withValues(alpha: 0.9),
       ),
     );
   }
@@ -392,13 +387,13 @@ class HomeScreen extends BaseScreen<Home> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionHeader('Sun* Annual Awards 2025', 'Hệ thống giải thưởng'),
-        Gap(16.h),
+        Gap(24.h),
         SizedBox(
-          height: 220.h,
+          height: 298.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: main.awards.length,
-            separatorBuilder: (_, __) => Gap(12.w),
+            separatorBuilder: (_, __) => Gap(16.w),
             itemBuilder: (_, index) => _awardCard(main.awards[index], () => main.onAwardDetailTap(index)),
           ),
         ),
@@ -410,89 +405,66 @@ class HomeScreen extends BaseScreen<Home> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          eyebrow,
-          style: TextStyle(
-            fontFamily: BaseConst.fontMedium,
-            fontSize: 12.sp,
-            color: _accent,
-          ),
-        ),
+        Text(eyebrow, style: HomeStyles.sectionEyebrow),
         Gap(4.h),
-        Text(
-          title,
-          style: TextStyle(
-            fontFamily: BaseConst.fontSemiBold,
-            fontSize: 20.sp,
-            color: _textOnDark,
-          ),
-        ),
+        Container(height: 1, color: HomeStyles.divider),
+        Gap(4.h),
+        Text(title, style: HomeStyles.sectionTitle),
       ],
     );
   }
 
   Widget _awardCard(HomeAwardItem item, VoidCallback onDetail) {
-    return Container(
-      width: 280.w,
-      padding: EdgeInsets.all(12.w),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.06),
-        borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.1)),
-      ),
+    return SizedBox(
+      width: 160.w,
+      height: 298.h,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(4.r),
-            child: Image.asset(item.imageAsset, height: 72.h, width: double.infinity, fit: BoxFit.cover),
-          ),
-          Gap(8.h),
-          Text(
-            item.title,
-            style: TextStyle(
-              fontFamily: BaseConst.fontSemiBold,
-              fontSize: 16.sp,
-              color: _textOnDark,
+          Container(
+            width: 160.w,
+            height: 160.w,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(11.43.r),
+              border: Border.all(color: HomeStyles.accent.withValues(alpha: 0.5), width: 0.5),
+              boxShadow: const [
+                BoxShadow(color: Color(0x40000000), blurRadius: 1.9, offset: Offset(0, 1.9)),
+                BoxShadow(color: Color(0xFFFAE287), blurRadius: 2.86),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(11.43.r),
+              child: Image.asset(item.imageAsset, fit: BoxFit.cover),
             ),
           ),
-          Gap(4.h),
+          Gap(12.h),
+          Text(item.title, style: HomeStyles.awardTitle, maxLines: 1, overflow: TextOverflow.ellipsis),
+          Gap(2.h),
           Expanded(
             child: Text(
               item.description,
               maxLines: 3,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: BaseConst.fontLight,
-                fontSize: 12.sp,
-                height: 16 / 12,
-                color: _textOnDark.withValues(alpha: 0.75),
-              ),
+              style: HomeStyles.bodyLight,
             ),
           ),
-          Gap(8.h),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: TextButton(
-              onPressed: onDetail,
-              style: TextButton.styleFrom(
-                padding: EdgeInsets.zero,
-                minimumSize: Size.zero,
-                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              ),
+          Gap(12.h),
+          SizedBox(
+            height: 32.h,
+            child: InkWell(
+              onTap: onDetail,
+              borderRadius: BorderRadius.circular(4.r),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    'Chi tiết',
-                    style: TextStyle(
-                      fontFamily: BaseConst.fontMedium,
-                      fontSize: 14.sp,
-                      color: _accent,
-                    ),
+                  Text('Chi tiết', style: HomeStyles.linkLabel),
+                  Gap(8.w),
+                  SvgPicture.asset(
+                    Assets.homeHomeIcArrow,
+                    width: 24.w,
+                    height: 24.h,
+                    colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
                   ),
-                  Gap(4.w),
-                  SvgPicture.asset(Assets.homeHomeIcArrow, width: 16.w, height: 16.h),
                 ],
               ),
             ),
@@ -507,64 +479,83 @@ class HomeScreen extends BaseScreen<Home> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _sectionHeader('Phong trào ghi nhận', 'Sun* Kudos'),
-        Gap(16.h),
+        Gap(24.h),
         ClipRRect(
-          borderRadius: BorderRadius.circular(8.r),
-          child: Image.asset(Assets.homeHomeKudosBanner, width: double.infinity, fit: BoxFit.cover),
-        ),
-        Gap(16.h),
-        Text(
-          'ĐIỂM MỚI CỦA SAA 2025',
-          style: TextStyle(
-            fontFamily: BaseConst.fontSemiBold,
-            fontSize: 12.sp,
-            color: _accent,
-          ),
-        ),
-        Gap(8.h),
-        Text(
-          main.kudosNote,
-          style: TextStyle(
-            fontFamily: BaseConst.fontLight,
-            fontSize: 13.sp,
-            height: 20 / 13,
-            color: _textOnDark.withValues(alpha: 0.9),
+          borderRadius: BorderRadius.circular(4.65.r),
+          child: SizedBox(
+            height: 145.h,
+            width: double.infinity,
+            child: Image.asset(Assets.homeHomeKudosBanner, fit: BoxFit.cover),
           ),
         ),
         Gap(16.h),
-        _yellowButton('Chi tiết', main.onKudosDetailTap),
+        Text.rich(
+          TextSpan(
+            style: HomeStyles.bodyLight,
+            children: [
+              TextSpan(text: 'ĐIỂM MỚI CỦA SAA 2025\n', style: HomeStyles.kudosNoteTitle),
+              TextSpan(text: main.kudosNote),
+            ],
+          ),
+        ),
+        Gap(16.h),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: SizedBox(
+            width: 160.w,
+            child: _filledButton('Chi tiết', main.onKudosDetailTap),
+          ),
+        ),
       ],
     );
   }
 
+  /// MoMorph `mms_6_float button` — Figma `6885:9058`.
   Widget _buildFab() {
     return Positioned(
-      right: 16.w,
+      right: 20.w,
       bottom: 24.h,
-      child: Material(
-        elevation: 8,
-        borderRadius: BorderRadius.circular(28.r),
-        color: _accent,
-        child: InkWell(
-          onTap: main.onFabKudosTap,
-          borderRadius: BorderRadius.circular(28.r),
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(Icons.edit, size: 20.sp, color: _background),
-                Gap(8.w),
-                Text(
-                  'Kudos',
-                  style: TextStyle(
-                    fontFamily: BaseConst.fontSemiBold,
-                    fontSize: 14.sp,
-                    color: _background,
-                  ),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: HomeStyles.accent,
+          borderRadius: BorderRadius.circular(100.r),
+          boxShadow: const [
+            BoxShadow(color: Color(0x40000000), blurRadius: 4, offset: Offset(0, 4)),
+            BoxShadow(color: Color(0xFFFAE287), blurRadius: 6),
+          ],
+        ),
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              InkWell(
+                onTap: main.onFabWriteKudoTap,
+                borderRadius: BorderRadius.circular(100.r),
+                child: Padding(
+                  padding: EdgeInsets.all(4.w),
+                  child: SvgPicture.asset(Assets.kudosKudosPen, width: 24.w, height: 24.h),
                 ),
-              ],
-            ),
+              ),
+              Gap(8.w),
+              Text(
+                '/',
+                style: HomeStyles.countdownLabel.copyWith(
+                  fontSize: 24.sp,
+                  height: 32 / 24,
+                  color: HomeStyles.background,
+                ),
+              ),
+              Gap(8.w),
+              InkWell(
+                onTap: main.onFabKudosListTap,
+                borderRadius: BorderRadius.circular(100.r),
+                child: Padding(
+                  padding: EdgeInsets.all(4.w),
+                  child: SvgPicture.asset(Assets.kudosKudosLogo, width: 24.w, height: 24.h),
+                ),
+              ),
+            ],
           ),
         ),
       ),

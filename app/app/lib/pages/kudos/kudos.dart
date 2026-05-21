@@ -26,9 +26,11 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   int _highlightPage = 0;
   String _filterPeriod = 'Tháng này';
   String _filterHashtag = 'Tất cả';
-  String _filterDepartment = 'Tất cả';
+  String _filterDepartment = 'Phòng ban';
 
   final PageController highlightController = PageController(viewportFraction: 0.88);
+  final GlobalKey hashtagButtonKey = GlobalKey();
+  final GlobalKey departmentButtonKey = GlobalKey();
 
   String get languageCode => _languageCode;
 
@@ -153,9 +155,9 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   }
 
   Future<void> onFilterHashtagTap() async {
-    final picked = await showKudosOptionSheet(
+    final picked = await showKudosDropdown(
       context: context,
-      title: 'Hashtag',
+      buttonKey: hashtagButtonKey,
       options: vm.hashtagFilters,
       selected: _filterHashtag,
     );
@@ -168,9 +170,9 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   }
 
   Future<void> onFilterDepartmentTap() async {
-    final picked = await showKudosOptionSheet(
+    final picked = await showKudosDropdown(
       context: context,
-      title: 'Phòng ban',
+      buttonKey: departmentButtonKey,
       options: vm.departmentFilters,
       selected: _filterDepartment,
     );
@@ -186,6 +188,10 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
     Navigator.of(context).push(
       MaterialPageRoute<void>(builder: (_) => const KudosAllState()),
     );
+  }
+
+  void onOpenSecretBoxTap() {
+    // TODO: Implement secret box opening functionality
   }
 
   @override

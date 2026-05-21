@@ -19,7 +19,7 @@ class KudosRepositoryMock implements KudosRepository {
     if (hashtag != null && hashtag != 'Tất cả') {
       highlights = highlights.where((k) => k.hashtags.contains(hashtag)).toList();
     }
-    if (department != null && department != 'Tất cả') {
+    if (department != null && department != 'Phòng ban') {
       highlights = highlights
           .where(
             (k) => KudosMockData.sunners.any(

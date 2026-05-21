@@ -10,7 +10,7 @@ import 'package:saa2025/pages/awards/awards_mock_data.dart';
 import 'package:saa2025/pages/home/home_models.dart';
 import 'package:saa2025/pages/home/home_vm.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
-import 'package:saa2025/pages/rules/rules.dart';
+import 'package:saa2025/pages/kudos/write_kudo.dart';
 import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
@@ -37,10 +37,10 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
   String get languageCode => _languageCode;
 
   String get themeNote =>
-      'Không đơn thuần là một cái tên, “Root Further” chính là tinh thần mà mỗi người Sun* đang hướng tới: luôn nhìn nhận sâu sắc trong mọi bối cảnh và không ngừng sáng tạo, mở rộng bản thân để vượt qua những giới hạn mà chính mình đã từng đặt ra.';
+      'Không đơn thuần là một cái tên, “Root Further” chính là tinh thần mà mỗi người Sun* đang hướng tới: luôn nhìn nhận sâu sắc trong mọi bối cảnh và không ngừng sáng tạo, mở rộng bản thân để vượt qua những giới hạn mà chính mình đã từng đặt ra. Mượn hình ảnh ẩn dụ của lý thuyết phối màu, chỉ từ ba màu cơ bản: đỏ, vàng và lam, sức sáng tạo vô tận của mỗi cá nhân có thể tạo ra số lượng màu sắc gần như vô hạn, với mỗi gam màu đều đại diện cho sự bứt phá và sáng tạo không giới hạn.';
 
   String get kudosNote =>
-      'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, cảm ơn đồng nghiệp trên hệ thống do BTC công bố.';
+      'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo trong quá trình lựa chọn người đạt giải.';
 
   List<HomeAwardItem> get awards => const [
         HomeAwardItem(
@@ -113,12 +113,7 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
 
   void onNotificationTap() => navigator.navigateTo(Routes.notificationListState);
 
-  void onAboutAwardTap() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (_) => const RulesState()),
-    );
-  }
+  void onAboutAwardTap() => eventBus.fire(ChangeTabEvent(1));
 
   void onAboutKudosTap() => eventBus.fire(ChangeTabEvent(2));
 
@@ -134,7 +129,13 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
 
   void onKudosDetailTap() => eventBus.fire(ChangeTabEvent(2));
 
-  void onFabKudosTap() => eventBus.fire(ChangeTabEvent(2));
+  void onFabWriteKudoTap() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(builder: (_) => const WriteKudoState()),
+    );
+  }
+
+  void onFabKudosListTap() => eventBus.fire(ChangeTabEvent(2));
 
   @override
   void dispose() {

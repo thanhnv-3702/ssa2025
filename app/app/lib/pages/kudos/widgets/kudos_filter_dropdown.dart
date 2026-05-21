@@ -9,11 +9,13 @@ class KudosFilterDropdown extends StatelessWidget {
     required this.label,
     required this.onTap,
     this.width,
+    this.buttonKey,
   });
 
   final String label;
   final VoidCallback onTap;
   final double? width;
+  final GlobalKey? buttonKey;
 
   static const Color _border = Color(0xFF998C5F);
   static const Color _fill = Color(0x1AFFEA9E);
@@ -22,6 +24,7 @@ class KudosFilterDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      key: buttonKey,
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,

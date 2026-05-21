@@ -111,6 +111,76 @@ class KudosMockData {
       likeCount: 15,
       commentCount: 1,
     ),
+    // Kudos for current user profile
+    KudoItem(
+      id: '7',
+      senderName: 'Huỳnh Văn Sunner',
+      receiverName: 'Đỗ Hoàng Hiệp',
+      title: 'IDOL GIỚI TRẺ',
+      message:
+          'Cảm ơn người em bình thường nhưng phi thường :D Cảm ơn sự chăm chỉ, cần mẫn của em đã tạo động lực rất nhiều cho team, để luôn nhắc mình luôn phải nỗ lực hơn nữa trong công việc. <3 và cuộc sống',
+      postedAt: '10:00 - 10/30/2025',
+      senderAvatarAsset: Assets.kudosKudosAvatar1,
+      receiverAvatarAsset: Assets.kudosKudosAvatar2,
+      hashtags: ['#Dedicated', '#Inspiring'],
+      likeCount: 1000,
+      commentCount: 12,
+    ),
+    KudoItem(
+      id: '8',
+      senderName: 'Dương Thúy An',
+      receiverName: 'Huỳnh Văn Sunner',
+      title: 'NGƯỜI HÙNG CỦA LÒNG EM',
+      message:
+          'Cảm ơn anh đã luôn hỗ trợ và hướng dẫn em trong suốt thời gian qua. Kiến thức và kinh nghiệm của anh thật sự quý báu!',
+      postedAt: '15:30 - 10/29/2025',
+      senderAvatarAsset: Assets.kudosKudosAvatar2,
+      receiverAvatarAsset: Assets.kudosKudosAvatar1,
+      hashtags: ['#mentor', '#gratitude'],
+      likeCount: 856,
+      commentCount: 8,
+    ),
+    KudoItem(
+      id: '9',
+      senderName: 'Huỳnh Văn Sunner',
+      receiverName: 'Mai Phương Thúy',
+      title: 'NGÔI SAO SÁNG TẠO',
+      message: 'Design của bạn đã làm nổi bật sản phẩm một cách tuyệt vời. Cảm ơn vì sự tỉ mỉ và sáng tạo!',
+      postedAt: '09:15 - 10/28/2025',
+      senderAvatarAsset: Assets.kudosKudosAvatar1,
+      receiverAvatarAsset: Assets.kudosKudosAvatar2,
+      hashtags: ['#creative', '#design'],
+      likeCount: 642,
+      commentCount: 5,
+    ),
+    KudoItem(
+      id: '10',
+      senderName: 'Nguyễn Văn Quy',
+      receiverName: 'Huỳnh Văn Sunner',
+      title: 'ĐỒNG ĐỘI ĐÁNG TIN CẬY',
+      message:
+          'Anh luôn sẵn sàng giúp đỡ và chia sẻ kinh nghiệm với team. Cảm ơn anh đã là người đồng đội tuyệt vời!',
+      postedAt: '14:00 - 10/27/2025',
+      senderAvatarAsset: Assets.kudosKudosAvatar2,
+      receiverAvatarAsset: Assets.kudosKudosAvatar1,
+      hashtags: ['#teamwork', '#reliable'],
+      likeCount: 523,
+      commentCount: 6,
+    ),
+    KudoItem(
+      id: '11',
+      senderName: 'Huỳnh Văn Sunner',
+      receiverName: 'Lê Kiều Trang',
+      title: 'NGƯỜI TRUYỀN ĐỘNG LỰC',
+      message:
+          'Năng lượng tích cực của bạn đã giúp team vượt qua những thời điểm khó khăn. Cảm ơn vì sự lạc quan!',
+      postedAt: '11:30 - 10/26/2025',
+      senderAvatarAsset: Assets.kudosKudosAvatar1,
+      receiverAvatarAsset: Assets.kudosKudosAvatar2,
+      hashtags: ['#motivation', '#positive'],
+      likeCount: 412,
+      commentCount: 4,
+    ),
   ];
 
   static KudoItem? findById(String id) {
@@ -125,7 +195,7 @@ class KudosMockData {
 
   static const hashtagFilters = ['Tất cả', '#teamwork', '#gratitude', '#motivation', '#creative'];
 
-  static const departmentFilters = ['Tất cả', 'CEV', 'Engineering', 'Design', 'HR', 'Sales'];
+  static const departmentFilters = ['Phòng ban', 'CEV', 'Engineering', 'Design', 'HR', 'Sales'];
 
   static const suggestedHashtags = [
     '#teamwork',

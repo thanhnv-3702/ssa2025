@@ -18,7 +18,7 @@ class ViewKudoState extends StatefulWidget {
 class ViewKudo extends BaseScreenState<ViewKudoState, ViewKudoVm> with UIMixin {
   KudoItem get kudo => widget.kudo;
   bool isLiked = false;
-  late int likeCount;
+  int likeCount = 0;
 
   @override
   void beforeBuild() {

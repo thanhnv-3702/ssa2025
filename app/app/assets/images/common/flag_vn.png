@@ -1,0 +1,14 @@
+<svg preserveAspectRatio="none" width="100%" height="100%" overflow="visible" style="display: block;" viewBox="0 0 20 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="contents">
+<path id="base" fill-rule="evenodd" clip-rule="evenodd" d="M0 0H20V15H0V0Z" fill="var(--fill-0, #F7FCFF)"/>
+<path id="background" fill-rule="evenodd" clip-rule="evenodd" d="M0 0V15H20V0H0Z" fill="var(--fill-0, #E31D1C)"/>
+<mask id="mask0_0_182" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="15">
+<path id="background_2" fill-rule="evenodd" clip-rule="evenodd" d="M0 0V15H20V0H0Z" fill="var(--fill-0, white)"/>
+</mask>
+<g mask="url(#mask0_0_182)">
+<g id="mark">
+<path id="Star 5" fill-rule="evenodd" clip-rule="evenodd" d="M10.0397 9.98794L6.82037 12.0348L7.90018 8.45163L5.60397 6.11059L8.76971 6.04143L10.1703 2.50404L11.4466 6.08816L14.6048 6.14329L12.2315 8.52723L13.3397 11.936L10.0397 9.98794Z" fill="var(--fill-0, #FFD221)"/>
+</g>
+</g>
+</g>
+</svg>

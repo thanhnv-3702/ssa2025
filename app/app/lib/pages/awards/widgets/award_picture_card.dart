@@ -8,19 +8,24 @@ class AwardPictureCard extends StatelessWidget {
     super.key,
     required this.imageAsset,
     required this.title,
+    this.size = 160,
   });
 
   final String imageAsset;
   final String title;
 
+  /// Square side length in logical pixels (Figma 160 on cards, 336 on web hub).
+  final double size;
+
   static const Color _accent = Color(0xFFFFE99E);
 
   @override
   Widget build(BuildContext context) {
+    final side = size.w;
     return Center(
       child: SizedBox(
-        width: 160.w,
-        height: 160.w,
+        width: side,
+        height: side,
         child: Stack(
           alignment: Alignment.center,
           children: [
@@ -37,11 +42,11 @@ class AwardPictureCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(11.r),
-                child: Image.asset(imageAsset, width: 160.w, height: 160.w, fit: BoxFit.cover),
+                child: Image.asset(imageAsset, width: side, height: side, fit: BoxFit.cover),
               ),
             ),
             Positioned(
-              bottom: 20.h,
+              bottom: (size * 0.125).h,
               child: Text(
                 title,
                 textAlign: TextAlign.center,

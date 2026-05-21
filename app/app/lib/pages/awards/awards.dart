@@ -3,10 +3,12 @@ import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/app_pages.router.dart';
 import 'package:saa2025/pages/awards/award_detail.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:saa2025/pages/awards/awards_models.dart';
 import 'package:saa2025/pages/awards/awards_vm.dart';
-import 'package:saa2025/pages/rules/rules.dart';
-import 'package:saa2025/pages/secret_box/secret_box_navigation.dart';
+import 'package:saa2025/pages/home/home_styles.dart';
+import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
@@ -22,10 +24,13 @@ class AwardsState extends StatefulWidget {
 
 class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, NotificationBadgeMixin {
   String _languageCode = 'VN';
+  int _selectedAwardIndex = 0;
 
   String get languageCode => _languageCode;
 
   List<AwardItem> get awards => vm.awards;
+
+  AwardItem get selectedAward => awards.isNotEmpty ? awards[_selectedAwardIndex] : awards[0];
 
   bool get isLoading => vm.isLoading;
 
@@ -66,14 +71,65 @@ class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, Notifi
 
   void onNotificationTap() => navigator.navigateTo(Routes.notificationListState);
 
-  void onRulesTap() {
-    Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (_) => const RulesState()),
-    );
+  void onDropdownTap() {
+    showModalBottomSheet<int>(
+      context: context,
+      backgroundColor: const Color(0xFF1A2530),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      ),
+      builder: (ctx) {
+        return SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Gap(12.h),
+              Container(
+                width: 40.w,
+                height: 4.h,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.3),
+                  borderRadius: BorderRadius.circular(2.r),
+                ),
+              ),
+              Gap(16.h),
+              for (var i = 0; i < awards.length; i++)
+                InkWell(
+                  onTap: () => Navigator.pop(ctx, i),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          awards[i].title,
+                          style: TextStyle(
+                            fontFamily: 'PlusJakartaSans-Medium',
+                            fontSize: 16.sp,
+                            color: i == _selectedAwardIndex
+                                ? HomeStyles.accent
+                                : HomeStyles.textPrimary,
+                          ),
+                        ),
+                        if (i == _selectedAwardIndex)
+                          Icon(Icons.check, color: HomeStyles.accent, size: 20.sp),
+                      ],
+                    ),
+                  ),
+                ),
+              Gap(16.h),
+            ],
+          ),
+        );
+      },
+    ).then((index) {
+      if (index != null && index >= 0 && index < awards.length) {
+        setState(() => _selectedAwardIndex = index);
+      }
+    });
   }
 
-  void onSecretBoxTap() => openSecretBox(context);
+  void onKudosDetailTap() => eventBus.fire(ChangeTabEvent(2));
 
   void onAwardTap(AwardItem item) {
     Navigator.push(

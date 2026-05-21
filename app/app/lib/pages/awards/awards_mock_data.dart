@@ -73,23 +73,6 @@ class AwardsMockData {
       ],
     ),
     AwardItem(
-      id: 'b2BuS8HYIt',
-      title: 'MVP',
-      displayTitle: 'MVP (Most Valuable Person)',
-      subtitle: 'Most Valuable Player',
-      longDescription:
-          'Giải thưởng MVP vinh danh cá nhân xuất sắc nhất năm – gương mặt tiêu biểu đại diện cho toàn bộ tập thể Sun*. '
-          'Họ là người đã thể hiện năng lực vượt trội, tinh thần cống hiến bền bỉ, và tầm ảnh hưởng sâu rộng, để lại dấu ấn mạnh mẽ trong hành trình của Sun* suốt năm qua. '
-          'Không chỉ nổi bật bởi hiệu suất và kết quả công việc, họ còn là nguồn cảm hứng lan tỏa – thông qua suy nghĩ, hành động và ảnh hưởng tích cực của mình đối với tập thể. '
-          'MVP là người hội tụ đầy đủ phẩm chất của người Sun* ưu tú, đồng thời mang trên mình trọng trách lớn lao: trở thành hình mẫu đại diện cho con người và tinh thần Sun*, góp phần dẫn dắt tập thể vươn tới những đỉnh cao mới.',
-      imageAsset: Assets.homeHomeAwardTalent,
-      prizeQuantity: '01',
-      prizeQuantityUnit: 'Cá nhân',
-      prizeValues: [
-        AwardPrizeValue(amount: '15.000.000 VNĐ', suffix: 'cho giải cá nhân'),
-      ],
-    ),
-    AwardItem(
       id: '7y195PPTxQ',
       title: 'Best Manager',
       displayTitle: 'Best Manager',
@@ -121,6 +104,23 @@ class AwardsMockData {
       prizeValues: [
         AwardPrizeValue(amount: '5.000.000 VNĐ', suffix: 'cho giải cá nhân'),
         AwardPrizeValue(amount: '8.000.000 VNĐ', suffix: 'cho giải tập thể'),
+      ],
+    ),
+    AwardItem(
+      id: 'b2BuS8HYIt',
+      title: 'MVP',
+      displayTitle: 'MVP (Most Valuable Person)',
+      subtitle: 'Most Valuable Player',
+      longDescription:
+          'Giải thưởng MVP vinh danh cá nhân xuất sắc nhất năm – gương mặt tiêu biểu đại diện cho toàn bộ tập thể Sun*. '
+          'Họ là người đã thể hiện năng lực vượt trội, tinh thần cống hiến bền bỉ, và tầm ảnh hưởng sâu rộng, để lại dấu ấn mạnh mẽ trong hành trình của Sun* suốt năm qua. '
+          'Không chỉ nổi bật bởi hiệu suất và kết quả công việc, họ còn là nguồn cảm hứng lan tỏa – thông qua suy nghĩ, hành động và ảnh hưởng tích cực của mình đối với tập thể. '
+          'MVP là người hội tụ đầy đủ phẩm chất của người Sun* ưu tú, đồng thời mang trên mình trọng trách lớn lao: trở thành hình mẫu đại diện cho con người và tinh thần Sun*, góp phần dẫn dắt tập thể vươn tới những đỉnh cao mới.',
+      imageAsset: Assets.homeHomeAwardTalent,
+      prizeQuantity: '01',
+      prizeQuantityUnit: 'Cá nhân',
+      prizeValues: [
+        AwardPrizeValue(amount: '15.000.000 VNĐ', suffix: 'cho giải cá nhân'),
       ],
     ),
   ];

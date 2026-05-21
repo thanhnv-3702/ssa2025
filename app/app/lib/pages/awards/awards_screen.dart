@@ -1,4 +1,3 @@
-import 'package:base_core/common/base_const.dart';
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,59 +6,85 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/awards/awards.dart';
-import 'package:saa2025/pages/awards/awards_models.dart';
-import 'package:saa2025/pages/widgets/saa_app_header.dart';
+import 'package:saa2025/pages/awards/widgets/award_info_blocks.dart';
+import 'package:saa2025/pages/awards/widgets/award_kudos_promo.dart';
+import 'package:saa2025/pages/awards/widgets/award_picture_card.dart';
+import 'package:saa2025/pages/home/home_styles.dart';
 
-/// Awards hub tab — MoMorph awards list (Sprint A).
+/// Awards tab — iOS detail screen with dropdown selector (Figma `6885:10265`).
 class AwardsScreen extends BaseScreen<Awards> {
   AwardsScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _textOnDark = Color(0xFFFFFFFF);
-
   @override
   Widget screen() {
+    final award = main.selectedAward;
+
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
-        body: Column(
+        backgroundColor: HomeStyles.background,
+        body: Stack(
           children: [
-            SaaAppHeader(
-              languageCode: main.languageCode,
-              onLanguageTap: main.onLanguageTap,
-              onSearchTap: main.onSearchTap,
-              onNotificationTap: main.onNotificationTap,
-              hasUnreadNotifications: main.hasUnreadNotifications,
+            Positioned.fill(
+              child: Image.asset(Assets.homeHomeBg, fit: BoxFit.cover),
             ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.fromLTRB(20.w, 0, 20.w, 100.h),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF00101A),
+                    Color(0xFF00101A),
+                    Color(0x0000101A),
+                  ],
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              padding: EdgeInsets.fromLTRB(20.w, 56.h, 20.w, 100.h),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  _sectionHeader('Sun* Annual Awards 2025', 'Hệ thống giải thưởng'),
-                  Gap(8.h),
-                  Text(
-                    'Khám phá các hạng mục giải thưởng và tiêu chí vinh danh năm 2025.',
-                    style: TextStyle(
-                      fontFamily: BaseConst.fontLight,
-                      fontSize: 13.sp,
-                      height: 20 / 13,
-                      color: _textOnDark.withValues(alpha: 0.85),
+                  _buildHeader(),
+                  Gap(24.h),
+                  _buildPageTitle(),
+                  Gap(16.h),
+                  _buildAwardDropdown(),
+                  Gap(24.h),
+                  Center(
+                    child: AwardPictureCard(
+                      imageAsset: award.imageAsset,
+                      title: award.title,
+                      size: 200,
                     ),
                   ),
-                  Gap(16.h),
-                  _rulesCard(),
-                  Gap(12.h),
-                  _secretBoxCard(),
                   Gap(24.h),
-                  for (final award in main.awards) ...[
-                    _awardTile(award),
-                    Gap(12.h),
+                  AwardInfoBlocks.descriptionBlock(
+                    title: award.displayTitle,
+                    description: award.longDescription,
+                  ),
+                  Gap(16.h),
+                  const Divider(color: HomeStyles.divider, height: 1),
+                  Gap(16.h),
+                  AwardInfoBlocks.prizeQuantityBlock(award),
+                  Gap(16.h),
+                  const Divider(color: HomeStyles.divider, height: 1),
+                  Gap(16.h),
+                  for (var i = 0; i < award.prizeValues.length; i++) ...[
+                    if (i > 0) ...[
+                      AwardInfoBlocks.orDivider(),
+                      Gap(8.h),
+                    ],
+                    AwardInfoBlocks.prizeValueBlock(award.prizeValues[i]),
                   ],
+                  Gap(32.h),
+                  _buildKudosPromo(),
+                  Gap(16.h),
+                  AwardKudosPromo(onDetailTap: main.onKudosDetailTap),
                 ],
               ),
             ),
@@ -69,178 +94,125 @@ class AwardsScreen extends BaseScreen<Awards> {
     );
   }
 
-  Widget _sectionHeader(String eyebrow, String title) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+  Widget _buildHeader() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          eyebrow,
-          style: TextStyle(
-            fontFamily: BaseConst.fontMedium,
-            fontSize: 12.sp,
-            color: _accent,
-          ),
-        ),
-        Gap(4.h),
-        Text(
-          title,
-          style: TextStyle(
-            fontFamily: BaseConst.fontSemiBold,
-            fontSize: 20.sp,
-            color: _textOnDark,
-          ),
+        Image.asset(Assets.homeHomeLogo, width: 48.w, height: 44.h),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _iconButton(Assets.homeHomeIcSearch, main.onSearchTap),
+            Gap(8.w),
+            Stack(
+              alignment: Alignment.topRight,
+              clipBehavior: Clip.none,
+              children: [
+                _iconButton(Assets.homeHomeIcNotification, main.onNotificationTap),
+                if (main.hasUnreadNotifications)
+                  Transform.translate(
+                    offset: Offset(-4, 2),
+                    child: Container(
+                      width: 8.w,
+                      height: 8.h,
+                      decoration: const BoxDecoration(color: HomeStyles.notificationDot, shape: BoxShape.circle),
+                    ),
+                  ),
+              ],
+            ),
+          ],
         ),
       ],
     );
   }
 
-  Widget _secretBoxCard() {
-    return Material(
-      color: Colors.white.withValues(alpha: 0.06),
-      borderRadius: BorderRadius.circular(8.r),
-      child: InkWell(
-        onTap: main.onSecretBoxTap,
-        borderRadius: BorderRadius.circular(8.r),
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Row(
-            children: [
-              Icon(Icons.card_giftcard, color: _accent, size: 28.sp),
-              Gap(12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'SECRET BOX',
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontSemiBold,
-                        fontSize: 12.sp,
-                        color: _accent,
-                      ),
-                    ),
-                    Gap(4.h),
-                    Text(
-                      'Khám phá hộp quà bí mật của bạn',
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontMedium,
-                        fontSize: 15.sp,
-                        color: _textOnDark,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SvgPicture.asset(Assets.homeHomeIcArrow, width: 20.w, height: 20.h),
-            ],
+  Widget _iconButton(String asset, VoidCallback onTap) {
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(12.r),
+      child: Padding(
+        padding: EdgeInsets.all(4.w),
+        child: SvgPicture.asset(
+          asset,
+          colorFilter: ColorFilter.mode(
+            Colors.white,
+            BlendMode.srcIn,
           ),
+          width: 24.w,
+          height: 24.w,
         ),
       ),
     );
   }
 
-  Widget _rulesCard() {
-    return Material(
-      color: Colors.white.withValues(alpha: 0.06),
-      borderRadius: BorderRadius.circular(8.r),
+  Widget _buildPageTitle() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Hệ thống ghi nhận và cảm ơn', style: HomeStyles.sectionEyebrow),
+        Gap(8.h),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(Assets.kudosKudosLogo, width: 30.w, height: 39.h),
+            Gap(8.w),
+            Text('KUDOS', style: HomeStyles.sectionTitle.copyWith(fontSize: 39.sp)),
+          ],
+        ),
+        Gap(16.h),
+        Text('Sun* Annual Awards 2025', style: HomeStyles.sectionEyebrow),
+        Gap(4.h),
+        Container(height: 1, color: HomeStyles.divider),
+        Gap(4.h),
+        Text('Hệ thống giải thưởng\nSAA 2025', style: HomeStyles.sectionTitle),
+      ],
+    );
+  }
+
+  Widget _buildAwardDropdown() {
+    return Container(
+      width: 160,
+      padding: EdgeInsets.all(8.w),
+      decoration: BoxDecoration(
+        color: HomeStyles.accentSurface10,
+        border: Border.all(color: HomeStyles.borderMuted),
+        borderRadius: BorderRadius.circular(4.r),
+      ),
       child: InkWell(
-        onTap: main.onRulesTap,
-        borderRadius: BorderRadius.circular(8.r),
-        child: Padding(
-          padding: EdgeInsets.all(16.w),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'THỂ LỆ',
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontSemiBold,
-                        fontSize: 12.sp,
-                        color: _accent,
-                      ),
-                    ),
-                    Gap(4.h),
-                    Text(
-                      'Quy định & điều kiện tham gia SAA 2025',
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontMedium,
-                        fontSize: 15.sp,
-                        color: _textOnDark,
-                      ),
-                    ),
-                  ],
+        onTap: main.onDropdownTap,
+        borderRadius: BorderRadius.circular(4.r),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                main.selectedAward.title,
+                style: TextStyle(
+                  fontFamily: 'PlusJakartaSans-Regular',
+                  fontSize: 14.sp,
+                  height: 20 / 14,
+                  letterSpacing: 0.25,
+                  color: HomeStyles.textPrimary,
                 ),
               ),
-              SvgPicture.asset(Assets.homeHomeIcArrow, width: 20.w, height: 20.h),
-            ],
-          ),
+            ),
+            Icon(Icons.keyboard_arrow_down, color: HomeStyles.textPrimary, size: 24.sp),
+          ],
         ),
       ),
     );
   }
 
-  Widget _awardTile(AwardItem item) {
-    return Material(
-      color: Colors.white.withValues(alpha: 0.06),
-      borderRadius: BorderRadius.circular(8.r),
-      child: InkWell(
-        onTap: () => main.onAwardTap(item),
-        borderRadius: BorderRadius.circular(8.r),
-        child: Padding(
-          padding: EdgeInsets.all(12.w),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(4.r),
-                child: Image.asset(item.imageAsset, width: 72.w, height: 72.w, fit: BoxFit.cover),
-              ),
-              Gap(12.w),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      item.subtitle,
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontMedium,
-                        fontSize: 11.sp,
-                        color: _accent,
-                      ),
-                    ),
-                    Gap(2.h),
-                    Text(
-                      item.title,
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontSemiBold,
-                        fontSize: 16.sp,
-                        color: _textOnDark,
-                      ),
-                    ),
-                    Gap(4.h),
-                    Text(
-                      item.longDescription,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontFamily: BaseConst.fontLight,
-                        fontSize: 12.sp,
-                        height: 16 / 12,
-                        color: _textOnDark.withValues(alpha: 0.75),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Gap(8.w),
-              SvgPicture.asset(Assets.homeHomeIcArrow, width: 16.w, height: 16.h),
-            ],
-          ),
-        ),
-      ),
+  Widget _buildKudosPromo() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Phong trào ghi nhận', style: HomeStyles.sectionEyebrow),
+        Gap(4.h),
+        Container(height: 1, color: HomeStyles.divider),
+        Gap(4.h),
+        Text('Sun* Kudos', style: HomeStyles.sectionTitle),
+      ],
     );
   }
 }

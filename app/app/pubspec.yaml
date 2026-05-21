@@ -111,6 +111,9 @@ flutter:
       fonts:
         - weight: 300
         - asset: assets/fonts/PlusJakartaSans_Light.ttf
+    - family: DigitalNumbers
+      fonts:
+        - asset: assets/fonts/DigitalNumbers-Regular.ttf
 
   assets:
     # assets-generator-begin
@@ -118,6 +121,7 @@ flutter:
     - assets/images/
     - assets/images/common/
     - assets/images/errors/
+    - assets/images/flags/
     - assets/images/home/
     - assets/images/icons/
     - assets/images/kudos/

@@ -19,7 +19,7 @@ class ViewKudoAnonymousState extends StatefulWidget {
 class ViewKudoAnonymous extends BaseScreenState<ViewKudoAnonymousState, ViewKudoAnonymousVm> with UIMixin {
   KudoItem get kudo => widget.kudo;
   bool isLiked = false;
-  late int likeCount;
+  int likeCount = 0;
 
   @override
   void beforeBuild() {
