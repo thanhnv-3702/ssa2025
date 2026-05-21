@@ -8,24 +8,22 @@ import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/secret_box/secret_box.dart';
 import 'package:saa2025/pages/secret_box/widgets/secret_box_activity_tile.dart';
 import 'package:saa2025/pages/secret_box/widgets/secret_box_panel.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Secret Box screen — MoMorph `kQk65hSYF2` / `KUmv414uC9`.
 class SecretBoxScreen extends BaseScreen<SecretBoxPage> {
   SecretBoxScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _panelOverlay = Color(0x9900070C);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned(
@@ -55,11 +53,11 @@ class SecretBoxScreen extends BaseScreen<SecretBoxPage> {
                       Padding(
                         padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 4.h),
                         child: Text(
-                          'Hoạt động trong app',
+                          tr.secretBoxActivitySectionTitle,
                           style: TextStyle(
                             fontFamily: BaseConst.fontSemiBold,
                             fontSize: 14.sp,
-                            color: Colors.white.withValues(alpha: 0.7),
+                            color: AppColors.white70,
                           ),
                         ),
                       ),
@@ -67,14 +65,14 @@ class SecretBoxScreen extends BaseScreen<SecretBoxPage> {
                         padding: EdgeInsets.only(left: 20.w, bottom: 8.h),
                         child: TextButton.icon(
                           onPressed: main.onMarkAllRead,
-                          icon: Icon(Icons.done_all, size: 20.sp, color: _accent),
+                          icon: Icon(Icons.done_all, size: 20.sp, color: AppColors.accent),
                           label: Text(
-                            'Đánh dấu đọc tất cả',
+                            tr.secretBoxMarkAllRead,
                             style: TextStyle(
                               fontFamily: BaseConst.fontBold,
                               fontSize: 14.sp,
                               letterSpacing: 0.25,
-                              color: Colors.white,
+                              color: AppColors.textPrimary,
                             ),
                           ),
                         ),
@@ -82,7 +80,7 @@ class SecretBoxScreen extends BaseScreen<SecretBoxPage> {
                       Container(
                         margin: EdgeInsets.symmetric(horizontal: 20.w),
                         decoration: BoxDecoration(
-                          color: _panelOverlay,
+                          color: AppColors.panelOverlay,
                           borderRadius: BorderRadius.circular(8.r),
                         ),
                         child: Column(
@@ -119,17 +117,17 @@ class SecretBoxScreen extends BaseScreen<SecretBoxPage> {
             Align(
               alignment: Alignment.centerLeft,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+                icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary, size: 20),
                 onPressed: main.onBack,
               ),
             ),
             Text(
-              'Secret Box',
+              tr.secretBoxTitle,
               style: TextStyle(
                 fontFamily: BaseConst.fontMedium,
                 fontSize: 17.sp,
                 letterSpacing: 0.5,
-                color: Colors.white,
+                color: AppColors.textPrimary,
               ),
             ),
           ],

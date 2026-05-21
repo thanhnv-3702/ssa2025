@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Kudos promo block on award detail screens — MoMorph `mms_2.4_kudos`.
 class AwardKudosPromo extends StatelessWidget {
@@ -11,36 +13,27 @@ class AwardKudosPromo extends StatelessWidget {
 
   final VoidCallback onDetailTap;
 
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _background = Color(0xFF00101A);
-  static const Color _textOnDark = Color(0xFFFFFFFF);
-
-  static const String _noteBody =
-      'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. '
-      'Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, '
-      'cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo '
-      'trong quá trình lựa chọn người đạt giải.';
-
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Phong trào ghi nhận',
+          tr.awardKudosPromoEyebrow,
           style: TextStyle(
             fontFamily: BaseConst.fontMedium,
             fontSize: 12.sp,
-            color: _accent,
+            color: AppColors.accent,
           ),
         ),
         Gap(4.h),
         Text(
-          'Sun* Kudos',
+          tr.awardKudosPromoTitle,
           style: TextStyle(
             fontFamily: BaseConst.fontSemiBold,
             fontSize: 20.sp,
-            color: _textOnDark,
+            color: AppColors.textOnDark,
           ),
         ),
         Gap(16.h),
@@ -56,20 +49,20 @@ class AwardKudosPromo extends StatelessWidget {
               fontSize: 14.sp,
               height: 20 / 14,
               letterSpacing: 0.25,
-              color: _textOnDark.withValues(alpha: 0.9),
+              color: AppColors.textOnDark.withValues(alpha: 0.9),
             ),
             children: [
               TextSpan(
-                text: 'ĐIỂM MỚI CỦA SAA 2025\n',
+                text: tr.awardKudosPromoHighlightTitle,
                 style: TextStyle(fontFamily: BaseConst.fontMedium),
               ),
-              TextSpan(text: _noteBody),
+              TextSpan(text: tr.awardKudosPromoBody),
             ],
           ),
         ),
         Gap(16.h),
         Material(
-          color: _accent,
+          color: AppColors.accent,
           borderRadius: BorderRadius.circular(4.r),
           child: InkWell(
             onTap: onDetailTap,
@@ -81,11 +74,11 @@ class AwardKudosPromo extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Chi tiết',
+                    tr.awardKudosPromoDetailsButton,
                     style: TextStyle(
                       fontFamily: BaseConst.fontMedium,
                       fontSize: 14.sp,
-                      color: _background,
+                      color: AppColors.background,
                     ),
                   ),
                   Gap(8.w),

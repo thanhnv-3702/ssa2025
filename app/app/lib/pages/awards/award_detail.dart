@@ -19,7 +19,7 @@ class AwardDetailState extends StatefulWidget {
 }
 
 class AwardDetailPage extends BaseScreenState<AwardDetailState, AwardDetailVm> with UIMixin {
-  String _languageCode = 'VN';
+  String _languageCode = 'EN';
 
   AwardItem get award => widget.award;
 

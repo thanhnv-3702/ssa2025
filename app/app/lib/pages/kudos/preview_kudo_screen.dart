@@ -6,32 +6,31 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/preview_kudo.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class PreviewKudoScreen extends BaseScreen<PreviewKudo> {
   PreviewKudoScreen(super.main, super.context);
-
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
 
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: _background,
+          backgroundColor: AppColors.background,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
             onPressed: main.onBack,
           ),
           title: Text(
-            'Xem trước Kudos',
-            style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
+            tr.previewKudoTitle,
+            style: TextStyle(color: AppColors.textPrimary, fontSize: 17.sp, fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
         ),
@@ -57,7 +56,7 @@ class PreviewKudoScreen extends BaseScreen<PreviewKudo> {
                             Gap(12.h),
                             Text(
                               '${main.draft.imageCount} ảnh đính kèm',
-                              style: TextStyle(color: const Color(0xB3FFFFFF), fontSize: 13.sp),
+                              style: TextStyle(color: AppColors.textMuted, fontSize: 13.sp),
                             ),
                           ],
                         ],
@@ -72,11 +71,11 @@ class PreviewKudoScreen extends BaseScreen<PreviewKudo> {
                           child: OutlinedButton(
                             onPressed: main.onBack,
                             style: OutlinedButton.styleFrom(
-                              foregroundColor: Colors.white,
-                              side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
+                              foregroundColor: AppColors.textPrimary,
+                              side: BorderSide(color: AppColors.white30),
                               padding: EdgeInsets.symmetric(vertical: 14.h),
                             ),
-                            child: const Text('Chỉnh sửa'),
+                            child: Text(tr.previewKudoEditButton),
                           ),
                         ),
                         Gap(12.w),
@@ -84,11 +83,11 @@ class PreviewKudoScreen extends BaseScreen<PreviewKudo> {
                           child: ElevatedButton(
                             onPressed: main.isSending ? null : () => main.onSendTap(),
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: _accent,
-                              foregroundColor: _background,
+                              backgroundColor: AppColors.accent,
+                              foregroundColor: AppColors.background,
                               padding: EdgeInsets.symmetric(vertical: 14.h),
                             ),
-                            child: Text(main.isSending ? 'Đang gửi...' : 'Gửi đi'),
+                            child: Text(main.isSending ? tr.previewKudoSendingButton : tr.previewKudoSendButton),
                           ),
                         ),
                       ],

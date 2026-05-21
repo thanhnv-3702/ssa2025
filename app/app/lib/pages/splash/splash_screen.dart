@@ -1,10 +1,10 @@
 import 'package:base_core/presenter/base_screen.dart';
-import 'package:base_core/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/splash/splash.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SplashScreen extends BaseScreen<Splash> {
   SplashScreen(super.main, super.context);
@@ -13,7 +13,7 @@ class SplashScreen extends BaseScreen<Splash> {
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
       ),
       child: Scaffold(
         backgroundColor: AppColors.transparent,

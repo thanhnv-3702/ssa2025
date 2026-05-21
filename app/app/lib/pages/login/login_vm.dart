@@ -1,8 +1,10 @@
 import 'package:base_core/common/config.dart';
 import 'package:base_core/presenter/viewmodel/base_vm.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/pages/utils/mixin/vm_mixin.dart';
 import 'package:saa2025/services/auth/auth_service.dart';
 import 'package:saa2025/services/auth/google_auth_result.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class LoginVm extends AppBaseViewModel with ViewModelMixin {
   final AuthService _authService = AuthService();
@@ -29,13 +31,15 @@ class LoginVm extends AppBaseViewModel with ViewModelMixin {
   }
 
   String _mapErrorMessage(Object e) {
+    final ctx = StackedService.navigatorKey?.currentContext;
+    final tr = ctx != null ? AppLocalizations.of(ctx) : null;
     final text = e.toString();
     if (text.contains('id_token')) {
-      return 'Google Sign-In chưa cấu hình. Đặt SAA_AUTH_MOCK=true hoặc GOOGLE_SERVER_CLIENT_ID.';
+      return tr?.errorGoogleNotConfigured ?? 'Google Sign-In is not configured.';
     }
     if (text.contains('access_token')) {
-      return 'Đăng nhập thất bại: backend không trả token.';
+      return tr?.errorBackendNoToken ?? 'Login failed: backend did not return a token.';
     }
-    return 'Đăng nhập Google thất bại. Vui lòng thử lại.';
+    return tr?.errorGoogleLoginFailed ?? 'Google sign-in failed. Please try again.';
   }
 }

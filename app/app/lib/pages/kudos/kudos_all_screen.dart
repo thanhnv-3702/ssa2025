@@ -6,24 +6,22 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/kudos_all.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// All Kudos — MoMorph `j_a2GQWKDJ`.
 class KudosAllScreen extends BaseScreen<KudosAll> {
   KudosAllScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _textMuted = Color(0xB3FFFFFF);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned.fill(
@@ -34,11 +32,7 @@ class KudosAllScreen extends BaseScreen<KudosAll> {
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF00101A),
-                    Color(0xFF00101A),
-                    Color(0x0000101A),
-                  ],
+                  colors: AppColors.scaffoldFadeGradientColors,
                 ),
               ),
             ),
@@ -48,13 +42,13 @@ class KudosAllScreen extends BaseScreen<KudosAll> {
                   Row(
                     children: [
                       IconButton(
-                        icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                        icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
                         onPressed: main.onBack,
                       ),
                       Spacer(),
                       Text(
-                        'All Kudos',
-                        style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
+                        tr.kudosAllScreenTitle,
+                        style: TextStyle(color: AppColors.textPrimary, fontSize: 17.sp, fontWeight: FontWeight.w600),
                       ),
                       Spacer(),
                       SizedBox(
@@ -104,9 +98,9 @@ class KudosAllScreen extends BaseScreen<KudosAll> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Sun* Annual Awards 2025',
+            tr.kudosAllEyebrow,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.textPrimary,
               fontSize: 11.sp,
             ),
           ),
@@ -114,15 +108,15 @@ class KudosAllScreen extends BaseScreen<KudosAll> {
           Container(
             height: 1,
             width: double.infinity,
-            color: Color(0xFF2E3940),
+            color: AppColors.divider,
           ),
           Gap(6.h),
           Row(
             children: [
               Text(
-                'ALL KUDOS',
+                tr.kudosAllSectionHeader,
                 style: TextStyle(
-                  color: _accent,
+                  color: AppColors.accent,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                   letterSpacing: 1,

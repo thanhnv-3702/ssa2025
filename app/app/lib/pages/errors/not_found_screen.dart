@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:saa2025/pages/errors/not_found.dart';
 import 'package:saa2025/pages/errors/saa_error_copy.dart';
 import 'package:saa2025/pages/errors/widgets/saa_error_layout.dart';
+import 'package:saa2025/theme/app_colors.dart';
 import 'package:saa2025/theme/saa_design_tokens.dart';
 
 class NotFoundScreen extends BaseScreen<NotFoundPage> {
@@ -14,11 +15,11 @@ class NotFoundScreen extends BaseScreen<NotFoundPage> {
     final copy = SaaErrorCopy.current();
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: SaaDesignTokens.background,
+        backgroundColor: AppColors.background,
         body: SaaErrorLayout(
           title: copy.notFoundTitle,
           message: copy.notFoundMessage,

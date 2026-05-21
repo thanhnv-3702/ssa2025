@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/theme/app_colors.dart';
 import 'package:saa2025/theme/saa_design_tokens.dart';
 
 /// Shared error page body — MoMorph Access denied / Not Found.
@@ -50,11 +51,11 @@ class SaaErrorLayout extends StatelessWidget {
                         fontFamily: BaseConst.fontBold,
                         fontSize: 18.sp,
                         height: 24 / 18,
-                        color: SaaDesignTokens.accent,
+                        color: AppColors.accent,
                       ),
                     ),
                     Gap(8.h),
-                    const Divider(color: SaaDesignTokens.divider, height: 1),
+                    const Divider(color: AppColors.divider, height: 1),
                     Gap(8.h),
                     Text(
                       message,
@@ -63,19 +64,19 @@ class SaaErrorLayout extends StatelessWidget {
                         fontFamily: BaseConst.fontMedium,
                         fontSize: 14.sp,
                         height: 20 / 14,
-                        color: SaaDesignTokens.textOnDark,
+                        color: AppColors.textOnDark,
                       ),
                     ),
                     Gap(24.h),
                     illustration,
                     Gap(24.h),
-                    const Divider(color: SaaDesignTokens.divider, height: 1),
+                    const Divider(color: AppColors.divider, height: 1),
                     Gap(24.h),
                     SizedBox(
                       width: double.infinity,
                       height: 40.h,
                       child: Material(
-                        color: SaaDesignTokens.accent,
+                        color: AppColors.accent,
                         borderRadius: BorderRadius.circular(4.r),
                         child: InkWell(
                           onTap: onGoHome,
@@ -86,7 +87,7 @@ class SaaErrorLayout extends StatelessWidget {
                               style: TextStyle(
                                 fontFamily: BaseConst.fontMedium,
                                 fontSize: 14.sp,
-                                color: SaaDesignTokens.background,
+                                color: AppColors.background,
                               ),
                             ),
                           ),
@@ -115,7 +116,7 @@ class SaaErrorLayout extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: IconButton(
-                  icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+                  icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary, size: 20),
                   onPressed: onBack,
                 ),
               ),
@@ -160,7 +161,7 @@ class SaaErrorIllustration extends StatelessWidget {
     return Icon(
       icon,
       size: 120.sp,
-      color: SaaDesignTokens.accent.withValues(alpha: 0.85),
+      color: AppColors.accent.withValues(alpha: 0.85),
     );
   }
 }

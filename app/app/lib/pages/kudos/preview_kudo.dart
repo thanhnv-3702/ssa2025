@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/preview_kudo_screen.dart';
 import 'package:saa2025/pages/kudos/preview_kudo_vm.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/utils/utils.dart';
 
@@ -44,7 +45,7 @@ class PreviewKudo extends BaseScreenState<PreviewKudoState, PreviewKudoVm> with 
       final ok = await widget.onConfirmSend?.call() ?? false;
       if (!ok) return;
       if (!mounted) return;
-      Utils.showToast('Đã gửi Kudos thành công!');
+      Utils.showToast(tr.previewKudoSendSuccessToast);
       Navigator.of(context).pop(true);
     } finally {
       if (mounted) setState(() => _isSending = false);

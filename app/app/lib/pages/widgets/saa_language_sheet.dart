@@ -3,8 +3,10 @@ import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/pages/app_pages.locator.dart';
 import 'package:saa2025/pages/login/login.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Language dropdown — MoMorph `uUvW6Qm1ve`.
 Future<void> showSaaLanguageSheet({
@@ -14,11 +16,12 @@ Future<void> showSaaLanguageSheet({
 }) {
   return showModalBottomSheet<void>(
     context: context,
-    backgroundColor: const Color(0xFF00101A),
+    backgroundColor: AppColors.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
     ),
     builder: (ctx) {
+      final tr = AppLocalizations.of(ctx);
       return SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -26,9 +29,9 @@ Future<void> showSaaLanguageSheet({
             Padding(
               padding: EdgeInsets.all(16.w),
               child: Text(
-                'Ngôn ngữ',
+                tr.languageSheetTitle,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
@@ -37,10 +40,10 @@ Future<void> showSaaLanguageSheet({
             for (final lang in LoginLanguage.values)
               ListTile(
                 title: Text(
-                  _languageLabel(lang),
-                  style: const TextStyle(color: Colors.white),
+                  _languageLabel(lang, tr),
+                  style: const TextStyle(color: AppColors.textPrimary),
                 ),
-                trailing: currentCode == lang.code ? const Icon(Icons.check, color: Color(0xFFFFE99E)) : null,
+                trailing: currentCode == lang.code ? const Icon(Icons.check, color: AppColors.accent) : null,
                 onTap: () {
                   locator<StorageService>().setString(
                     StorageKey.keySelectedLanguage.name,
@@ -59,13 +62,13 @@ Future<void> showSaaLanguageSheet({
   );
 }
 
-String _languageLabel(LoginLanguage lang) {
+String _languageLabel(LoginLanguage lang, AppLocalizations tr) {
   switch (lang) {
     case LoginLanguage.vn:
-      return 'Tiếng Việt (VN)';
+      return tr.languageVietnamese;
     case LoginLanguage.en:
-      return 'English (EN)';
+      return tr.languageEnglish;
     case LoginLanguage.ja:
-      return '日本語 (JA)';
+      return tr.languageJapanese;
   }
 }

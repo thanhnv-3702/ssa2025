@@ -10,18 +10,11 @@ import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/sunner_profile.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_option_sheet.dart';
-import 'package:saa2025/theme/saa_design_tokens.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
   SunnerProfileScreen(super.main, super.context);
-
-  static const Color _background = SaaDesignTokens.background;
-  static const Color _primaryGold = Color(0xFFFFEA9E);
-  static const Color _textWhite = Colors.white;
-  static const Color _textGray = Color(0xFF999999);
-  static const Color _containerBg = Color(0xFF00070C);
-  static const Color _border = Color(0xFF998C5F);
-  static const Color _divider = Color(0xFF2E3940);
 
   final GlobalKey _dropdownButtonKey = GlobalKey();
 
@@ -30,11 +23,11 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
     final p = main.profile;
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned.fill(
@@ -45,11 +38,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF00101A),
-                    Color(0xFF00101A),
-                    Color(0x0000101A),
-                  ],
+                  colors: AppColors.scaffoldFadeGradientColors,
                 ),
               ),
             ),
@@ -79,7 +68,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                   ),
                 ),
               ),
-            if (main.isLoading) const Center(child: CircularProgressIndicator(color: Color(0xFFFFEA9E))),
+            if (main.isLoading) const Center(child: CircularProgressIndicator(color: AppColors.accentGold)),
           ],
         ),
       ),
@@ -94,13 +83,13 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           end: Alignment.bottomCenter,
           stops: const [0.0, 0.764, 0.846, 0.887, 0.928, 0.964, 1.0],
           colors: [
-            _background,
-            _background.withValues(alpha: 0.3),
-            _background.withValues(alpha: 0.2),
-            _background.withValues(alpha: 0.15),
-            _background.withValues(alpha: 0.1),
-            _background.withValues(alpha: 0.05),
-            _background.withValues(alpha: 0),
+            AppColors.background,
+            AppColors.background.withValues(alpha: 0.3),
+            AppColors.background.withValues(alpha: 0.2),
+            AppColors.background.withValues(alpha: 0.15),
+            AppColors.background.withValues(alpha: 0.1),
+            AppColors.background.withValues(alpha: 0.05),
+            AppColors.background.withValues(alpha: 0),
           ],
         ),
       ),
@@ -119,11 +108,11 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                     children: [
                       _buildLanguageChip(),
                       Gap(10.w),
-                      Icon(Icons.search, color: _textWhite, size: 24.sp),
+                      Icon(Icons.search, color: AppColors.textPrimary, size: 24.sp),
                       Gap(10.w),
                       Stack(
                         children: [
-                          Icon(Icons.notifications_outlined, color: _textWhite, size: 24.sp),
+                          Icon(Icons.notifications_outlined, color: AppColors.textPrimary, size: 24.sp),
                           Positioned(
                             right: 0,
                             top: 0,
@@ -132,7 +121,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                               height: 8.h,
                               decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Color(0xFFD4271D),
+                                color: AppColors.error,
                               ),
                             ),
                           ),
@@ -169,7 +158,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
               Assets.commonIcDown,
               width: 24.w,
               height: 24.h,
-              colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(AppColors.textPrimary, BlendMode.srcIn),
             ),
           ],
         ),
@@ -185,11 +174,11 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           height: 72.h,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: const Color(0xFF1A3A4A),
+            color: AppColors.avatarPlaceholder,
             image: p.avatarAsset != null ? DecorationImage(image: AssetImage(p.avatarAsset!), fit: BoxFit.cover) : null,
           ),
           child: p.avatarAsset == null
-              ? Center(child: Text(p.name[0], style: TextStyle(color: _primaryGold, fontSize: 32.sp)))
+              ? Center(child: Text(p.name[0], style: TextStyle(color: AppColors.accentGold, fontSize: 32.sp)))
               : null,
         ),
         Gap(24.h),
@@ -199,7 +188,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             fontFamily: 'Montserrat',
             fontSize: 18.sp,
             fontWeight: FontWeight.w700,
-            color: _primaryGold,
+            color: AppColors.accentGold,
             height: 24 / 18,
           ),
         ),
@@ -213,7 +202,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                 fontFamily: 'Montserrat',
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
-                color: _textWhite,
+                color: AppColors.textPrimary,
                 height: 20 / 14,
                 letterSpacing: 0.25,
               ),
@@ -221,10 +210,10 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             Container(
               width: 1.911.w,
               height: 1.911.h,
-              decoration: const BoxDecoration(shape: BoxShape.circle, color: _textGray),
+              decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.gray),
             ),
             Gap(4.w),
-            _honorBadge(p.heroTitle ?? 'Rising Hero'),
+            _honorBadge(p.heroTitle ?? tr.honorRisingHero),
           ],
         ),
       ],
@@ -238,11 +227,11 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
       padding: EdgeInsets.symmetric(horizontal: 6.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22.217.r),
-        border: Border.all(color: _primaryGold, width: 0.309),
+        border: Border.all(color: AppColors.accentGold, width: 0.309),
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF092432).withValues(alpha: 0.5),
-            const Color(0xFF092432).withValues(alpha: 0.5),
+            AppColors.honorBadgeDark.withValues(alpha: 0.5),
+            AppColors.honorBadgeDark.withValues(alpha: 0.5),
           ],
         ),
       ),
@@ -251,27 +240,27 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           TextSpan(
             children: [
               TextSpan(
-                text: isRising ? 'Rising ' : 'Legend ',
+                text: isRising ? tr.honorBadgeRisingPrefix : tr.honorBadgeLegendPrefix,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 6.sp,
                   fontWeight: FontWeight.w700,
-                  color: isRising ? const Color(0xFFCDFF60) : _primaryGold,
+                  color: isRising ? AppColors.risingHero : AppColors.accentGold,
                   height: 10.019 / 6,
                   letterSpacing: 0.0376,
-                  shadows: [const Shadow(color: Colors.black, offset: Offset(0, 0.238), blurRadius: 0.952)],
+                  shadows: [const Shadow(color: AppColors.black, offset: Offset(0, 0.238), blurRadius: 0.952)],
                 ),
               ),
               TextSpan(
-                text: 'Hero',
+                text: tr.honorBadgeHeroSuffix,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 6.sp,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   height: 10.019 / 6,
                   letterSpacing: 0.0376,
-                  shadows: [const Shadow(color: Colors.black, offset: Offset(0, 0.238), blurRadius: 0.952)],
+                  shadows: [const Shadow(color: AppColors.black, offset: Offset(0, 0.238), blurRadius: 0.952)],
                 ),
               ),
             ],
@@ -298,8 +287,8 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                   height: 32.h,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: const Color(0xFF323231),
-                    border: Border.all(color: _textWhite, width: 0.956),
+                    color: AppColors.iconCircleGray,
+                    border: Border.all(color: AppColors.textPrimary, width: 0.956),
                   ),
                 ),
               ),
@@ -307,12 +296,12 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
           ),
           Gap(12.h),
           Text(
-            'Bộ sưu tập icon của tôi',
+            tr.profileIconCollectionTitle,
             style: TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 12.sp,
               fontWeight: FontWeight.w400,
-              color: _textWhite,
+              color: AppColors.textPrimary,
               height: 16 / 12,
             ),
             textAlign: TextAlign.center,
@@ -327,40 +316,40 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
       margin: EdgeInsets.symmetric(horizontal: 20.w),
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: _containerBg,
+        color: AppColors.containerDark,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: _border, width: 0.794),
+        border: Border.all(color: AppColors.borderMuted, width: 0.794),
       ),
       child: Column(
         children: [
-          _statRow('Số Kudos bạn nhận được:', '${p.kudosReceived}'),
+          _statRow(tr.profileStatsKudosReceivedLabel, '${p.kudosReceived}'),
           Gap(12.h),
-          _statRow('Số Kudos bạn đã gửi:', '${p.kudosSent}'),
+          _statRow(tr.profileStatsKudosSentLabel, '${p.kudosSent}'),
           Gap(12.h),
-          _statRow('Số tim bạn nhận được:', '25'),
+          _statRow(tr.profileStatsHeartsLabel, '25'),
           Gap(12.h),
-          Container(height: 0.794.h, color: _divider),
+          Container(height: 0.794.h, color: AppColors.divider),
           Gap(12.h),
-          _statRow('Số Secret Box bạn đã mở:', '25'),
+          _statRow(tr.profileStatsSecretBoxOpenedLabel, '25'),
           Gap(12.h),
-          _statRow('Số Secret Box chưa mở:', '25'),
+          _statRow(tr.profileStatsSecretBoxUnopenedLabel, '25'),
           Gap(12.h),
           Container(
             height: 40.h,
             decoration: BoxDecoration(
-              color: _primaryGold,
+              color: AppColors.accentGold,
               borderRadius: BorderRadius.circular(4.r),
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Mở Secret Box',
+                  tr.profileOpenSecretBoxButton,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
-                    color: _background,
+                    color: AppColors.background,
                     height: 20 / 14,
                   ),
                 ),
@@ -384,7 +373,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             fontFamily: 'Montserrat',
             fontSize: 14.sp,
             fontWeight: FontWeight.w300,
-            color: _textWhite,
+            color: AppColors.textPrimary,
             height: 20 / 14,
             letterSpacing: 0.25,
           ),
@@ -395,7 +384,7 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             fontFamily: 'Montserrat',
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
-            color: _primaryGold,
+            color: AppColors.accentGold,
             height: 20 / 14,
             letterSpacing: 0.25,
           ),
@@ -414,25 +403,25 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Sun* Annual Awards 2025',
+                tr.profileKudosEyebrow,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
-                  color: _textWhite,
+                  color: AppColors.textPrimary,
                   height: 16 / 12,
                 ),
               ),
               Gap(4.h),
-              Container(height: 1, color: const Color(0xFF2E3940)),
+              Container(height: 1, color: AppColors.divider),
               Gap(4.h),
               Text(
-                'KUDOS',
+                tr.profileKudosSectionTitle,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 22.sp,
                   fontWeight: FontWeight.w500,
-                  color: _primaryGold,
+                  color: AppColors.accentGold,
                   height: 28 / 22,
                 ),
               ),
@@ -449,8 +438,8 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                   padding: EdgeInsets.all(24.w),
                   child: Center(
                     child: Text(
-                      'Chưa có Kudos',
-                      style: TextStyle(color: _textGray, fontSize: 14.sp),
+                      tr.profileKudosEmpty,
+                      style: TextStyle(color: AppColors.gray, fontSize: 14.sp),
                     ),
                   ),
                 )
@@ -474,19 +463,19 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
   }
 
   Widget _buildDropdownFilter() {
-    final currentLabel = main.kudosFilter == 'sent' 
-        ? 'Đã gửi (${main.sentCount})' 
-        : 'Đã nhận (${main.receivedCount})';
-    
+    final currentLabel = main.kudosFilter == 'sent'
+        ? tr.profileKudosFilterSent(main.sentCount)
+        : tr.profileKudosFilterReceived(main.receivedCount);
+
     return InkWell(
       key: _dropdownButtonKey,
       onTap: _onDropdownTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
         decoration: BoxDecoration(
-          color: const Color(0x1AFFEA9E),
+          color: AppColors.accentSurface10,
           borderRadius: BorderRadius.circular(4.r),
-          border: Border.all(color: _border, width: 1),
+          border: Border.all(color: AppColors.borderMuted, width: 1),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -497,13 +486,13 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
                 fontFamily: 'Montserrat',
                 fontSize: 14.sp,
                 fontWeight: FontWeight.w400,
-                color: _textWhite,
+                color: AppColors.textPrimary,
                 height: 20 / 14,
                 letterSpacing: 0.25,
               ),
             ),
             Gap(8.w),
-            Icon(Icons.keyboard_arrow_down, color: _textWhite, size: 24.sp),
+            Icon(Icons.keyboard_arrow_down, color: AppColors.textPrimary, size: 24.sp),
           ],
         ),
       ),
@@ -511,18 +500,18 @@ class SunnerProfileScreen extends BaseScreen<SunnerProfilePage> {
   }
 
   Future<void> _onDropdownTap() async {
-    final sentLabel = 'Đã gửi (${main.sentCount})';
-    final receivedLabel = 'Đã nhận (${main.receivedCount})';
+    final sentLabel = tr.profileKudosFilterSent(main.sentCount);
+    final receivedLabel = tr.profileKudosFilterReceived(main.receivedCount);
     final currentLabel = main.kudosFilter == 'sent' ? sentLabel : receivedLabel;
-    
+
     final result = await showKudosDropdown(
       context: context,
       buttonKey: _dropdownButtonKey,
       options: [receivedLabel, sentLabel],
       selected: currentLabel,
     );
-    
-    if (result != null && mounted) {
+
+    if (result != null && context.mounted) {
       final newFilter = result.startsWith('Đã gửi') ? 'sent' : 'received';
       main.onFilterChange(newFilter);
     }

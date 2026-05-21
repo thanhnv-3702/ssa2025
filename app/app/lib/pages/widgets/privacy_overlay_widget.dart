@@ -1,11 +1,11 @@
 import 'dart:ui';
 
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/utils/const.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Privacy overlay widget to hide sensitive data when app is in background
 /// Shows blur effect or logo overlay to prevent OS snapshot from capturing sensitive data

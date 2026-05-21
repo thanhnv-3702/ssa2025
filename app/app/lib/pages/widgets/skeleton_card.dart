@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/widgets/shimmer/shimmer_animation.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SkeletonCard extends StatelessWidget {
   final double? width;
@@ -36,7 +37,7 @@ class SkeletonCard extends StatelessWidget {
         height: height,
         child: animated
             ? Shimmer(
-                color: flashColor ?? Color(0xFF171717),
+                color: flashColor ?? AppColors.skeletonFlash,
                 colorOpacity: .7,
                 duration: Duration(milliseconds: 1800),
                 // interval: Duration(milliseconds: 500),
@@ -60,7 +61,7 @@ class SkeletonCard extends StatelessWidget {
               ),
         decoration: BoxDecoration(
           borderRadius: borderRadius ?? BorderRadius.circular(8),
-          color: backgroundColor ?? Color(0xFF2C2C2C),
+          color: backgroundColor ?? AppColors.skeletonBackground,
         ),
       ),
     );

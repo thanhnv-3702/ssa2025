@@ -2,12 +2,12 @@ import 'dart:math' as math;
 
 import 'package:base_core/common/config.dart';
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart' as date;
+import 'package:saa2025/theme/app_colors.dart';
 
 const double _kItemExtent = 32.0;
 const double _kPickerWidth = 320.0;
@@ -30,7 +30,7 @@ TextStyle _themeTextStyle(BuildContext context, {bool isValid = true}) {
   final TextStyle style = CupertinoTheme.of(context).textTheme.dateTimePickerTextStyle;
   return isValid
       ? style.copyWith(color: CupertinoDynamicColor.maybeResolve(style.color, context))
-      : style.copyWith(color: CupertinoDynamicColor.resolve(CupertinoColors.inactiveGray, context));
+      : style.copyWith(color: AppColors.gray);
 }
 
 void _animateColumnControllerToItem(FixedExtentScrollController controller, int targetItem) {
@@ -407,7 +407,7 @@ class _CupertinoDateDDMMYYYPickerDateState extends State<CupertinoDatePicker> {
         children: List<Widget>.generate(31, (int index) {
           final int day = index + 1;
           return Container(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             alignment: Alignment.center,
             child: TextCs(
               text: '$day',
@@ -456,7 +456,7 @@ class _CupertinoDateDDMMYYYPickerDateState extends State<CupertinoDatePicker> {
           final String localeName = Localizations.localeOf(context).toString();
           final String short = date.DateFormat('MMM', localeName).format(DateTime(2000, month, 1));
           return Container(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             alignment: Alignment.center,
             child: TextCs(
               text: short,
@@ -507,7 +507,7 @@ class _CupertinoDateDDMMYYYPickerDateState extends State<CupertinoDatePicker> {
             return null;
           }
           return Container(
-            color: Colors.transparent,
+            color: AppColors.transparent,
             alignment: Alignment.center,
             child: TextCs(
               text: '$year',

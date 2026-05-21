@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 import '../../../generated/assets.dart';
 
@@ -20,50 +22,44 @@ class KudosHighlightCard extends StatelessWidget {
   final VoidCallback? onTap;
   final double? width;
 
-  static const Color _cardBg = Color(0xFFFFF8E1);
-  static const Color _textBlack = Color(0xFF00101A);
-  static const Color _textGray = Color(0xFF999999);
-  static const Color _textError = Color(0xFFD4271D);
-  static const Color _borderGold = Color(0xFFFFEA9E);
-  static const Color _messageBg = Color(0x66FFEA9E); // 40% opacity
-
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return GestureDetector(
       onTap: onTap,
       child: Container(
         width: width ?? 280.w,
         padding: EdgeInsets.all(12.w),
         decoration: BoxDecoration(
-          color: _cardBg,
+          color: AppColors.kudosCardBackground,
           borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(color: _borderGold, width: 1),
+          border: Border.all(color: AppColors.accentGold, width: 1),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildPeopleRow(),
+            _buildPeopleRow(tr),
             Gap(8.h),
-            Container(height: 0.463, color: _borderGold),
+            Container(height: 0.463, color: AppColors.accentGold),
             Gap(8.h),
             _buildContent(),
             Gap(8.h),
-            Container(height: 0.463, color: _borderGold),
+            Container(height: 0.463, color: AppColors.accentGold),
             Gap(8.h),
-            _buildActions(),
+            _buildActions(tr),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPeopleRow() {
+  Widget _buildPeopleRow(AppLocalizations tr) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Sender info
         _personInfo(
-          name: item.isAnonymous ? 'Ẩn danh' : item.senderName,
+          name: item.isAnonymous ? tr.kudoAnonymousSender : item.senderName,
           badge: 'CECV10',
           honor: 'Rising Hero',
           avatarAsset: item.senderAvatarAsset,
@@ -72,7 +68,7 @@ class KudosHighlightCard extends StatelessWidget {
         // Arrow
         Padding(
           padding: EdgeInsets.only(top: 7.h),
-          child: Icon(Icons.arrow_forward, size: 16.w, color: _textBlack),
+          child: Icon(Icons.arrow_forward, size: 16.w, color: AppColors.textBlack),
         ),
         Gap(8.w),
         // Receiver info
@@ -100,7 +96,7 @@ class KudosHighlightCard extends StatelessWidget {
           height: 24.w,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: const Color(0xFFE8E0C8),
+            color: AppColors.kudosCardAvatar,
             image: avatarAsset != null ? DecorationImage(image: AssetImage(avatarAsset), fit: BoxFit.cover) : null,
           ),
           child: avatarAsset == null
@@ -120,7 +116,7 @@ class KudosHighlightCard extends StatelessWidget {
                   fontFamily: BaseConst.fontRegular,
                   fontSize: 10.sp,
                   height: 16 / 10,
-                  color: _textBlack,
+                  color: AppColors.textBlack,
                 ),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -135,14 +131,14 @@ class KudosHighlightCard extends StatelessWidget {
                       fontSize: 10.sp,
                       height: 9.257 / 10,
                       letterSpacing: 0.0463,
-                      color: _textGray,
+                      color: AppColors.gray,
                     ),
                   ),
                   Gap(4.w),
                   Container(
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _textGray,
+                      color: AppColors.gray,
                     ),
                   ),
                   Gap(4.w),
@@ -164,21 +160,21 @@ class KudosHighlightCard extends StatelessWidget {
 
     // Determine colors based on badge type
     final isLegend = badgeType.toLowerCase() == 'legend';
-    final typeColor = isLegend ? const Color(0xFFFFEA9E) : const Color(0xFFCDFF60);
+    final typeColor = isLegend ? AppColors.accentGold : AppColors.risingHero;
 
     return Container(
       height: 9.h,
       padding: EdgeInsets.symmetric(horizontal: 4.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22.r),
-        border: Border.all(color: _borderGold, width: 0.231),
+        border: Border.all(color: AppColors.accentGold, width: 0.231),
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
           colors: [
-            const Color(0xFF092432).withValues(alpha: 0.9),
-            const Color(0xFF092432).withValues(alpha: 0.7),
-            const Color(0xFF092432).withValues(alpha: 0.5),
+            AppColors.honorBadgeDark.withValues(alpha: 0.9),
+            AppColors.honorBadgeDark.withValues(alpha: 0.7),
+            AppColors.honorBadgeDark.withValues(alpha: 0.5),
           ],
         ),
       ),
@@ -191,7 +187,7 @@ class KudosHighlightCard extends StatelessWidget {
             height: 7.515 / 6,
             letterSpacing: 0.0376,
             shadows: const [
-              Shadow(color: Colors.black, offset: Offset(0, 0.179), blurRadius: 0.714),
+              Shadow(color: AppColors.black, offset: Offset(0, 0.179), blurRadius: 0.714),
             ],
           ),
           children: [
@@ -201,7 +197,7 @@ class KudosHighlightCard extends StatelessWidget {
             ),
             TextSpan(
               text: badgeTitle,
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(color: AppColors.textPrimary),
             ),
           ],
         ),
@@ -222,7 +218,7 @@ class KudosHighlightCard extends StatelessWidget {
             fontSize: 10.sp,
             height: 11.109 / 10,
             letterSpacing: 0.2314,
-            color: _textGray,
+            color: AppColors.gray,
           ),
         ),
         Gap(8.h),
@@ -234,7 +230,7 @@ class KudosHighlightCard extends StatelessWidget {
             fontSize: 10.sp,
             height: 11.109 / 10,
             letterSpacing: 0.2314,
-            color: _textBlack,
+            color: AppColors.textBlack,
           ),
           textAlign: TextAlign.center,
         ),
@@ -244,9 +240,9 @@ class KudosHighlightCard extends StatelessWidget {
           width: double.infinity,
           padding: EdgeInsets.all(4.w),
           decoration: BoxDecoration(
-            color: _messageBg,
+            color: AppColors.accentHighlight40,
             borderRadius: BorderRadius.circular(5.554.r),
-            border: Border.all(color: _borderGold, width: 0.463),
+            border: Border.all(color: AppColors.accentGold, width: 0.463),
           ),
           child: Text(
             item.message,
@@ -254,7 +250,7 @@ class KudosHighlightCard extends StatelessWidget {
               fontFamily: BaseConst.fontRegular,
               fontSize: 10.sp,
               height: 14 / 10,
-              color: _textBlack,
+              color: AppColors.textBlack,
             ),
             maxLines: 3,
             overflow: TextOverflow.ellipsis,
@@ -271,7 +267,7 @@ class KudosHighlightCard extends StatelessWidget {
               fontSize: 10.sp,
               height: 11.109 / 10,
               letterSpacing: 0.2314,
-              color: _textError,
+              color: AppColors.error,
             ),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
@@ -280,7 +276,7 @@ class KudosHighlightCard extends StatelessWidget {
     );
   }
 
-  Widget _buildActions() {
+  Widget _buildActions(AppLocalizations tr) {
     return Row(
       children: [
         // Hearts
@@ -292,20 +288,20 @@ class KudosHighlightCard extends StatelessWidget {
                 fontFamily: BaseConst.fontRegular,
                 fontSize: 10.sp,
                 height: 14.811 / 10,
-                color: _textBlack,
+                color: AppColors.textBlack,
               ),
             ),
             Gap(1.851.w),
-            Icon(Icons.favorite, color: Colors.red, size: 16.w),
+            Icon(Icons.favorite, color: AppColors.likeActive, size: 16.w),
           ],
         ),
         const Spacer(),
         // Action buttons
         Row(
           children: [
-            _actionButton('Copy Link', Assets.kudosLink),
+            _actionButton(tr.copyLink, Assets.kudosLink),
             Gap(3.703.w),
-            _actionButton('Xem chi tiết', Assets.kudosArrowCross),
+            _actionButton(tr.kudoViewDetailsAction, Assets.kudosArrowCross),
           ],
         ),
       ],
@@ -327,7 +323,7 @@ class KudosHighlightCard extends StatelessWidget {
               fontSize: 10.sp,
               height: 11.109 / 10,
               letterSpacing: 0.0694,
-              color: _textBlack,
+              color: AppColors.textBlack,
             ),
           ),
           Gap(4.w),

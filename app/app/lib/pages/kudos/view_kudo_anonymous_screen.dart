@@ -6,36 +6,33 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/view_kudo_anonymous.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// View kudo ẩn danh — MoMorph `5C2BL6GYXL`.
 class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
   ViewKudoAnonymousScreen(super.main, super.context);
-
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _cardBg = Color(0xFF0A1F2E);
-  static const Color _textMuted = Color(0xB3FFFFFF);
 
   @override
   Widget screen() {
     final kudo = main.kudo;
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: _background,
+          backgroundColor: AppColors.background,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
             onPressed: main.onBack,
           ),
           title: Text(
-            'Kudos ẩn danh',
-            style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
+            tr.viewAnonymousKudoTitle,
+            style: TextStyle(color: AppColors.textPrimary, fontSize: 17.sp, fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
         ),
@@ -56,12 +53,12 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
                   children: [
                     _buildAnonymousHeader(kudo),
                     Gap(16.h),
-                    Text(kudo.postedAt, style: TextStyle(color: _textMuted, fontSize: 12.sp)),
+                    Text(kudo.postedAt, style: TextStyle(color: AppColors.textMuted, fontSize: 12.sp)),
                     Gap(8.h),
                     Text(
                       kudo.title,
                       style: TextStyle(
-                        color: _accent,
+                        color: AppColors.accent,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w800,
                         letterSpacing: 0.5,
@@ -70,7 +67,7 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
                     Gap(16.h),
                     Text(
                       kudo.message,
-                      style: TextStyle(color: Colors.white, fontSize: 15.sp, height: 1.5),
+                      style: TextStyle(color: AppColors.textPrimary, fontSize: 15.sp, height: 1.5),
                     ),
                     if (kudo.hashtags.isNotEmpty) ...[
                       Gap(16.h),
@@ -80,7 +77,7 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
                             .map(
                               (tag) => Text(
                                 tag,
-                                style: TextStyle(color: _accent.withValues(alpha: 0.9), fontSize: 13.sp),
+                                style: TextStyle(color: AppColors.accent.withValues(alpha: 0.9), fontSize: 13.sp),
                               ),
                             )
                             .toList(),
@@ -96,7 +93,7 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
                           active: main.isLiked,
                         ),
                         Gap(24.w),
-                        _actionButton(Icons.link, 'Copy Link', main.onCopyLinkTap),
+                        _actionButton(Icons.link, tr.copyLink, main.onCopyLinkTap),
                       ],
                     ),
                   ],
@@ -113,28 +110,28 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: _cardBg,
+        color: AppColors.kudosCardBackground,
         borderRadius: BorderRadius.circular(12.r),
-        border: Border.all(color: const Color(0x33FFE99E)),
+        border: Border.all(color: AppColors.accentBorder20),
       ),
       child: Row(
         children: [
           CircleAvatar(
             radius: 28.r,
-            backgroundColor: const Color(0xFF1A3A4A),
-            child: Icon(Icons.visibility_off, color: _accent, size: 24.sp),
+            backgroundColor: AppColors.avatarPlaceholder,
+            child: Icon(Icons.visibility_off, color: AppColors.accent, size: 24.sp),
           ),
           Gap(12.w),
-          Icon(Icons.arrow_forward, color: _accent, size: 18.sp),
+          Icon(Icons.arrow_forward, color: AppColors.accent, size: 18.sp),
           Gap(12.w),
           CircleAvatar(
             radius: 28.r,
-            backgroundColor: const Color(0xFF1A3A4A),
+            backgroundColor: AppColors.avatarPlaceholder,
             backgroundImage: kudo.receiverAvatarAsset != null ? AssetImage(kudo.receiverAvatarAsset!) : null,
             child: kudo.receiverAvatarAsset == null
                 ? Text(
                     kudo.receiverName.isNotEmpty ? kudo.receiverName[0] : '?',
-                    style: TextStyle(color: _accent, fontSize: 18.sp),
+                    style: TextStyle(color: AppColors.accent, fontSize: 18.sp),
                   )
                 : null,
           ),
@@ -144,17 +141,17 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Người gửi ẩn danh',
-                  style: TextStyle(color: _textMuted, fontSize: 12.sp, fontStyle: FontStyle.italic),
+                  tr.viewAnonymousKudoSenderLabel,
+                  style: TextStyle(color: AppColors.textMuted, fontSize: 12.sp, fontStyle: FontStyle.italic),
                 ),
                 Gap(4.h),
                 Text(
                   kudo.receiverName,
-                  style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                  style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, fontWeight: FontWeight.w600),
                 ),
                 Text(
-                  'Người nhận Kudos',
-                  style: TextStyle(color: _textMuted, fontSize: 11.sp),
+                  tr.viewAnonymousKudoReceiverLabel,
+                  style: TextStyle(color: AppColors.textMuted, fontSize: 11.sp),
                 ),
               ],
             ),
@@ -173,9 +170,9 @@ class ViewKudoAnonymousScreen extends BaseScreen<ViewKudoAnonymous> {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: active ? const Color(0xFFE53935) : _textMuted, size: 22.sp),
+            Icon(icon, color: active ? AppColors.errorMaterial : AppColors.textMuted, size: 22.sp),
             Gap(8.w),
-            Text(label, style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+            Text(label, style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp)),
           ],
         ),
       ),

@@ -1,17 +1,17 @@
 import 'package:base_core/presenter/base_screen_state.dart';
 import 'package:base_core/storage/storage.dart';
 import 'package:flutter/material.dart';
-import 'package:saa2025/pages/app_pages.router.dart';
-import 'package:saa2025/pages/awards/award_detail.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/pages/app_pages.router.dart';
+import 'package:saa2025/pages/awards/award_detail.dart';
 import 'package:saa2025/pages/awards/awards_models.dart';
 import 'package:saa2025/pages/awards/awards_vm.dart';
-import 'package:saa2025/pages/home/home_styles.dart';
 import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 import 'awards_screen.dart';
 
@@ -23,7 +23,7 @@ class AwardsState extends StatefulWidget {
 }
 
 class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, NotificationBadgeMixin {
-  String _languageCode = 'VN';
+  String _languageCode = 'EN';
   int _selectedAwardIndex = 0;
 
   String get languageCode => _languageCode;
@@ -74,7 +74,7 @@ class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, Notifi
   void onDropdownTap() {
     showModalBottomSheet<int>(
       context: context,
-      backgroundColor: const Color(0xFF1A2530),
+      backgroundColor: AppColors.surfaceDark,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
       ),
@@ -88,7 +88,7 @@ class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, Notifi
                 width: 40.w,
                 height: 4.h,
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.3),
+                  color: AppColors.white30,
                   borderRadius: BorderRadius.circular(2.r),
                 ),
               ),
@@ -106,13 +106,10 @@ class Awards extends BaseScreenState<AwardsState, AwardsVm> with UIMixin, Notifi
                           style: TextStyle(
                             fontFamily: 'PlusJakartaSans-Medium',
                             fontSize: 16.sp,
-                            color: i == _selectedAwardIndex
-                                ? HomeStyles.accent
-                                : HomeStyles.textPrimary,
+                            color: i == _selectedAwardIndex ? AppColors.accentGold : AppColors.textPrimary,
                           ),
                         ),
-                        if (i == _selectedAwardIndex)
-                          Icon(Icons.check, color: HomeStyles.accent, size: 20.sp),
+                        if (i == _selectedAwardIndex) Icon(Icons.check, color: AppColors.accentGold, size: 20.sp),
                       ],
                     ),
                   ),

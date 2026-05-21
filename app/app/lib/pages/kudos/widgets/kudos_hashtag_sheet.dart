@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Hashtag dropdown — MoMorph `aKWA2klsnt` / write form.
 Future<void> showKudosHashtagSheet({
@@ -12,7 +14,7 @@ Future<void> showKudosHashtagSheet({
   return showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: const Color(0xFF00101A),
+    backgroundColor: AppColors.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
     ),
@@ -52,6 +54,7 @@ class _HashtagSheetState extends State<_HashtagSheet> {
   @override
   Widget build(BuildContext context) {
     final all = KudosMockData.suggestedHashtags;
+    final tr = AppLocalizations.of(context);
     return SafeArea(
       child: Padding(
         padding: EdgeInsets.all(16.w),
@@ -60,8 +63,8 @@ class _HashtagSheetState extends State<_HashtagSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              'Hashtag (${_selected.length}/5)',
-              style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w700),
+              tr.kudosHashtagSheetTitle(_selected.length),
+              style: TextStyle(color: AppColors.textPrimary, fontSize: 16.sp, fontWeight: FontWeight.w700),
             ),
             Gap(16.h),
             Wrap(
@@ -73,13 +76,13 @@ class _HashtagSheetState extends State<_HashtagSheet> {
                   label: Text(tag),
                   selected: isOn,
                   onSelected: (_) => _toggle(tag),
-                  selectedColor: const Color(0xFFFFE99E),
-                  checkmarkColor: const Color(0xFF00101A),
+                  selectedColor: AppColors.accent,
+                  checkmarkColor: AppColors.background,
                   labelStyle: TextStyle(
-                    color: isOn ? const Color(0xFF00101A) : Colors.white,
+                    color: isOn ? AppColors.background : AppColors.textPrimary,
                     fontSize: 13.sp,
                   ),
-                  backgroundColor: const Color(0xFF0A1F2E),
+                  backgroundColor: AppColors.fieldBackground,
                 );
               }).toList(),
             ),
@@ -90,10 +93,10 @@ class _HashtagSheetState extends State<_HashtagSheet> {
                 Navigator.pop(context);
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFFFFE99E),
-                foregroundColor: const Color(0xFF00101A),
+                backgroundColor: AppColors.accent,
+                foregroundColor: AppColors.background,
               ),
-              child: const Text('Xong'),
+              child: Text(tr.kudosHashtagSheetDone),
             ),
           ],
         ),

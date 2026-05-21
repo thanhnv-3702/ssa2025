@@ -158,8 +158,7 @@ class KudosMockData {
       senderName: 'Nguyễn Văn Quy',
       receiverName: 'Huỳnh Văn Sunner',
       title: 'ĐỒNG ĐỘI ĐÁNG TIN CẬY',
-      message:
-          'Anh luôn sẵn sàng giúp đỡ và chia sẻ kinh nghiệm với team. Cảm ơn anh đã là người đồng đội tuyệt vời!',
+      message: 'Anh luôn sẵn sàng giúp đỡ và chia sẻ kinh nghiệm với team. Cảm ơn anh đã là người đồng đội tuyệt vời!',
       postedAt: '14:00 - 10/27/2025',
       senderAvatarAsset: Assets.kudosKudosAvatar2,
       receiverAvatarAsset: Assets.kudosKudosAvatar1,
@@ -172,8 +171,7 @@ class KudosMockData {
       senderName: 'Huỳnh Văn Sunner',
       receiverName: 'Lê Kiều Trang',
       title: 'NGƯỜI TRUYỀN ĐỘNG LỰC',
-      message:
-          'Năng lượng tích cực của bạn đã giúp team vượt qua những thời điểm khó khăn. Cảm ơn vì sự lạc quan!',
+      message: 'Năng lượng tích cực của bạn đã giúp team vượt qua những thời điểm khó khăn. Cảm ơn vì sự lạc quan!',
       postedAt: '11:30 - 10/26/2025',
       senderAvatarAsset: Assets.kudosKudosAvatar1,
       receiverAvatarAsset: Assets.kudosKudosAvatar2,

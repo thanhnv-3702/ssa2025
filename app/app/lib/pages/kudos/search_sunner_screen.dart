@@ -6,25 +6,22 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Search Sunner — MoMorph `3jgwke3E8O` (recent) / `hldqjHoSRH` (typing).
 class SearchSunnerScreen extends BaseScreen<SearchSunner> {
   SearchSunnerScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _fieldBg = Color(0xFF0A1F2E);
-  static const Color _textMuted = Color(0xB3FFFFFF);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned(
@@ -57,23 +54,23 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
       child: Row(
         children: [
           IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
             onPressed: main.onBack,
           ),
           Expanded(
             child: TextField(
               controller: main.searchController,
               autofocus: true,
-              style: TextStyle(color: Colors.white, fontSize: 15.sp),
+              style: TextStyle(color: AppColors.textPrimary, fontSize: 15.sp),
               decoration: InputDecoration(
-                hintText: 'Tìm kiếm Sunner',
-                hintStyle: TextStyle(color: _textMuted, fontSize: 15.sp),
+                hintText: tr.searchSunnerHint,
+                hintStyle: TextStyle(color: AppColors.textMuted, fontSize: 15.sp),
                 filled: true,
-                fillColor: _fieldBg,
-                prefixIcon: Icon(Icons.search, color: _textMuted, size: 22.sp),
+                fillColor: AppColors.fieldBackground,
+                prefixIcon: Icon(Icons.search, color: AppColors.textMuted, size: 22.sp),
                 suffixIcon: main.isSearching
                     ? IconButton(
-                        icon: Icon(Icons.close, color: _textMuted, size: 20.sp),
+                        icon: Icon(Icons.close, color: AppColors.textMuted, size: 20.sp),
                         onPressed: main.onClearQuery,
                       )
                     : null,
@@ -96,11 +93,12 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
       children: [
         Row(
           children: [
-            Text('Recent', style: TextStyle(color: Colors.white, fontSize: 16.sp, fontWeight: FontWeight.w700)),
+            Text(tr.searchSunnerRecentTitle,
+                style: TextStyle(color: AppColors.textPrimary, fontSize: 16.sp, fontWeight: FontWeight.w700)),
             const Spacer(),
             TextButton(
               onPressed: main.onViewAllRecentTap,
-              child: Text('View all', style: TextStyle(color: _accent, fontSize: 13.sp)),
+              child: Text(tr.searchSunnerViewAll, style: TextStyle(color: AppColors.accent, fontSize: 13.sp)),
             ),
           ],
         ),
@@ -108,7 +106,7 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
         ...main.recentSearches.asMap().entries.map((e) => _recentChip(e.key, e.value)),
         if (main.results.isNotEmpty) ...[
           Gap(24.h),
-          Text('Gợi ý', style: TextStyle(color: _textMuted, fontSize: 14.sp)),
+          Text(tr.searchSunnerSuggestionsTitle, style: TextStyle(color: AppColors.textMuted, fontSize: 14.sp)),
           Gap(12.h),
           ...main.results.map(_sunnerTile),
         ],
@@ -127,15 +125,15 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
                 decoration: BoxDecoration(
-                  color: _fieldBg,
+                  color: AppColors.fieldBackground,
                   borderRadius: BorderRadius.circular(8.r),
                 ),
-                child: Text(term, style: TextStyle(color: Colors.white, fontSize: 14.sp)),
+                child: Text(term, style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp)),
               ),
             ),
           ),
           IconButton(
-            icon: Icon(Icons.close, color: _textMuted, size: 18.sp),
+            icon: Icon(Icons.close, color: AppColors.textMuted, size: 18.sp),
             onPressed: () => main.onRemoveRecent(index),
           ),
         ],
@@ -147,8 +145,8 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
     if (main.results.isEmpty) {
       return Center(
         child: Text(
-          'Không tìm thấy Sunner',
-          style: TextStyle(color: _textMuted, fontSize: 14.sp),
+          tr.searchSunnerNoResults,
+          style: TextStyle(color: AppColors.textMuted, fontSize: 14.sp),
         ),
       );
     }
@@ -162,7 +160,7 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
 
   Widget _sunnerTile(SunnerProfile sunner) {
     return Material(
-      color: _fieldBg,
+      color: AppColors.fieldBackground,
       borderRadius: BorderRadius.circular(8.r),
       child: InkWell(
         onTap: () => main.onSunnerTap(sunner),
@@ -173,9 +171,10 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
             children: [
               CircleAvatar(
                 radius: 22.r,
-                backgroundColor: const Color(0xFF1A3A4A),
+                backgroundColor: AppColors.avatarPlaceholder,
                 backgroundImage: sunner.avatarAsset != null ? AssetImage(sunner.avatarAsset!) : null,
-                child: sunner.avatarAsset == null ? Text(sunner.name[0], style: TextStyle(color: _accent)) : null,
+                child:
+                    sunner.avatarAsset == null ? Text(sunner.name[0], style: TextStyle(color: AppColors.accent)) : null,
               ),
               Gap(12.w),
               Expanded(
@@ -184,16 +183,16 @@ class SearchSunnerScreen extends BaseScreen<SearchSunner> {
                   children: [
                     Text(
                       sunner.name,
-                      style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, fontWeight: FontWeight.w600),
                     ),
                     Text(
                       '${sunner.department}${sunner.employeeCode != null ? ' · ${sunner.employeeCode}' : ''}',
-                      style: TextStyle(color: _textMuted, fontSize: 12.sp),
+                      style: TextStyle(color: AppColors.textMuted, fontSize: 12.sp),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: _textMuted, size: 20.sp),
+              Icon(Icons.chevron_right, color: AppColors.textMuted, size: 20.sp),
             ],
           ),
         ),

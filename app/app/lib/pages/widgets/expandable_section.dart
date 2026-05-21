@@ -1,8 +1,9 @@
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Section with a title and chevron. Tapping the header toggles expansion;
 /// the icon rotates 180° when expanded.
@@ -39,7 +40,7 @@ class _ExpandableSectionState extends State<ExpandableSection> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12.r),
         border: Border.all(color: AppColors.skyLight),
-        color: Colors.white,
+        color: AppColors.textPrimary,
       ),
       padding: widget.blurEdge ? EdgeInsets.all(16.h) : EdgeInsets.all(8.h),
       child: widget.child,

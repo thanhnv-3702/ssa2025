@@ -1,10 +1,12 @@
-import 'package:base_core/common/base_const.dart';
 import 'dart:ui';
 
+import 'package:base_core/common/base_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Bottom navigation — MoMorph `mms_7_nav bar` on [iOS] Home.
 class SaaBottomNav extends StatelessWidget {
@@ -17,32 +19,35 @@ class SaaBottomNav extends StatelessWidget {
   final int currentIndex;
   final ValueChanged<int> onTap;
 
-  static const Color _active = Color(0xFFFFEA9E);
-  static const Color _inactive = Color(0xFFFFFFFF);
-  static const Color _barTint = Color(0x26FFEA9E);
-
-  static const _items = [
-    _NavItem('SAA 2025', Assets.homeHomeNavHome),
-    _NavItem('Awards', Assets.homeHomeNavAwards),
-    _NavItem('Kudos', Assets.homeHomeNavKudos),
-    _NavItem('Profile', Assets.homeHomeNavProfile),
+  static const _icons = [
+    Assets.homeHomeNavHome,
+    Assets.homeHomeNavAwards,
+    Assets.homeHomeNavKudos,
+    Assets.homeHomeNavProfile,
   ];
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
+    final items = [
+      _NavItem(tr.bottomNavHome, _icons[0]),
+      _NavItem(tr.bottomNavAwards, _icons[1]),
+      _NavItem(tr.bottomNavKudos, _icons[2]),
+      _NavItem(tr.bottomNavProfile, _icons[3]),
+    ];
     return ClipRRect(
       borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
         child: Container(
           decoration: const BoxDecoration(
-            color: _barTint,
-            border: Border(top: BorderSide(color: Color(0x14FFFFFF))),
+            color: AppColors.bottomNavBarTint,
+            border: Border(top: BorderSide(color: AppColors.borderWhite8)),
           ),
           padding: EdgeInsets.only(top: 8.h, bottom: MediaQuery.paddingOf(context).bottom + 4.h),
           child: Row(
-            children: List.generate(_items.length, (index) {
-              final item = _items[index];
+            children: List.generate(items.length, (index) {
+              final item = items[index];
               final active = index == currentIndex;
               return Expanded(
                 child: InkWell(
@@ -54,7 +59,8 @@ class SaaBottomNav extends StatelessWidget {
                         item.icon,
                         width: 24.w,
                         height: 24.h,
-                        colorFilter: ColorFilter.mode(active ? _active : _inactive, BlendMode.srcIn),
+                        colorFilter: ColorFilter.mode(
+                            active ? AppColors.bottomNavActive : AppColors.bottomNavInactive, BlendMode.srcIn),
                       ),
                       SizedBox(height: 4.h),
                       Text(
@@ -63,7 +69,7 @@ class SaaBottomNav extends StatelessWidget {
                           fontFamily: BaseConst.fontRegular,
                           fontSize: 12.sp,
                           height: 16 / 12,
-                          color: active ? _active : _inactive,
+                          color: active ? AppColors.bottomNavActive : AppColors.bottomNavInactive,
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:saa2025/pages/widgets/shimmer/src/shimmer_animator.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Creates simple yet beautiful shimmer animations
 ///
@@ -9,7 +10,7 @@ import 'package:saa2025/pages/widgets/shimmer/src/shimmer_animator.dart';
 /// By default, the widget will select the preset config but it can be easily customized as shown below:
 ///
 /// - @required [child] : accepts a child [Widget] over which the animation is to be displayed
-/// - [color] : accepts a [Color] and sets the color of the animation overlay. Default value is [Colors.white]
+/// - [color] : accepts a [Color] and sets the color of the animation overlay. Default value is [AppColors.textPrimary]
 /// - [colorOpacity] : accepts a [double] and sets the Opacity of the color of the animation overlay. Default value is [0.3]
 /// - [enabled] : accepts a [bool] which toggles the animation on/off. Default value is [true]
 /// - [duration] : accepts a [Duration] that would be the time period of animation. Default value is [Duration(seconds: 3)]
@@ -22,7 +23,7 @@ class Shimmer extends StatelessWidget {
   /// Accepts a [bool] which toggles the animation on/off. Default value is [true]
   final bool enabled;
 
-  /// Accepts a parameter of type [Color] and sets the color of the animation overlay. Default value is [Colors.white]
+  /// Accepts a parameter of type [Color] and sets the color of the animation overlay. Default value is [AppColors.textPrimary]
   final Color color;
 
   /// Accepts a parameter of type [double] and sets the Opacity of the color of the animation overlay. Default value is [0.3]
@@ -40,7 +41,7 @@ class Shimmer extends StatelessWidget {
   Shimmer({
     required this.child,
     this.enabled = true,
-    this.color = Colors.white,
+    this.color = AppColors.textPrimary,
     this.colorOpacity = 0.3,
     this.duration = const Duration(seconds: 3),
     this.interval = const Duration(seconds: 0),

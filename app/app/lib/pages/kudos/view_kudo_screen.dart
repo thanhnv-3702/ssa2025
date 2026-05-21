@@ -8,29 +8,23 @@ import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/view_kudo.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// View kudo detail — MoMorph screen `T0TR16k0vH`.
 class ViewKudoScreen extends BaseScreen<ViewKudo> {
   ViewKudoScreen(super.main, super.context);
-
-  static const Color _background = Color(0xFF00101A);
-  static const Color _primaryGold = Color(0xFFFFEA9E);
-  static const Color _cardBg = Color(0xFFFFF8E1);
-  static const Color _textBlack = Color(0xFF00101A);
-  static const Color _textGray = Color(0xFF999999);
-  static const Color _contentBg = Color(0x66FFEA9E);
-  static const Color _redError = Color(0xFFD4271D);
 
   @override
   Widget screen() {
     final kudo = main.kudo;
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             // Background image
@@ -45,11 +39,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                     height: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [
-                          Color(0xFF00101A),
-                          Color(0xFF00101A),
-                          Color(0x0000101A),
-                        ],
+                        colors: AppColors.scaffoldFadeGradientColors,
                       ),
                     ),
                   ),
@@ -65,9 +55,9 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                           end: Alignment.topCenter,
                           stops: const [0.0, 0.254, 1.0],
                           colors: [
-                            _background,
-                            _background,
-                            _background.withValues(alpha: 0),
+                            AppColors.background,
+                            AppColors.background,
+                            AppColors.background.withValues(alpha: 0),
                           ],
                         ),
                       ),
@@ -86,13 +76,13 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                       end: Alignment.bottomCenter,
                       stops: const [0.0, 0.764, 0.846, 0.887, 0.928, 0.964, 1.0],
                       colors: [
-                        _background,
-                        _background.withValues(alpha: 0.3),
-                        _background.withValues(alpha: 0.2),
-                        _background.withValues(alpha: 0.15),
-                        _background.withValues(alpha: 0.1),
-                        _background.withValues(alpha: 0.05),
-                        _background.withValues(alpha: 0),
+                        AppColors.background,
+                        AppColors.background.withValues(alpha: 0.3),
+                        AppColors.background.withValues(alpha: 0.2),
+                        AppColors.background.withValues(alpha: 0.15),
+                        AppColors.background.withValues(alpha: 0.1),
+                        AppColors.background.withValues(alpha: 0.05),
+                        AppColors.background.withValues(alpha: 0),
                       ],
                     ),
                   ),
@@ -111,15 +101,15 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                                 child: SizedBox(
                                   width: 24.w,
                                   height: 24.h,
-                                  child: Icon(Icons.arrow_back_ios, color: Colors.white, size: 20.sp),
+                                  child: Icon(Icons.arrow_back_ios, color: AppColors.textPrimary, size: 20.sp),
                                 ),
                               ),
                               const Spacer(),
                               // Title
                               Text(
-                                'Kudo',
+                                tr.viewKudoTitle,
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: AppColors.textPrimary,
                                   fontSize: 17.sp,
                                   fontWeight: FontWeight.w500,
                                   letterSpacing: 0.5,
@@ -154,16 +144,16 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: _cardBg,
+        color: AppColors.kudosCardBackground,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: _primaryGold, width: 1),
+        border: Border.all(color: AppColors.accentGold, width: 1),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildPeopleRow(kudo),
           Gap(8.h),
-          Container(height: 0.463.h, color: _primaryGold),
+          Container(height: 0.463.h, color: AppColors.accentGold),
           Gap(8.h),
           Text(
             kudo.postedAt,
@@ -171,7 +161,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
               fontFamily: 'Montserrat',
               fontSize: 10.sp,
               fontWeight: FontWeight.w500,
-              color: _textGray,
+              color: AppColors.gray,
               height: 11.109 / 10,
               letterSpacing: 0.2314,
             ),
@@ -186,7 +176,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                 fontFamily: 'Montserrat',
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w700,
-                color: _textBlack,
+                color: AppColors.textBlack,
                 height: 11.109 / 10,
                 letterSpacing: 0.2314,
               ),
@@ -197,7 +187,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
           Gap(8.h),
           _buildActionButtons(kudo),
           Gap(8.h),
-          Container(height: 0.463.h, color: _primaryGold),
+          Container(height: 0.463.h, color: AppColors.accentGold),
         ],
       ),
     );
@@ -208,7 +198,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
       children: [
         _buildPersonInfo(kudo.senderAvatarAsset, kudo.senderName, showBoth: true),
         const Spacer(),
-        Icon(Icons.arrow_forward, color: _textBlack, size: 16.sp),
+        Icon(Icons.arrow_forward, color: AppColors.textBlack, size: 16.sp),
         const Spacer(),
         _buildPersonInfo(kudo.receiverAvatarAsset, kudo.receiverName, showBoth: false),
       ],
@@ -251,7 +241,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                   fontFamily: 'Montserrat',
                   fontSize: 10.sp,
                   fontWeight: FontWeight.w400,
-                  color: _textBlack,
+                  color: AppColors.textBlack,
                   height: 16 / 10,
                 ),
                 maxLines: 1,
@@ -266,7 +256,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                       fontFamily: 'Montserrat',
                       fontSize: 10.sp,
                       fontWeight: FontWeight.w500,
-                      color: _textGray,
+                      color: AppColors.gray,
                       height: 9.257 / 10,
                       letterSpacing: 0.0463,
                     ),
@@ -277,7 +267,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                     height: 1.851.h,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      color: _textGray,
+                      color: AppColors.gray,
                     ),
                   ),
                   Gap(4.w),
@@ -297,14 +287,14 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
       height: 24.h,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: const Color(0xFF1A3A4A),
+        color: AppColors.avatarPlaceholder,
         image: asset != null ? DecorationImage(image: AssetImage(asset), fit: BoxFit.cover) : null,
       ),
       child: asset == null
           ? Center(
               child: Text(
                 name.isNotEmpty ? name[0] : '?',
-                style: TextStyle(color: _primaryGold, fontSize: 12.sp),
+                style: TextStyle(color: AppColors.accentGold, fontSize: 12.sp),
               ),
             )
           : null,
@@ -318,11 +308,11 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
       padding: EdgeInsets.symmetric(horizontal: 4.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(22.217.r),
-        border: Border.all(color: _primaryGold, width: 0.231),
+        border: Border.all(color: AppColors.accentGold, width: 0.231),
         gradient: LinearGradient(
           colors: [
-            const Color(0xFF092432).withValues(alpha: 0.5),
-            const Color(0xFF092432).withValues(alpha: 0.5),
+            AppColors.honorBadgeDark.withValues(alpha: 0.5),
+            AppColors.honorBadgeDark.withValues(alpha: 0.5),
           ],
         ),
       ),
@@ -331,27 +321,27 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
           TextSpan(
             children: [
               TextSpan(
-                text: isRising ? 'Rising ' : 'Legend ',
+                text: isRising ? tr.honorBadgeRisingPrefix : tr.honorBadgeLegendPrefix,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 6.sp,
                   fontWeight: FontWeight.w700,
-                  color: isRising ? const Color(0xFFCDFF60) : _primaryGold,
+                  color: isRising ? AppColors.risingHero : AppColors.accentGold,
                   height: 7.515 / 6,
                   letterSpacing: 0.0376,
-                  shadows: [const Shadow(color: Colors.black, offset: Offset(0, 0.179), blurRadius: 0.714)],
+                  shadows: [const Shadow(color: AppColors.black, offset: Offset(0, 0.179), blurRadius: 0.714)],
                 ),
               ),
               TextSpan(
-                text: 'Hero',
+                text: tr.honorBadgeHeroSuffix,
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 6.sp,
                   fontWeight: FontWeight.w700,
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   height: 7.515 / 6,
                   letterSpacing: 0.0376,
-                  shadows: [const Shadow(color: Colors.black, offset: Offset(0, 0.179), blurRadius: 0.714)],
+                  shadows: [const Shadow(color: AppColors.black, offset: Offset(0, 0.179), blurRadius: 0.714)],
                 ),
               ),
             ],
@@ -371,9 +361,9 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
           height: 262.h,
           padding: EdgeInsets.all(4.w),
           decoration: BoxDecoration(
-            color: _contentBg,
+            color: AppColors.accentHighlight40,
             borderRadius: BorderRadius.circular(5.554.r),
-            border: Border.all(color: _primaryGold, width: 0.463),
+            border: Border.all(color: AppColors.accentGold, width: 0.463),
           ),
           child: SingleChildScrollView(
             child: Text(
@@ -383,7 +373,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                 fontFamily: 'Montserrat',
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w400,
-                color: _textBlack,
+                color: AppColors.textBlack,
                 height: 14 / 10,
               ),
             ),
@@ -400,14 +390,14 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                 width: 32.w,
                 height: 32.h,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   borderRadius: BorderRadius.circular(8.043.r),
-                  border: Border.all(color: const Color(0xFF998C5F), width: 0.447),
+                  border: Border.all(color: AppColors.borderMuted, width: 0.447),
                 ),
                 child: Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(1.787.r),
-                    border: Border.all(color: _primaryGold, width: 0.447),
+                    border: Border.all(color: AppColors.accentGold, width: 0.447),
                   ),
                 ),
               ),
@@ -423,7 +413,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
               fontFamily: 'Montserrat',
               fontSize: 10.sp,
               fontWeight: FontWeight.w400,
-              color: _redError,
+              color: AppColors.error,
               height: 11.109 / 10,
               letterSpacing: 0.2314,
             ),
@@ -447,7 +437,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
                 fontFamily: 'Montserrat',
                 fontSize: 10.sp,
                 fontWeight: FontWeight.w400,
-                color: _textBlack,
+                color: AppColors.textBlack,
                 height: 14.811 / 10,
               ),
             ),
@@ -456,7 +446,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
               onTap: main.onLikeTap,
               child: Icon(
                 main.isLiked ? Icons.favorite : Icons.favorite_border,
-                color: main.isLiked ? const Color(0xFFE53935) : _textBlack,
+                color: main.isLiked ? AppColors.errorMaterial : AppColors.textBlack,
                 size: 16.sp,
               ),
             ),
@@ -465,9 +455,9 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
         // Action buttons
         Row(
           children: [
-            _actionButton('Copy Link', Assets.kudosLink),
+            _actionButton(tr.copyLink, Assets.kudosLink),
             Gap(3.703.w),
-            _actionButton('Xem chi tiết', Assets.kudosArrowCross),
+            _actionButton(tr.kudoViewDetailsAction, Assets.kudosArrowCross),
           ],
         ),
       ],
@@ -489,7 +479,7 @@ class ViewKudoScreen extends BaseScreen<ViewKudo> {
               fontSize: 10.sp,
               height: 11.109 / 10,
               letterSpacing: 0.0694,
-              color: _textBlack,
+              color: AppColors.textBlack,
             ),
           ),
           Gap(4.w),

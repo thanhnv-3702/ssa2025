@@ -38,11 +38,11 @@ class SunnerProfilePage extends BaseScreenState<SunnerProfileState, SunnerProfil
   }
 
   int get sentCount => vm.kudos.where((k) => k.senderName == profile.name).length;
-  
+
   int get receivedCount => vm.kudos.where((k) => k.receiverName == profile.name).length;
 
   bool get isLoading => vm.isLoading;
-  
+
   void onFilterChange(String filter) {
     setState(() {
       kudosFilter = filter;

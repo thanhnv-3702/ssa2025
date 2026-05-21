@@ -6,24 +6,24 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/pages/notification/notification_list.dart';
 import 'package:saa2025/pages/notification/notification_models.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/widgets/saa_app_header.dart';
+import 'package:saa2025/theme/app_colors.dart';
 import 'package:saa2025/theme/saa_design_tokens.dart';
 
 /// Notifications — MoMorph `_b68CBWKl5`.
 class NotificationListScreen extends BaseScreen<NotificationList> {
   NotificationListScreen(super.main, super.context);
 
-  static const Color _textOnDark = SaaDesignTokens.textOnDark;
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: SaaDesignTokens.background,
+        backgroundColor: AppColors.background,
         body: Column(
           children: [
             SaaAppHeader(
@@ -31,10 +31,10 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
               onLanguageTap: () {},
               showBack: true,
               onBack: main.onBackPressed,
-              title: 'Thông báo',
+              title: tr.notificationListTitle,
             ),
             if (main.isLoading)
-              const Expanded(child: Center(child: CircularProgressIndicator(color: SaaDesignTokens.accent))),
+              const Expanded(child: Center(child: CircularProgressIndicator(color: AppColors.accent))),
             if (!main.isLoading && !main.isEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -43,11 +43,11 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                   child: TextButton(
                     onPressed: main.onMarkAllRead,
                     child: Text(
-                      'Đánh dấu đã đọc',
+                      tr.notificationMarkAllRead,
                       style: TextStyle(
                         fontFamily: BaseConst.fontMedium,
                         fontSize: 13.sp,
-                        color: SaaDesignTokens.accent,
+                        color: AppColors.accent,
                       ),
                     ),
                   ),
@@ -67,26 +67,26 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.notifications_none, size: 48.sp, color: _textOnDark.withValues(alpha: 0.4)),
+            Icon(Icons.notifications_none, size: 48.sp, color: AppColors.textOnDark.withValues(alpha: 0.4)),
             Gap(16.h),
             Text(
-              'Chưa có thông báo',
+              tr.notificationEmptyTitle,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: BaseConst.fontSemiBold,
                 fontSize: 18.sp,
-                color: _textOnDark,
+                color: AppColors.textOnDark,
               ),
             ),
             Gap(8.h),
             Text(
-              'Các cập nhật về Kudos, giải thưởng và sự kiện SAA sẽ hiển thị tại đây.',
+              tr.notificationEmptyDescription,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontFamily: BaseConst.fontLight,
                 fontSize: 14.sp,
                 height: 22 / 14,
-                color: _textOnDark.withValues(alpha: 0.75),
+                color: AppColors.textOnDark.withValues(alpha: 0.75),
               ),
             ),
           ],
@@ -106,7 +106,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
 
   Widget _notificationTile(SaaNotificationItem item) {
     return Material(
-      color: item.isRead ? Colors.white.withValues(alpha: 0.04) : Colors.white.withValues(alpha: 0.08),
+      color: item.isRead ? AppColors.white4 : AppColors.white8,
       borderRadius: BorderRadius.circular(8.r),
       child: InkWell(
         onTap: () => main.onNotificationTap(item),
@@ -130,7 +130,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                             style: TextStyle(
                               fontFamily: BaseConst.fontSemiBold,
                               fontSize: 14.sp,
-                              color: _textOnDark,
+                              color: AppColors.textOnDark,
                             ),
                           ),
                         ),
@@ -139,7 +139,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                             width: 8.w,
                             height: 8.w,
                             decoration: const BoxDecoration(
-                              color: Color(0xFFE53935),
+                              color: AppColors.errorMaterial,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -152,7 +152,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                         fontFamily: BaseConst.fontLight,
                         fontSize: 13.sp,
                         height: 18 / 13,
-                        color: _textOnDark.withValues(alpha: 0.8),
+                        color: AppColors.textOnDark.withValues(alpha: 0.8),
                       ),
                     ),
                     Gap(6.h),
@@ -161,7 +161,7 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
                       style: TextStyle(
                         fontFamily: BaseConst.fontLight,
                         fontSize: 11.sp,
-                        color: _textOnDark.withValues(alpha: 0.5),
+                        color: AppColors.textOnDark.withValues(alpha: 0.5),
                       ),
                     ),
                   ],
@@ -188,10 +188,10 @@ class NotificationListScreen extends BaseScreen<NotificationList> {
       width: 40.w,
       height: 40.w,
       decoration: BoxDecoration(
-        color: SaaDesignTokens.accent.withValues(alpha: 0.15),
+        color: AppColors.accent.withValues(alpha: 0.15),
         borderRadius: BorderRadius.circular(8.r),
       ),
-      child: Icon(icon, color: SaaDesignTokens.accent, size: 22.sp),
+      child: Icon(icon, color: AppColors.accent, size: 22.sp),
     );
   }
 }

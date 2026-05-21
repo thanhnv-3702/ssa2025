@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Shared SAA header — logo, language, search, notifications.
 class SaaAppHeader extends StatelessWidget {
@@ -27,17 +28,7 @@ class SaaAppHeader extends StatelessWidget {
   final VoidCallback? onBack;
   final String? title;
 
-  static const LinearGradient _headerGradient = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFF00101A),
-      Color(0x4D00101A),
-      Color(0x3300101A),
-      Color(0x0000101A),
-    ],
-    stops: [0.0, 0.76, 0.88, 1.0],
-  );
+  static const LinearGradient _headerGradient = AppColors.headerOverlayGradientShort;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +48,7 @@ class SaaAppHeader extends StatelessWidget {
               left: 4.w,
               bottom: 4.h,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios, color: Colors.white, size: 20),
+                icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary, size: 20),
                 onPressed: onBack,
               ),
             ),
@@ -74,7 +65,7 @@ class SaaAppHeader extends StatelessWidget {
               child: Text(
                 title!,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   fontSize: 17.sp,
                   fontWeight: FontWeight.w600,
                 ),
@@ -110,7 +101,7 @@ class SaaAppHeader extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
+          border: Border.all(color: AppColors.white30),
           borderRadius: BorderRadius.circular(20.r),
         ),
         child: Row(
@@ -118,10 +109,10 @@ class SaaAppHeader extends StatelessWidget {
           children: [
             Text(
               languageCode,
-              style: TextStyle(color: Colors.white, fontSize: 12.sp, fontWeight: FontWeight.w600),
+              style: TextStyle(color: AppColors.textPrimary, fontSize: 12.sp, fontWeight: FontWeight.w600),
             ),
             Gap(4.w),
-            Icon(Icons.keyboard_arrow_down, color: Colors.white, size: 16.sp),
+            Icon(Icons.keyboard_arrow_down, color: AppColors.textPrimary, size: 16.sp),
           ],
         ),
       ),
@@ -152,7 +143,7 @@ class SaaAppHeader extends StatelessWidget {
               width: 8.w,
               height: 8.w,
               decoration: const BoxDecoration(
-                color: Color(0xFFE53935),
+                color: AppColors.errorMaterial,
                 shape: BoxShape.circle,
               ),
             ),

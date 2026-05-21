@@ -36,28 +36,6 @@ extension LoginLanguageX on LoginLanguage {
         return const Locale('ja');
     }
   }
-
-  String get description {
-    switch (this) {
-      case LoginLanguage.vn:
-        return 'Bắt đầu hành trình của bạn cùng SAA 2025.\nĐăng nhập để khám phá!';
-      case LoginLanguage.en:
-        return 'Start your journey with SAA 2025.\nLog in to explore!';
-      case LoginLanguage.ja:
-        return 'SAA 2025の旅を始めましょう。\nログインして探索してください！';
-    }
-  }
-
-  String get copyright {
-    switch (this) {
-      case LoginLanguage.vn:
-        return 'Bản quyền thuộc về Sun* © 2025';
-      case LoginLanguage.en:
-        return 'Copyright belongs to Sun* © 2025';
-      case LoginLanguage.ja:
-        return '著作権は Sun* © 2025 に帰属します';
-    }
-  }
 }
 
 class LoginState extends StatefulWidget {
@@ -70,16 +48,16 @@ class LoginState extends StatefulWidget {
 }
 
 class Login extends BaseScreenState<LoginState, LoginVm> with UIMixin {
-  LoginLanguage _language = LoginLanguage.vn;
+  LoginLanguage _language = LoginLanguage.en;
   bool _isGoogleLoginInProgress = false;
 
   String get selectedLanguageCode => _language.code;
 
-  String get descriptionText => _language.description;
+  String get descriptionText => tr.loginDescription;
 
-  String get copyrightText => _language.copyright;
+  String get copyrightText => tr.loginCopyright;
 
-  String get googleButtonLabel => 'LOGIN With Google ';
+  String get googleButtonLabel => tr.loginGoogleButton;
 
   bool get isGoogleLoginInProgress => _isGoogleLoginInProgress;
 

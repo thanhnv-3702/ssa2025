@@ -1,6 +1,7 @@
 import 'package:base_core/common/base_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Award hero — MoMorph `mm_media_Picture-Award` (160×160).
 class AwardPictureCard extends StatelessWidget {
@@ -17,8 +18,6 @@ class AwardPictureCard extends StatelessWidget {
   /// Square side length in logical pixels (Figma 160 on cards, 336 on web hub).
   final double size;
 
-  static const Color _accent = Color(0xFFFFE99E);
-
   @override
   Widget build(BuildContext context) {
     final side = size.w;
@@ -32,10 +31,10 @@ class AwardPictureCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(11.r),
-                border: Border.all(color: _accent, width: 0.5),
+                border: Border.all(color: AppColors.accent, width: 0.5),
                 boxShadow: [
                   BoxShadow(
-                    color: const Color(0xFFFAE287).withValues(alpha: 0.4),
+                    color: AppColors.glowGold.withValues(alpha: 0.4),
                     blurRadius: 3,
                   ),
                 ],
@@ -53,7 +52,7 @@ class AwardPictureCard extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: BaseConst.fontBold,
                   fontSize: 11.sp,
-                  color: _accent,
+                  color: AppColors.accent,
                   letterSpacing: 0.5,
                 ),
               ),

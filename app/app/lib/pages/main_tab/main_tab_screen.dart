@@ -8,16 +8,15 @@ import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
 import 'package:saa2025/pages/kudos/sunner_profile.dart';
 import 'package:saa2025/pages/main_tab/main_tab.dart';
 import 'package:saa2025/pages/widgets/saa_bottom_nav.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class MainTabScreen extends BaseScreen<MainTab> {
   MainTabScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-
   @override
   Widget screen() {
     return ColoredBox(
-      color: _background,
+      color: AppColors.background,
       child: Column(
         children: [
           Expanded(

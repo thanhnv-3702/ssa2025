@@ -1,8 +1,9 @@
 import 'package:base_core/res/extension.dart';
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SelectableItemWidget extends StatelessWidget {
   final String text;

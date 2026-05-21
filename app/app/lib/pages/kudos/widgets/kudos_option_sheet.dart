@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:base_core/common/base_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Dropdown menu overlay — MoMorph `mms_A_Dropdown-Hashtag` design.
 Future<String?> showKudosDropdown({
@@ -19,7 +20,7 @@ Future<String?> showKudosDropdown({
 
   final completer = Completer<String?>();
   late final OverlayEntry overlayEntry;
-  
+
   void closeDropdown([String? result]) {
     if (!completer.isCompleted) {
       completer.complete(result);
@@ -38,13 +39,13 @@ Future<String?> showKudosDropdown({
             top: offset.dy + size.height + 4.h,
             width: size.width,
             child: Material(
-              color: Colors.transparent,
+              color: AppColors.transparent,
               child: Container(
                 constraints: BoxConstraints(maxHeight: 280.h),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF00070C),
+                  color: AppColors.containerDark,
                   borderRadius: BorderRadius.circular(8.r),
-                  border: Border.all(color: const Color(0xFF998C5F)),
+                  border: Border.all(color: AppColors.borderMuted),
                 ),
                 padding: EdgeInsets.all(6.w),
                 child: SingleChildScrollView(
@@ -58,7 +59,7 @@ Future<String?> showKudosDropdown({
                           height: 40.h,
                           padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 10.h),
                           decoration: BoxDecoration(
-                            color: isSelected ? const Color(0x1AFFEA9E) : Colors.transparent,
+                            color: isSelected ? AppColors.accentSurface10 : AppColors.transparent,
                             borderRadius: BorderRadius.circular(4.r),
                           ),
                           alignment: Alignment.centerLeft,
@@ -69,11 +70,11 @@ Future<String?> showKudosDropdown({
                               fontSize: 14.sp,
                               height: 20 / 14,
                               letterSpacing: 0.1,
-                              color: Colors.white,
+                              color: AppColors.textPrimary,
                               shadows: isSelected
                                   ? [
-                                      const Shadow(color: Color(0xFFFAE287), blurRadius: 6),
-                                      const Shadow(color: Color(0x40000000), offset: Offset(0, 4), blurRadius: 4),
+                                      const Shadow(color: AppColors.glowGold, blurRadius: 6),
+                                      const Shadow(color: AppColors.shadowBlack25, offset: Offset(0, 4), blurRadius: 4),
                                     ]
                                   : null,
                             ),
@@ -92,7 +93,7 @@ Future<String?> showKudosDropdown({
   );
 
   Overlay.of(context).insert(overlayEntry);
-  
+
   return completer.future;
 }
 
@@ -106,7 +107,7 @@ Future<String?> showKudosOptionSheet({
 }) {
   return showModalBottomSheet<String>(
     context: context,
-    backgroundColor: const Color(0xFF00101A),
+    backgroundColor: AppColors.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
     ),
@@ -120,7 +121,7 @@ Future<String?> showKudosOptionSheet({
               child: Text(
                 title,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
@@ -130,21 +131,21 @@ Future<String?> showKudosOptionSheet({
               (opt) {
                 final isSelected = opt == selected;
                 return ListTile(
-                  tileColor: isSelected ? const Color(0x1AFFEA9E) : null,
+                  tileColor: isSelected ? AppColors.accentSurface10 : null,
                   shape: RoundedRectangleBorder(
                     side: BorderSide(
-                      color: isSelected ? const Color(0xFF998C5F) : Colors.transparent,
+                      color: isSelected ? AppColors.borderMuted : AppColors.transparent,
                     ),
                     borderRadius: BorderRadius.circular(4.r),
                   ),
                   title: Text(
                     opt,
                     style: TextStyle(
-                      color: isSelected ? const Color(0xFFFFE99E) : Colors.white,
+                      color: isSelected ? AppColors.accent : AppColors.textPrimary,
                       fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                     ),
                   ),
-                  trailing: isSelected ? const Icon(Icons.check, color: Color(0xFFFFE99E)) : null,
+                  trailing: isSelected ? const Icon(Icons.check, color: AppColors.accent) : null,
                   onTap: () => Navigator.pop(ctx, opt),
                 );
               },

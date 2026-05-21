@@ -7,39 +7,23 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/login/login.dart';
-import 'package:saa2025/theme/saa_design_tokens.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// SAA 2025 login — aligned with MoMorph screen `8HGlvYGJWq` ([iOS] Login).
 class LoginScreen extends BaseScreen<Login> {
   LoginScreen(super.main, super.context);
 
-  static const Color _background = SaaDesignTokens.background;
-  static const Color _textOnDark = SaaDesignTokens.textOnDark;
-
-  static const LinearGradient _headerGradient = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [
-      Color(0xFF00101A),
-      Color(0x4D00101A),
-      Color(0x3300101A),
-      Color(0x2600101A),
-      Color(0x1A00101A),
-      Color(0x0D00101A),
-      Color(0x0000101A),
-    ],
-    stops: [0.0, 0.7644, 0.8462, 0.887, 0.9279, 0.9639, 1.0],
-  );
+  static const LinearGradient _headerGradient = AppColors.headerOverlayGradient;
 
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: _mainBody(),
       ),
     );
@@ -82,7 +66,7 @@ class LoginScreen extends BaseScreen<Login> {
                           fontWeight: FontWeight.w300,
                           height: 20 / 14,
                           letterSpacing: 0.25,
-                          color: _textOnDark,
+                          color: AppColors.textOnDark,
                         ),
                       ),
                       const Spacer(),
@@ -111,7 +95,7 @@ class LoginScreen extends BaseScreen<Login> {
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                   height: 16 / 12,
-                  color: _textOnDark,
+                  color: AppColors.textOnDark,
                 ),
               ),
             ),
@@ -157,7 +141,7 @@ class LoginScreen extends BaseScreen<Login> {
 
   Widget _buildLanguageSelector() {
     return Material(
-      color: Colors.transparent,
+      color: AppColors.transparent,
       child: InkWell(
         onTap: main.onLanguageTap,
         borderRadius: BorderRadius.circular(4.r),
@@ -175,7 +159,7 @@ class LoginScreen extends BaseScreen<Login> {
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,
                   height: 20 / 14,
-                  color: _textOnDark,
+                  color: AppColors.textOnDark,
                 ),
               ),
               Gap(4.w),
@@ -183,7 +167,7 @@ class LoginScreen extends BaseScreen<Login> {
                 Assets.commonIcDown,
                 width: 24.w,
                 height: 24.h,
-                colorFilter: const ColorFilter.mode(_textOnDark, BlendMode.srcIn),
+                colorFilter: const ColorFilter.mode(AppColors.textOnDark, BlendMode.srcIn),
               ),
             ],
           ),
@@ -201,8 +185,8 @@ class LoginScreen extends BaseScreen<Login> {
           height: 18.h,
           child: Column(
             children: [
-              Expanded(child: Container(color: const Color(0xFFDA251D))),
-              Expanded(child: Container(color: const Color(0xFFFFD700))),
+              Expanded(child: Container(color: AppColors.flagVnRed)),
+              Expanded(child: Container(color: AppColors.flagVnYellow)),
             ],
           ),
         ),
@@ -214,7 +198,7 @@ class LoginScreen extends BaseScreen<Login> {
       child: Center(
         child: Text(
           code,
-          style: TextStyle(fontSize: 10.sp, color: _textOnDark, fontWeight: FontWeight.w600),
+          style: TextStyle(fontSize: 10.sp, color: AppColors.textOnDark, fontWeight: FontWeight.w600),
         ),
       ),
     );
@@ -222,7 +206,7 @@ class LoginScreen extends BaseScreen<Login> {
 
   Widget _buildGoogleButton() {
     return Material(
-      color: SaaDesignTokens.accent,
+      color: AppColors.accent,
       borderRadius: BorderRadius.circular(4.r),
       child: InkWell(
         onTap: main.isGoogleLoginInProgress ? null : main.onGoogleLoginTap,
@@ -237,7 +221,7 @@ class LoginScreen extends BaseScreen<Login> {
                     height: 22.h,
                     child: const CircularProgressIndicator(
                       strokeWidth: 2,
-                      color: _background,
+                      color: AppColors.background,
                     ),
                   ),
                 )
@@ -255,7 +239,7 @@ class LoginScreen extends BaseScreen<Login> {
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w500,
                             height: 20 / 14,
-                            color: _background,
+                            color: AppColors.background,
                           ),
                         ),
                       ),

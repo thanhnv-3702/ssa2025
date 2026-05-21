@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Dropdown chọn người nhận — MoMorph `aKWA2klsnt` style.
 Future<SunnerProfile?> showKudosRecipientSheet(BuildContext context) {
   return showModalBottomSheet<SunnerProfile>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: const Color(0xFF00101A),
+    backgroundColor: AppColors.background,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
     ),
@@ -50,6 +52,7 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
   @override
   Widget build(BuildContext context) {
     final maxH = MediaQuery.sizeOf(context).height * 0.75;
+    final tr = AppLocalizations.of(context);
     return SafeArea(
       child: SizedBox(
         height: maxH,
@@ -59,9 +62,9 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
             Padding(
               padding: EdgeInsets.all(16.w),
               child: Text(
-                'Chọn người nhận',
+                tr.kudosRecipientSheetTitle,
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.textPrimary,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
                 ),
@@ -71,13 +74,13 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
               padding: EdgeInsets.symmetric(horizontal: 16.w),
               child: TextField(
                 controller: _queryController,
-                style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp),
                 decoration: InputDecoration(
-                  hintText: 'Tìm kiếm',
-                  hintStyle: TextStyle(color: const Color(0xB3FFFFFF), fontSize: 14.sp),
+                  hintText: tr.kudosRecipientSearchHint,
+                  hintStyle: TextStyle(color: AppColors.textMuted, fontSize: 14.sp),
                   filled: true,
-                  fillColor: const Color(0xFF0A1F2E),
-                  prefixIcon: const Icon(Icons.search, color: Color(0xB3FFFFFF)),
+                  fillColor: AppColors.fieldBackground,
+                  prefixIcon: const Icon(Icons.search, color: AppColors.textMuted),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8.r),
                     borderSide: BorderSide.none,
@@ -87,8 +90,8 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
             ),
             Gap(8.h),
             ListTile(
-              leading: const Icon(Icons.open_in_new, color: Color(0xFFFFE99E)),
-              title: const Text('Tìm kiếm nâng cao', style: TextStyle(color: Color(0xFFFFE99E))),
+              leading: const Icon(Icons.open_in_new, color: AppColors.accent),
+              title: Text(tr.kudosRecipientAdvancedSearch, style: const TextStyle(color: AppColors.accent)),
               onTap: () async {
                 Navigator.pop(context);
                 final picked = await Navigator.of(widget.parentContext).push<SunnerProfile>(
@@ -110,10 +113,10 @@ class _RecipientSheetBodyState extends State<_RecipientSheetBody> {
                       backgroundImage: s.avatarAsset != null ? AssetImage(s.avatarAsset!) : null,
                       child: s.avatarAsset == null ? Text(s.name[0]) : null,
                     ),
-                    title: Text(s.name, style: const TextStyle(color: Colors.white)),
+                    title: Text(s.name, style: const TextStyle(color: AppColors.textPrimary)),
                     subtitle: Text(
                       '${s.department} · ${s.employeeCode ?? ''}',
-                      style: const TextStyle(color: Color(0xB3FFFFFF)),
+                      style: const TextStyle(color: AppColors.textMuted),
                     ),
                     onTap: () => Navigator.pop(context, s),
                   );

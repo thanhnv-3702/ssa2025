@@ -8,8 +8,10 @@ import 'package:saa2025/pages/kudos/widgets/kudos_hashtag_sheet.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_recipient_sheet.dart';
 import 'package:saa2025/pages/kudos/write_kudo_screen.dart';
 import 'package:saa2025/pages/kudos/write_kudo_vm.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/utils/utils.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Viết Kudo — MoMorph screen `7fFAb-K35a` (+ lỗi `0le8xKnFE_`).
 class WriteKudoState extends StatefulWidget {
@@ -62,20 +64,20 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
     showDialog<void>(
       context: context,
       builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xFF0A1F2E),
-        title: const Text('Hủy viết Kudos?', style: TextStyle(color: Colors.white)),
-        content: const Text(
-          'Nội dung chưa gửi sẽ bị mất.',
-          style: TextStyle(color: Color(0xB3FFFFFF)),
+        backgroundColor: AppColors.fieldBackground,
+        title: Text(tr.writeKudoCancelDialogTitle, style: const TextStyle(color: AppColors.textPrimary)),
+        content: Text(
+          tr.writeKudoCancelDialogMessage,
+          style: const TextStyle(color: AppColors.textMuted),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Tiếp tục')),
+          TextButton(onPressed: () => Navigator.pop(ctx), child: Text(tr.writeKudoCancelDialogContinue)),
           TextButton(
             onPressed: () {
               Navigator.pop(ctx);
               onBack();
             },
-            child: const Text('Hủy', style: TextStyle(color: Color(0xFFFFE99E))),
+            child: Text(tr.writeKudoCancelDialogConfirm, style: const TextStyle(color: AppColors.accent)),
           ),
         ],
       ),
@@ -90,7 +92,7 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
 
   void onAddImageTap() {
     if (attachedImages.length >= maxImages) {
-      Utils.showToast('Tối đa $maxImages ảnh');
+      Utils.showToast(tr.writeKudoMaxImagesToast(maxImages));
       return;
     }
     setState(() => attachedImages.add(attachedImages.length + 1));
@@ -172,7 +174,7 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
       return false;
     }
     if (titleController.text.trim().isEmpty) {
-      Utils.showToast('Vui lòng nhập danh hiệu');
+      Utils.showToast(tr.writeKudoTitleRequiredToast);
       return false;
     }
     setState(() => showValidationError = false);
@@ -200,7 +202,7 @@ class WriteKudo extends BaseScreenState<WriteKudoState, WriteKudoVm> with UIMixi
     if (draft == null) return;
     final ok = await _submitDraft(draft);
     if (ok && mounted) {
-      Utils.showToast('Đã gửi Kudos thành công!');
+      Utils.showToast(tr.writeKudoSendSuccessToast);
       Navigator.of(context).pop();
     }
   }

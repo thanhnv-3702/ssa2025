@@ -13,6 +13,33 @@ extension BaseScreenStateExt on BaseScreenState {
   AppLocalizations get tr => AppLocalizations.of(context);
 }
 
+/// Localized Kudos filter option lists.
+extension AppLocalizationsKudosFilters on AppLocalizations {
+  List<String> get kudosPeriodFilters => [
+        kudosFilterPeriodThisMonth,
+        kudosFilterPeriodWeek,
+        kudosFilterPeriodThreeMonths,
+        kudosFilterPeriodAll,
+      ];
+
+  List<String> get kudosHashtagFilters => [
+        kudosFilterHashtagAll,
+        kudosFilterHashtagTeamwork,
+        kudosFilterHashtagGratitude,
+        kudosFilterHashtagMotivation,
+        kudosFilterHashtagCreative,
+      ];
+
+  List<String> get kudosDepartmentFilters => [
+        kudosFilterDepartmentDefault,
+        kudosFilterDepartmentCev,
+        kudosFilterDepartmentEngineering,
+        kudosFilterDepartmentDesign,
+        kudosFilterDepartmentHr,
+        kudosFilterDepartmentSales,
+      ];
+}
+
 extension StringExt on String {
   bool isEmail() {
     return EmailValidator.validate(this);

@@ -1,9 +1,10 @@
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class Utils {
   Utils._();

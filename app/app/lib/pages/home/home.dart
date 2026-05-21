@@ -12,6 +12,7 @@ import 'package:saa2025/pages/home/home_vm.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
 import 'package:saa2025/pages/utils/event_bus/event_bus_util.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
@@ -30,32 +31,26 @@ class Home extends BaseScreenState<HomeState, HomeVm> with UIMixin, Notification
 
   Timer? _countdownTimer;
   HomeCountdown _countdown = HomeCountdown.zero;
-  String _languageCode = 'VN';
+  String _languageCode = 'EN';
 
   HomeCountdown get countdown => _countdown;
 
   String get languageCode => _languageCode;
 
-  String get themeNote =>
-      'Không đơn thuần là một cái tên, “Root Further” chính là tinh thần mà mỗi người Sun* đang hướng tới: luôn nhìn nhận sâu sắc trong mọi bối cảnh và không ngừng sáng tạo, mở rộng bản thân để vượt qua những giới hạn mà chính mình đã từng đặt ra. Mượn hình ảnh ẩn dụ của lý thuyết phối màu, chỉ từ ba màu cơ bản: đỏ, vàng và lam, sức sáng tạo vô tận của mỗi cá nhân có thể tạo ra số lượng màu sắc gần như vô hạn, với mỗi gam màu đều đại diện cho sự bứt phá và sáng tạo không giới hạn.';
-
-  String get kudosNote =>
-      'Hoạt động ghi nhận và cảm ơn đồng nghiệp - lần đầu tiên được diễn ra dành cho tất cả Sunner. Hoạt động sẽ được triển khai vào tháng 11/2025, khuyến khích người Sun* chia sẻ những lời ghi nhận, cảm ơn đồng nghiệp trên hệ thống do BTC công bố. Đây sẽ là chất liệu để Hội đồng Heads tham khảo trong quá trình lựa chọn người đạt giải.';
-
-  List<HomeAwardItem> get awards => const [
+  List<HomeAwardItem> get awards => [
         HomeAwardItem(
-          title: 'Top Talent',
-          description: 'Giải thưởng Top Talent vinh danh những cá nhân xuất sắc trên mọi phương diện trong năm 2025.',
+          title: tr.awardTopTalentTitle,
+          description: tr.awardTopTalentDescription,
           imageAsset: Assets.homeHomeAwardTalent,
         ),
         HomeAwardItem(
-          title: 'Top Project',
-          description: 'Giải thưởng Top Project vinh danh các tập thể dự án xuất sắc và có tác động lớn.',
+          title: tr.awardTopProjectTitle,
+          description: tr.awardTopProjectDescription,
           imageAsset: Assets.homeHomeAwardProject,
         ),
         HomeAwardItem(
-          title: 'Top Project Leader',
-          description: 'Giải thưởng Top Project Leader vinh danh những nhà lãnh đạo dự án tiêu biểu.',
+          title: tr.awardTopProjectLeaderTitle,
+          description: tr.awardTopProjectLeaderDescription,
           imageAsset: Assets.homeHomeAwardLeader,
         ),
       ];

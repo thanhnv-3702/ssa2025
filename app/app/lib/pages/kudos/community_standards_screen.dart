@@ -6,35 +6,32 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/community_standards.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Tiêu chuẩn cộng đồng — MoMorph `xms7csmDhD`.
 class CommunityStandardsScreen extends BaseScreen<CommunityStandards> {
   CommunityStandardsScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _cardBg = Color(0xFF0A1F2E);
-  static const Color _textMuted = Color(0xB3FFFFFF);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: _background,
+          backgroundColor: AppColors.background,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
             onPressed: main.onBack,
           ),
           title: Text(
-            'Tiêu chuẩn',
-            style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
+            tr.communityStandardsTitle,
+            style: TextStyle(color: AppColors.textPrimary, fontSize: 17.sp, fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
         ),
@@ -56,9 +53,9 @@ class CommunityStandardsScreen extends BaseScreen<CommunityStandards> {
                     Container(
                       height: 120.h,
                       decoration: BoxDecoration(
-                        color: _cardBg,
+                        color: AppColors.kudosCardBackground,
                         borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(color: const Color(0x33FFE99E)),
+                        border: Border.all(color: AppColors.accentBorder20),
                       ),
                       alignment: Alignment.center,
                       child: SvgPicture.asset(
@@ -67,11 +64,11 @@ class CommunityStandardsScreen extends BaseScreen<CommunityStandards> {
                       ),
                     ),
                     Gap(24.h),
-                    _section('Tiêu chuẩn cộng đồng', main.intro, main.communityRules),
+                    _section(tr.communityStandardsSectionTitle, main.intro, main.communityRules),
                     Gap(16.h),
-                    Divider(color: Colors.white.withValues(alpha: 0.15)),
+                    Divider(color: AppColors.white15),
                     Gap(16.h),
-                    _section('Tiêu chuẩn bảo mật', null, main.privacyRules),
+                    _section(tr.privacyStandardsSectionTitle, null, main.privacyRules),
                   ],
                 ),
               ),
@@ -88,11 +85,11 @@ class CommunityStandardsScreen extends BaseScreen<CommunityStandards> {
       children: [
         Text(
           title,
-          style: TextStyle(color: _accent, fontSize: 18.sp, fontWeight: FontWeight.w800),
+          style: TextStyle(color: AppColors.accent, fontSize: 18.sp, fontWeight: FontWeight.w800),
         ),
         if (intro != null) ...[
           Gap(12.h),
-          Text(intro, style: TextStyle(color: Colors.white, fontSize: 14.sp, height: 1.5)),
+          Text(intro, style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, height: 1.5)),
         ],
         Gap(12.h),
         ...bullets.map(
@@ -105,13 +102,13 @@ class CommunityStandardsScreen extends BaseScreen<CommunityStandards> {
                   margin: EdgeInsets.only(top: 6.h),
                   width: 6.w,
                   height: 6.w,
-                  decoration: const BoxDecoration(color: _accent, shape: BoxShape.circle),
+                  decoration: const BoxDecoration(color: AppColors.accent, shape: BoxShape.circle),
                 ),
                 Gap(10.w),
                 Expanded(
                   child: Text(
                     rule,
-                    style: TextStyle(color: _textMuted, fontSize: 14.sp, height: 1.45),
+                    style: TextStyle(color: AppColors.textMuted, fontSize: 14.sp, height: 1.45),
                   ),
                 ),
               ],

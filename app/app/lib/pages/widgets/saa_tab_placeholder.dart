@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SaaTabPlaceholder extends StatelessWidget {
   const SaaTabPlaceholder({super.key, required this.title});
@@ -9,11 +10,11 @@ class SaaTabPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ColoredBox(
-      color: const Color(0xFF00101A),
+      color: AppColors.background,
       child: Center(
         child: Text(
           title,
-          style: TextStyle(color: Colors.white70, fontSize: 16.sp),
+          style: TextStyle(color: AppColors.white70, fontSize: 16.sp),
         ),
       ),
     );

@@ -2,8 +2,10 @@ import 'package:base_core/common/base_const.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
+import 'package:saa2025/generated/app_localizations.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/secret_box/secret_box_models.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Secret box hero — MoMorph `mms_Box image` + Standby (`-LIblaeusT` … `xptNUunBS_`).
 class SecretBoxPanel extends StatelessWidget {
@@ -22,35 +24,32 @@ class SecretBoxPanel extends StatelessWidget {
   final String? lastRewardLabel;
   final VoidCallback? onStandbyContinue;
 
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _textOnDark = Color(0xFFFFFFFF);
-  static const Color _divider = Color(0xFF2E3940);
-
   bool get _isStandby => visualState == SecretBoxVisualState.standby;
 
   @override
   Widget build(BuildContext context) {
+    final tr = AppLocalizations.of(context);
     return Column(
       children: [
         Text(
-          _isStandby ? 'SECRET BOX' : 'KHÁM PHÁ SECRET BOX CỦA BẠN',
+          _isStandby ? tr.secretBoxStandbyTitle : tr.secretBoxExploreTitle,
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: BaseConst.fontBold,
             fontSize: 18.sp,
             height: 24 / 18,
-            color: _accent,
+            color: AppColors.accent,
           ),
         ),
         Gap(8.h),
         Text(
-          _subtitle,
+          _subtitle(tr),
           textAlign: TextAlign.center,
           style: TextStyle(
             fontFamily: BaseConst.fontMedium,
             fontSize: 14.sp,
             height: 20 / 14,
-            color: _textOnDark,
+            color: AppColors.textOnDark,
           ),
         ),
         Gap(24.h),
@@ -74,7 +73,7 @@ class SecretBoxPanel extends StatelessWidget {
             style: TextStyle(
               fontFamily: BaseConst.fontBold,
               fontSize: 16.sp,
-              color: _accent,
+              color: AppColors.accent,
             ),
           ),
         ],
@@ -83,27 +82,27 @@ class SecretBoxPanel extends StatelessWidget {
           TextButton(
             onPressed: onStandbyContinue,
             style: TextButton.styleFrom(
-              foregroundColor: _accent,
+              foregroundColor: AppColors.accent,
               padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 12.h),
             ),
             child: Text(
-              'Tiếp tục',
+              tr.secretBoxContinueButton,
               style: TextStyle(fontFamily: BaseConst.fontBold, fontSize: 15.sp),
             ),
           ),
         ],
         Gap(24.h),
-        const Divider(color: _divider, height: 1),
+        const Divider(color: AppColors.divider, height: 1),
         Gap(16.h),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Secret box chưa mở',
+              tr.secretBoxUnopenedLabel,
               style: TextStyle(
                 fontFamily: BaseConst.fontRegular,
                 fontSize: 12.sp,
-                color: _textOnDark.withValues(alpha: 0.9),
+                color: AppColors.textOnDark.withValues(alpha: 0.9),
               ),
             ),
             Gap(6.w),
@@ -112,7 +111,7 @@ class SecretBoxPanel extends StatelessWidget {
               style: TextStyle(
                 fontFamily: BaseConst.fontBold,
                 fontSize: 18.sp,
-                color: _accent,
+                color: AppColors.accent,
               ),
             ),
           ],
@@ -121,16 +120,16 @@ class SecretBoxPanel extends StatelessWidget {
     );
   }
 
-  String get _subtitle {
+  String _subtitle(AppLocalizations tr) {
     switch (visualState) {
       case SecretBoxVisualState.closed:
-        return unopenedCount > 0 ? 'Click vào box để mở' : 'Bạn đã mở hết secret box';
+        return unopenedCount > 0 ? tr.secretBoxTapToOpen : tr.secretBoxAllOpened;
       case SecretBoxVisualState.opening:
-        return 'Đang mở hộp quà...';
+        return tr.secretBoxOpening;
       case SecretBoxVisualState.revealed:
-        return 'Chúc mừng! Bạn đã nhận phần thưởng';
+        return tr.secretBoxRevealed;
       case SecretBoxVisualState.standby:
-        return 'Chúc mừng bạn đã nhận được phần quà từ BTC SAA 2025';
+        return tr.secretBoxStandbySubtitle;
     }
   }
 
@@ -141,7 +140,7 @@ class SecretBoxPanel extends StatelessWidget {
     return _boxAsset(
       Assets.secretBoxSecretBoxClosed,
       glow: isOpening,
-      overlay: isOpening ? Icon(Icons.auto_awesome, size: 64.sp, color: _accent.withValues(alpha: 0.9)) : null,
+      overlay: isOpening ? Icon(Icons.auto_awesome, size: 64.sp, color: AppColors.accent.withValues(alpha: 0.9)) : null,
     );
   }
 
@@ -153,7 +152,7 @@ class SecretBoxPanel extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFFAE287).withValues(alpha: glow ? 0.45 : 0.2),
+            color: AppColors.glowGold.withValues(alpha: glow ? 0.45 : 0.2),
             blurRadius: glow ? 28 : 10,
             spreadRadius: glow ? 2 : 0,
           ),

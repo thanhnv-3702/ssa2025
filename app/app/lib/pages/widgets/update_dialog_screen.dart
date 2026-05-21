@@ -3,12 +3,13 @@ import 'dart:io';
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:base_core/res/widgets/app_elevated_button.dart';
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/widgets/update_dialog.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class UpdateDialogScreen extends BaseScreen<UpdateDialog> {
   UpdateDialogScreen(super.main, super.context);

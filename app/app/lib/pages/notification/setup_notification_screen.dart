@@ -1,6 +1,6 @@
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:base_core/res/widgets/text.dart';
-import 'package:base_core/resources.dart';
+import 'package:base_core/resources.dart' hide AppColors;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,6 +10,7 @@ import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/notification/setup_notification.dart';
 import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/widgets/custom_switch_widget.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SetupNotificationScreen extends BaseScreen<SetupNotification> {
   SetupNotificationScreen(super.main, super.context);
@@ -18,7 +19,7 @@ class SetupNotificationScreen extends BaseScreen<SetupNotification> {
   Widget screen() {
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
       ),
       child: Scaffold(
         backgroundColor: AppColors.white,

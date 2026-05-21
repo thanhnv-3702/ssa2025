@@ -5,24 +5,22 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/pages/rules/rules.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/widgets/saa_app_header.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class RulesScreen extends BaseScreen<Rules> {
   RulesScreen(super.main, super.context);
-
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _textOnDark = Color(0xFFFFFFFF);
 
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Column(
           children: [
             SaaAppHeader(
@@ -30,18 +28,18 @@ class RulesScreen extends BaseScreen<Rules> {
               onLanguageTap: () {},
               showBack: true,
               onBack: main.onBack,
-              title: 'Thể lệ',
+              title: tr.rulesTitle,
             ),
             Expanded(
               child: ListView(
                 padding: EdgeInsets.fromLTRB(20.w, 8.h, 20.w, 32.h),
                 children: [
                   Text(
-                    'Sun* Annual Awards 2025',
+                    tr.rulesEventTitle,
                     style: TextStyle(
                       fontFamily: BaseConst.fontSemiBold,
                       fontSize: 20.sp,
-                      color: _textOnDark,
+                      color: AppColors.textOnDark,
                     ),
                   ),
                   Gap(12.h),
@@ -51,7 +49,7 @@ class RulesScreen extends BaseScreen<Rules> {
                       fontFamily: BaseConst.fontLight,
                       fontSize: 14.sp,
                       height: 22 / 14,
-                      color: _textOnDark.withValues(alpha: 0.9),
+                      color: AppColors.textOnDark.withValues(alpha: 0.9),
                     ),
                   ),
                   Gap(24.h),
@@ -61,7 +59,7 @@ class RulesScreen extends BaseScreen<Rules> {
                       style: TextStyle(
                         fontFamily: BaseConst.fontSemiBold,
                         fontSize: 15.sp,
-                        color: _accent,
+                        color: AppColors.accent,
                       ),
                     ),
                     Gap(8.h),
@@ -71,7 +69,7 @@ class RulesScreen extends BaseScreen<Rules> {
                         fontFamily: BaseConst.fontLight,
                         fontSize: 14.sp,
                         height: 22 / 14,
-                        color: _textOnDark.withValues(alpha: 0.9),
+                        color: AppColors.textOnDark.withValues(alpha: 0.9),
                       ),
                     ),
                     Gap(20.h),

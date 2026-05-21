@@ -1,8 +1,8 @@
-import 'package:base_core/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/pages/widgets/skeleton_card.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Skeleton placeholder matching the home dashboard layout, shown while the dashboard API is loading.
 class HomeSkeleton extends StatelessWidget {

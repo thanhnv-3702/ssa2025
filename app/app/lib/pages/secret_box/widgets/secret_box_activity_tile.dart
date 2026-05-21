@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/pages/secret_box/secret_box_models.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class SecretBoxActivityTile extends StatelessWidget {
   const SecretBoxActivityTile({
@@ -16,22 +17,16 @@ class SecretBoxActivityTile extends StatelessWidget {
   final VoidCallback? onTap;
   final VoidCallback? onActionTap;
 
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _textOnDark = Color(0xFFFFFFFF);
-  static const Color _divider = Color(0xFF2E3940);
-  static const Color _muted = Color(0xFF999999);
-  static const Color _unreadDot = Color(0xFFD4271D);
-
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Colors.transparent,
+      color: AppColors.transparent,
       child: InkWell(
         onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 12.h),
           decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: _divider)),
+            border: Border(bottom: BorderSide(color: AppColors.divider)),
           ),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +44,7 @@ class SecretBoxActivityTile extends StatelessWidget {
                         fontSize: 14.sp,
                         height: 20 / 14,
                         letterSpacing: 0.25,
-                        color: _textOnDark,
+                        color: AppColors.textOnDark,
                       ),
                     ),
                     if (item.actionLabel != null) ...[
@@ -66,7 +61,7 @@ class SecretBoxActivityTile extends StatelessWidget {
                           style: TextStyle(
                             fontFamily: BaseConst.fontBold,
                             fontSize: 14.sp,
-                            color: _accent,
+                            color: AppColors.accent,
                           ),
                         ),
                       ),
@@ -77,7 +72,7 @@ class SecretBoxActivityTile extends StatelessWidget {
                       style: TextStyle(
                         fontFamily: BaseConst.fontRegular,
                         fontSize: 12.sp,
-                        color: _muted,
+                        color: AppColors.gray,
                       ),
                     ),
                   ],
@@ -89,7 +84,7 @@ class SecretBoxActivityTile extends StatelessWidget {
                   height: 8.w,
                   margin: EdgeInsets.only(top: 4.h),
                   decoration: const BoxDecoration(
-                    color: _unreadDot,
+                    color: AppColors.unreadDot,
                     shape: BoxShape.circle,
                   ),
                 ),
@@ -116,6 +111,6 @@ class SecretBoxActivityTile extends StatelessWidget {
       case SecretBoxActivityType.badgeComplete:
         icon = Icons.emoji_events_outlined;
     }
-    return Icon(icon, color: _accent, size: 24.sp);
+    return Icon(icon, color: AppColors.accent, size: 24.sp);
   }
 }

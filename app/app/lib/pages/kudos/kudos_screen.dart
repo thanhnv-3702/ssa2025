@@ -14,26 +14,23 @@ import 'package:saa2025/pages/kudos/kudos_mock_data.dart';
 import 'package:saa2025/pages/kudos/kudos_models.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_filter_dropdown.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_highlight_card.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 import 'package:saa2025/theme/saa_design_tokens.dart';
 
 /// Sun* Kudos hub — MoMorph screen `fO0Kt19sZZ` ([iOS] Sun*Kudos).
 class KudosScreen extends BaseScreen<Kudos> {
   KudosScreen(super.main, super.context);
 
-  static const Color _background = SaaDesignTokens.background;
-  static const Color _accent = SaaDesignTokens.accent;
-  static const Color _gray = SaaDesignTokens.gray;
-  static const Color _textMuted = Color(0xB3FFFFFF);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned.fill(
@@ -44,11 +41,7 @@ class KudosScreen extends BaseScreen<Kudos> {
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF00101A),
-                    Color(0xFF00101A),
-                    Color(0x0000101A),
-                  ],
+                  colors: AppColors.scaffoldFadeGradientColors,
                 ),
               ),
             ),
@@ -122,7 +115,7 @@ class KudosScreen extends BaseScreen<Kudos> {
               Assets.commonIcDown,
               width: 24.w,
               height: 24.h,
-              colorFilter: const ColorFilter.mode(HomeStyles.textPrimary, BlendMode.srcIn),
+              colorFilter: const ColorFilter.mode(AppColors.textPrimary, BlendMode.srcIn),
             ),
           ],
         ),
@@ -141,7 +134,7 @@ class KudosScreen extends BaseScreen<Kudos> {
           width: 24.w,
           height: 24.w,
           colorFilter: ColorFilter.mode(
-            Colors.white,
+            AppColors.textPrimary,
             BlendMode.srcIn,
           ),
         ),
@@ -161,7 +154,7 @@ class KudosScreen extends BaseScreen<Kudos> {
             child: Container(
               width: 8.w,
               height: 8.w,
-              decoration: const BoxDecoration(color: Color(0xFFE53935), shape: BoxShape.circle),
+              decoration: const BoxDecoration(color: AppColors.errorMaterial, shape: BoxShape.circle),
             ),
           ),
       ],
@@ -177,8 +170,8 @@ class KudosScreen extends BaseScreen<Kudos> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Hệ thống ghi nhận và cảm ơn',
-                style: TextStyle(color: _accent, fontSize: 14.sp),
+                tr.kudosRecognitionSystemEyebrow,
+                style: TextStyle(color: AppColors.accent, fontSize: 14.sp),
               ),
               Gap(12.h),
               Row(
@@ -199,15 +192,15 @@ class KudosScreen extends BaseScreen<Kudos> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w),
       child: Material(
-        color: _accent.withValues(alpha: 0.1),
+        color: AppColors.accent.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(4.r),
         child: InkWell(
           onTap: main.onSendKudoTap,
           borderRadius: BorderRadius.circular(4.r),
           child: Container(
             decoration: BoxDecoration(
-              color: Color(0xFFEA9E1A).withValues(alpha: 0.1),
-              border: Border.all(color: const Color(0xFF998C5F)),
+              color: AppColors.accentOrange.withValues(alpha: 0.1),
+              border: Border.all(color: AppColors.borderMuted),
               borderRadius: BorderRadius.circular(4.r),
             ),
             padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
@@ -216,7 +209,7 @@ class KudosScreen extends BaseScreen<Kudos> {
                 SvgPicture.asset(
                   Assets.kudosKudosPen,
                   colorFilter: ColorFilter.mode(
-                    Colors.white,
+                    AppColors.textPrimary,
                     BlendMode.srcIn,
                   ),
                   width: 24.w,
@@ -225,9 +218,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                 Gap(8.w),
                 Expanded(
                   child: Text(
-                    'Hôm nay, bạn muốn gửi kudos đến ai?',
+                    tr.kudosSendCtaPrompt,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textPrimary,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w500,
                     ),
@@ -247,7 +240,7 @@ class KudosScreen extends BaseScreen<Kudos> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionHeader('HIGHLIGHT', showFilters: true),
+          _sectionHeader(tr.kudosHighlightSectionTitle, showFilters: true),
           Gap(16.h),
           SizedBox(
             height: 255.h,
@@ -263,8 +256,8 @@ class KudosScreen extends BaseScreen<Kudos> {
                         padding: EdgeInsets.symmetric(horizontal: 20.w),
                         child: Center(
                           child: Text(
-                            'Không có Kudos phù hợp bộ lọc',
-                            style: TextStyle(color: _textMuted, fontSize: 14.sp),
+                            tr.kudosHighlightEmptyFiltered,
+                            style: TextStyle(color: AppColors.textMuted, fontSize: 14.sp),
                           ),
                         ),
                       );
@@ -285,9 +278,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Color(0xFF00101A),
-                        Color(0xFF00101A).withValues(alpha: 0.5),
-                        Color(0xFF00101A).withValues(alpha: 0),
+                        AppColors.background,
+                        AppColors.background.withValues(alpha: 0.5),
+                        AppColors.background.withValues(alpha: 0),
                       ],
                     ),
                   ),
@@ -299,9 +292,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [
-                          Color(0xFF00101A).withValues(alpha: 0),
-                          Color(0xFF00101A).withValues(alpha: 0.5),
-                          Color(0xFF00101A),
+                          AppColors.background.withValues(alpha: 0),
+                          AppColors.background.withValues(alpha: 0.5),
+                          AppColors.background,
                         ],
                       ),
                     ),
@@ -332,11 +325,11 @@ class KudosScreen extends BaseScreen<Kudos> {
           Gap(16.w),
           Text(
             '$current',
-            style: TextStyle(color: _accent, fontSize: 14.sp, fontWeight: FontWeight.w800),
+            style: TextStyle(color: AppColors.accent, fontSize: 14.sp, fontWeight: FontWeight.w800),
           ),
           Text(
             '/$total',
-            style: TextStyle(color: _gray, fontSize: 14.sp, fontWeight: FontWeight.w800),
+            style: TextStyle(color: AppColors.gray, fontSize: 14.sp, fontWeight: FontWeight.w800),
           ),
           Gap(16.w),
           _pagerArrow(
@@ -352,7 +345,7 @@ class KudosScreen extends BaseScreen<Kudos> {
   Widget _pagerArrow(IconData icon, VoidCallback onTap, {required bool enabled}) {
     return InkWell(
       onTap: enabled ? onTap : null,
-      child: Icon(icon, color: enabled ? Colors.white : _textMuted, size: 28.sp),
+      child: Icon(icon, color: enabled ? AppColors.textPrimary : AppColors.textMuted, size: 28.sp),
     );
   }
 
@@ -362,14 +355,14 @@ class KudosScreen extends BaseScreen<Kudos> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionHeader('SPOTLIGHT BOARD'),
+          _sectionHeader(tr.kudosSpotlightSectionTitle),
           Gap(16.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12.r),
-                border: Border.all(color: const Color(0x33FFE99E)),
+                border: Border.all(color: AppColors.accentBorder20),
               ),
               child: Stack(
                 children: [
@@ -385,7 +378,7 @@ class KudosScreen extends BaseScreen<Kudos> {
                             height: double.infinity,
                           ),
                           Container(
-                            color: Colors.black.withValues(alpha: 0.7),
+                            color: AppColors.overlayBlack70,
                           ),
                         ],
                       ),
@@ -413,19 +406,19 @@ class KudosScreen extends BaseScreen<Kudos> {
                   child: Container(
                     padding: EdgeInsets.only(left: 6.w, top: 2.h, bottom: 2.h, right: 32.w),
                     decoration: BoxDecoration(
-                      color: _accent.withValues(alpha: 0.1),
+                      color: AppColors.accent.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(13.464.r),
-                      border: Border.all(color: const Color(0xFF998C5F)),
+                      border: Border.all(color: AppColors.borderMuted),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.search, color: Colors.white, size: 12.w),
+                        Icon(Icons.search, color: AppColors.textPrimary, size: 12.w),
                         Gap(8.w),
                         Text(
-                          'Tìm kiếm',
+                          tr.kudosSpotlightSearch,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.textPrimary,
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w500,
                             letterSpacing: 0.03,
@@ -439,9 +432,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
                   child: Text(
-                    '${main.stats.totalKudos} KUDOS',
+                    tr.kudosSpotlightTotalCount(main.stats.totalKudos),
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.textPrimary,
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w500,
                     ),
@@ -466,7 +459,7 @@ class KudosScreen extends BaseScreen<Kudos> {
                     child: Text(
                       e.name,
                       style: TextStyle(
-                        color: Colors.white,
+                        color: AppColors.textPrimary,
                         fontSize: 8.sp,
                         fontWeight: FontWeight.w500,
                         letterSpacing: 0.06,
@@ -501,7 +494,7 @@ class KudosScreen extends BaseScreen<Kudos> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _sectionHeader('ALL KUDOS'),
+          _sectionHeader(tr.kudosAllSectionTitle),
           Gap(24.h),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -535,13 +528,13 @@ class KudosScreen extends BaseScreen<Kudos> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'View all Kudos',
-                    style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                    tr.kudosViewAllLink,
+                    style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, fontWeight: FontWeight.w600),
                   ),
                   SvgPicture.asset(
                     Assets.kudosArrowCross,
                     width: 24,
-                    colorFilter: ColorFilter.mode(Colors.white, BlendMode.srcIn),
+                    colorFilter: ColorFilter.mode(AppColors.textPrimary, BlendMode.srcIn),
                   )
                 ],
               ),
@@ -557,26 +550,26 @@ class KudosScreen extends BaseScreen<Kudos> {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF00070C),
+        color: AppColors.containerDark,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0xFF998C5F), width: 0.794),
+        border: Border.all(color: AppColors.borderMuted, width: 0.794),
       ),
       child: Column(
         children: [
-          _statRow('Số Kudos bạn nhận được:', '25'),
+          _statRow(tr.kudosStatsReceivedLabel, '25'),
           Gap(12.h),
-          _statRow('Số Kudos bạn đã gửi:', '25'),
+          _statRow(tr.kudosStatsSentLabel, '25'),
           Gap(12.h),
-          _statRowWithIcon('Số tim bạn nhận được:', '25'),
+          _statRowWithIcon(tr.kudosStatsHeartsLabel, '25'),
           Gap(12.h),
-          Container(height: 0.794, color: const Color(0xFF2E3940)),
+          Container(height: 0.794, color: AppColors.divider),
           Gap(12.h),
-          _statRow('Số Secret Box bạn đã mở:', '25'),
+          _statRow(tr.kudosStatsSecretBoxOpenedLabel, '25'),
           Gap(12.h),
-          _statRow('Số Secret Box chưa mở:', '25'),
+          _statRow(tr.kudosStatsSecretBoxUnopenedLabel, '25'),
           Gap(12.h),
           Material(
-            color: _accent,
+            color: AppColors.accent,
             borderRadius: BorderRadius.circular(4.r),
             child: InkWell(
               onTap: main.onOpenSecretBoxTap,
@@ -588,9 +581,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Mở Secret Box',
+                      tr.kudosOpenSecretBoxButton,
                       style: TextStyle(
-                        color: _background,
+                        color: AppColors.background,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -614,7 +607,7 @@ class KudosScreen extends BaseScreen<Kudos> {
           child: Text(
             label,
             style: TextStyle(
-              color: Colors.white,
+              color: AppColors.textPrimary,
               fontSize: 14.sp,
               fontWeight: FontWeight.w300,
               height: 20 / 14,
@@ -625,7 +618,7 @@ class KudosScreen extends BaseScreen<Kudos> {
         Text(
           value,
           style: TextStyle(
-            color: _accent,
+            color: AppColors.accent,
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
             height: 20 / 14,
@@ -642,7 +635,7 @@ class KudosScreen extends BaseScreen<Kudos> {
         Text(
           label,
           style: TextStyle(
-            color: Colors.white,
+            color: AppColors.textPrimary,
             fontSize: 14.sp,
             fontWeight: FontWeight.w300,
             height: 20 / 14,
@@ -655,7 +648,7 @@ class KudosScreen extends BaseScreen<Kudos> {
         Text(
           value,
           style: TextStyle(
-            color: _accent,
+            color: AppColors.accent,
             fontSize: 14.sp,
             fontWeight: FontWeight.w700,
             height: 20 / 14,
@@ -670,16 +663,16 @@ class KudosScreen extends BaseScreen<Kudos> {
     return Container(
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: const Color(0xFF00070C),
+        color: AppColors.containerDark,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0xFF998C5F), width: 0.794),
+        border: Border.all(color: AppColors.borderMuted, width: 0.794),
       ),
       child: Column(
         children: [
           Text(
-            '10 SUNNER NHẬN QUÀ MỚI NHẤT',
+            tr.kudosTopGiftReceiversTitle,
             style: TextStyle(
-              color: _accent,
+              color: AppColors.accent,
               fontSize: 14.sp,
               fontWeight: FontWeight.w700,
               height: 20 / 14,
@@ -697,10 +690,10 @@ class KudosScreen extends BaseScreen<Kudos> {
                     width: 32.w,
                     height: 32.w,
                     decoration: BoxDecoration(
-                      color: Colors.grey,
+                      color: AppColors.gray,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.person, color: Colors.white, size: 20.sp),
+                    child: Icon(Icons.person, color: AppColors.textPrimary, size: 20.sp),
                   ),
                   Gap(6.35.w),
                   Expanded(
@@ -708,9 +701,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Huỳnh Dương Xuân',
+                          tr.kudosTopGiftReceiverNamePlaceholder,
                           style: TextStyle(
-                            color: _accent,
+                            color: AppColors.accent,
                             fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                             height: 20 / 14,
@@ -718,9 +711,9 @@ class KudosScreen extends BaseScreen<Kudos> {
                         ),
                         Gap(1.59.h),
                         Text(
-                          'Nhận được 1 áo phông SAA',
+                          tr.kudosTopGiftReceiverRewardPlaceholder,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: AppColors.textPrimary,
                             fontSize: 12.sp,
                             height: 16 / 12,
                           ),
@@ -744,16 +737,16 @@ class KudosScreen extends BaseScreen<Kudos> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Sun* Annual Awards 2025',
-            style: TextStyle(color: _textMuted, fontSize: 12.sp),
+            tr.kudosSectionEyebrow,
+            style: TextStyle(color: AppColors.textMuted, fontSize: 12.sp),
           ),
           Gap(4.h),
-          Container(height: 1, color: const Color(0xFF2E3940)),
+          Container(height: 1, color: AppColors.divider),
           Gap(4.h),
           Text(
             title,
             style: TextStyle(
-              color: _accent,
+              color: AppColors.accent,
               fontSize: 22.sp,
               fontWeight: FontWeight.w500,
               height: 28 / 22,

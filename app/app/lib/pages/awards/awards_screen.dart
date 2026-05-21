@@ -10,6 +10,8 @@ import 'package:saa2025/pages/awards/widgets/award_info_blocks.dart';
 import 'package:saa2025/pages/awards/widgets/award_kudos_promo.dart';
 import 'package:saa2025/pages/awards/widgets/award_picture_card.dart';
 import 'package:saa2025/pages/home/home_styles.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Awards tab — iOS detail screen with dropdown selector (Figma `6885:10265`).
 class AwardsScreen extends BaseScreen<Awards> {
@@ -21,11 +23,11 @@ class AwardsScreen extends BaseScreen<Awards> {
 
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: HomeStyles.background,
+        backgroundColor: AppColors.background,
         body: Stack(
           children: [
             Positioned.fill(
@@ -36,11 +38,7 @@ class AwardsScreen extends BaseScreen<Awards> {
               height: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF00101A),
-                    Color(0xFF00101A),
-                    Color(0x0000101A),
-                  ],
+                  colors: AppColors.scaffoldFadeGradientColors,
                 ),
               ),
             ),
@@ -68,18 +66,18 @@ class AwardsScreen extends BaseScreen<Awards> {
                     description: award.longDescription,
                   ),
                   Gap(16.h),
-                  const Divider(color: HomeStyles.divider, height: 1),
+                  const Divider(color: AppColors.divider, height: 1),
                   Gap(16.h),
-                  AwardInfoBlocks.prizeQuantityBlock(award),
+                  AwardInfoBlocks.prizeQuantityBlock(tr, award),
                   Gap(16.h),
-                  const Divider(color: HomeStyles.divider, height: 1),
+                  const Divider(color: AppColors.divider, height: 1),
                   Gap(16.h),
                   for (var i = 0; i < award.prizeValues.length; i++) ...[
                     if (i > 0) ...[
-                      AwardInfoBlocks.orDivider(),
+                      AwardInfoBlocks.orDivider(tr),
                       Gap(8.h),
                     ],
-                    AwardInfoBlocks.prizeValueBlock(award.prizeValues[i]),
+                    AwardInfoBlocks.prizeValueBlock(tr, award.prizeValues[i]),
                   ],
                   Gap(32.h),
                   _buildKudosPromo(),
@@ -115,7 +113,7 @@ class AwardsScreen extends BaseScreen<Awards> {
                     child: Container(
                       width: 8.w,
                       height: 8.h,
-                      decoration: const BoxDecoration(color: HomeStyles.notificationDot, shape: BoxShape.circle),
+                      decoration: const BoxDecoration(color: AppColors.notificationDot, shape: BoxShape.circle),
                     ),
                   ),
               ],
@@ -135,7 +133,7 @@ class AwardsScreen extends BaseScreen<Awards> {
         child: SvgPicture.asset(
           asset,
           colorFilter: ColorFilter.mode(
-            Colors.white,
+            AppColors.textPrimary,
             BlendMode.srcIn,
           ),
           width: 24.w,
@@ -149,22 +147,22 @@ class AwardsScreen extends BaseScreen<Awards> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Hệ thống ghi nhận và cảm ơn', style: HomeStyles.sectionEyebrow),
+        Text(tr.awardsRecognitionSystemEyebrow, style: HomeStyles.sectionEyebrow),
         Gap(8.h),
         Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SvgPicture.asset(Assets.kudosKudosLogo, width: 30.w, height: 39.h),
             Gap(8.w),
-            Text('KUDOS', style: HomeStyles.sectionTitle.copyWith(fontSize: 39.sp)),
+            Text(tr.awardsKudosBrand, style: HomeStyles.sectionTitle.copyWith(fontSize: 39.sp)),
           ],
         ),
         Gap(16.h),
-        Text('Sun* Annual Awards 2025', style: HomeStyles.sectionEyebrow),
+        Text(tr.awardsEventEyebrow, style: HomeStyles.sectionEyebrow),
         Gap(4.h),
-        Container(height: 1, color: HomeStyles.divider),
+        Container(height: 1, color: AppColors.divider),
         Gap(4.h),
-        Text('Hệ thống giải thưởng\nSAA 2025', style: HomeStyles.sectionTitle),
+        Text(tr.awardsSystemTitle, style: HomeStyles.sectionTitle),
       ],
     );
   }
@@ -174,8 +172,8 @@ class AwardsScreen extends BaseScreen<Awards> {
       width: 160,
       padding: EdgeInsets.all(8.w),
       decoration: BoxDecoration(
-        color: HomeStyles.accentSurface10,
-        border: Border.all(color: HomeStyles.borderMuted),
+        color: AppColors.accentSurface10,
+        border: Border.all(color: AppColors.borderMuted),
         borderRadius: BorderRadius.circular(4.r),
       ),
       child: InkWell(
@@ -192,11 +190,11 @@ class AwardsScreen extends BaseScreen<Awards> {
                   fontSize: 14.sp,
                   height: 20 / 14,
                   letterSpacing: 0.25,
-                  color: HomeStyles.textPrimary,
+                  color: AppColors.textPrimary,
                 ),
               ),
             ),
-            Icon(Icons.keyboard_arrow_down, color: HomeStyles.textPrimary, size: 24.sp),
+            Icon(Icons.keyboard_arrow_down, color: AppColors.textPrimary, size: 24.sp),
           ],
         ),
       ),
@@ -207,11 +205,11 @@ class AwardsScreen extends BaseScreen<Awards> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Phong trào ghi nhận', style: HomeStyles.sectionEyebrow),
+        Text(tr.awardsKudosMovementEyebrow, style: HomeStyles.sectionEyebrow),
         Gap(4.h),
-        Container(height: 1, color: HomeStyles.divider),
+        Container(height: 1, color: AppColors.divider),
         Gap(4.h),
-        Text('Sun* Kudos', style: HomeStyles.sectionTitle),
+        Text(tr.awardsKudosTitle, style: HomeStyles.sectionTitle),
       ],
     );
   }

@@ -1,6 +1,6 @@
-import 'package:base_core/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 class CustomSwitchWidget extends StatefulWidget {
   final bool value;
@@ -103,7 +103,7 @@ class _CustomSwitchWidgetState extends State<CustomSwitchWidget> with SingleTick
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: AppColors.black10,
                           blurRadius: 4,
                           offset: const Offset(0, 2),
                         ),

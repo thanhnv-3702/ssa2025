@@ -10,6 +10,7 @@ import 'package:saa2025/pages/kudos/kudos_vm.dart';
 import 'package:saa2025/pages/kudos/search_sunner.dart';
 import 'package:saa2025/pages/kudos/widgets/kudos_option_sheet.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
+import 'package:saa2025/pages/utils/extension.dart';
 import 'package:saa2025/pages/utils/mixin/notification_badge_mixin.dart';
 import 'package:saa2025/pages/utils/mixin/ui_mixin.dart';
 import 'package:saa2025/pages/widgets/saa_language_sheet.dart';
@@ -22,11 +23,11 @@ class KudosState extends StatefulWidget {
 }
 
 class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, NotificationBadgeMixin {
-  String _languageCode = 'VN';
+  String _languageCode = 'EN';
   int _highlightPage = 0;
-  String _filterPeriod = 'Tháng này';
-  String _filterHashtag = 'Tất cả';
-  String _filterDepartment = 'Phòng ban';
+  late String _filterPeriod;
+  late String _filterHashtag;
+  late String _filterDepartment;
 
   final PageController highlightController = PageController(viewportFraction: 0.88);
   final GlobalKey hashtagButtonKey = GlobalKey();
@@ -57,8 +58,17 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   @override
   KudosVm initViewModel() => KudosVm();
 
+  List<String> get periodFilters => tr.kudosPeriodFilters;
+
+  List<String> get hashtagFilters => tr.kudosHashtagFilters;
+
+  List<String> get departmentFilters => tr.kudosDepartmentFilters;
+
   @override
   void beforeBuild() {
+    _filterPeriod = tr.kudosFilterPeriodThisMonth;
+    _filterHashtag = tr.kudosFilterHashtagAll;
+    _filterDepartment = tr.kudosFilterDepartmentDefault;
     _loadLanguage();
     initNotificationBadge();
     highlightController.addListener(_onHighlightScroll);
@@ -145,8 +155,8 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
   Future<void> onFilterPeriodTap() async {
     final picked = await showKudosOptionSheet(
       context: context,
-      title: 'Thời gian',
-      options: vm.periodFilters,
+      title: tr.kudosFilterPeriodTitle,
+      options: periodFilters,
       selected: _filterPeriod,
     );
     if (picked == null) return;
@@ -158,7 +168,7 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
     final picked = await showKudosDropdown(
       context: context,
       buttonKey: hashtagButtonKey,
-      options: vm.hashtagFilters,
+      options: hashtagFilters,
       selected: _filterHashtag,
     );
     if (picked == null) return;
@@ -173,7 +183,7 @@ class Kudos extends BaseScreenState<KudosState, KudosVm> with UIMixin, Notificat
     final picked = await showKudosDropdown(
       context: context,
       buttonKey: departmentButtonKey,
-      options: vm.departmentFilters,
+      options: departmentFilters,
       selected: _filterDepartment,
     );
     if (picked == null) return;

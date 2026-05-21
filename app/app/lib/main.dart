@@ -5,7 +5,6 @@ import 'package:base_core/common/base_const.dart';
 import 'package:base_core/common/config.dart';
 import 'package:base_core/common/event_bus.dart';
 import 'package:base_core/localization/localization_service.dart';
-import 'package:base_core/resources.dart';
 import 'package:base_core/storage/storage.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:country_codes/country_codes.dart';
@@ -31,6 +30,7 @@ import 'package:saa2025/pages/widgets/firebase_messaging/firebase_messaging_back
 import 'package:saa2025/pages/widgets/privacy_overlay_widget.dart';
 import 'package:saa2025/services/auth/auth_service.dart';
 import 'package:saa2025/services/fcm_service.dart';
+import 'package:saa2025/theme/app_colors.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 

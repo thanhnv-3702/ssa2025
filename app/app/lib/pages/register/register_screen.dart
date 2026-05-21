@@ -1,8 +1,8 @@
 import 'package:base_core/presenter/base_screen.dart';
 import 'package:base_core/res/extension.dart';
-import 'package:base_core/resources.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 import 'register.dart';
 

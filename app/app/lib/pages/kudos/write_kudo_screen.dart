@@ -5,35 +5,32 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 import 'package:saa2025/generated/assets.dart';
 import 'package:saa2025/pages/kudos/write_kudo.dart';
+import 'package:saa2025/pages/utils/extension.dart';
+import 'package:saa2025/theme/app_colors.dart';
 
 /// Viết Kudo — MoMorph `7fFAb-K35a`.
 class WriteKudoScreen extends BaseScreen<WriteKudo> {
   WriteKudoScreen(super.main, super.context);
 
-  static const Color _background = Color(0xFF00101A);
-  static const Color _accent = Color(0xFFFFE99E);
-  static const Color _fieldBg = Color(0xFF0A1F2E);
-  static const Color _textMuted = Color(0xB3FFFFFF);
-
   @override
   Widget screen() {
     return AnnotatedRegion(
       value: SystemUiOverlayStyle.light.copyWith(
-        statusBarColor: Colors.transparent,
+        statusBarColor: AppColors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
       child: Scaffold(
-        backgroundColor: _background,
+        backgroundColor: AppColors.background,
         appBar: AppBar(
-          backgroundColor: _background,
+          backgroundColor: AppColors.background,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+            icon: const Icon(Icons.arrow_back_ios, color: AppColors.textPrimary),
             onPressed: main.onBack,
           ),
           title: Text(
-            'Viết KUDO',
-            style: TextStyle(color: Colors.white, fontSize: 17.sp, fontWeight: FontWeight.w600),
+            tr.writeKudoTitle,
+            style: TextStyle(color: AppColors.textPrimary, fontSize: 17.sp, fontWeight: FontWeight.w600),
           ),
           centerTitle: true,
         ),
@@ -56,40 +53,40 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Gửi lời cám ơn và ghi nhận đến đồng đội',
-                            style: TextStyle(color: _accent, fontSize: 16.sp, fontWeight: FontWeight.w700),
+                            tr.writeKudoSubtitle,
+                            style: TextStyle(color: AppColors.accent, fontSize: 16.sp, fontWeight: FontWeight.w700),
                           ),
                           if (main.showValidationError) ...[
                             Gap(16.h),
                             _validationBanner(),
                           ],
                           Gap(24.h),
-                          _requiredLabel('Người nhận'),
+                          _requiredLabel(tr.writeKudoRecipientLabel),
                           Gap(8.h),
                           GestureDetector(
                             onTap: main.onRecipientTap,
                             child: AbsorbPointer(
                               child: _textField(
                                 controller: main.recipientController,
-                                hint: 'Tìm kiếm',
+                                hint: tr.writeKudoRecipientHint,
                                 suffix: Icons.keyboard_arrow_down,
                               ),
                             ),
                           ),
                           Gap(20.h),
-                          _requiredLabel('Danh hiệu'),
+                          _requiredLabel(tr.writeKudoTitleLabel),
                           Gap(8.h),
                           _textField(
                             controller: main.titleController,
-                            hint: 'Danh tặng một danh hiệu cho...',
+                            hint: tr.writeKudoTitleHint,
                           ),
                           Gap(8.h),
                           GestureDetector(
                             onTap: main.onCommunityStandardsTap,
                             child: Text(
-                              'Tiêu chuẩn cộng đồng',
+                              tr.writeKudoCommunityStandardsLink,
                               style: TextStyle(
-                                color: _accent,
+                                color: AppColors.accent,
                                 fontSize: 13.sp,
                                 decoration: TextDecoration.underline,
                               ),
@@ -100,20 +97,20 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                           Gap(8.h),
                           _textField(
                             controller: main.messageController,
-                            hint: 'Hãy gửi gắm lời cám ơn và ghi nhận đến đồng đội tại đây nhé!',
+                            hint: tr.writeKudoMessageHint,
                             maxLines: 6,
                           ),
                           Gap(8.h),
                           Text(
-                            'Bạn có thể "@ + tên" để nhắc tới đồng nghiệp khác',
-                            style: TextStyle(color: _textMuted, fontSize: 12.sp),
+                            tr.writeKudoMentionHint,
+                            style: TextStyle(color: AppColors.textMuted, fontSize: 12.sp),
                           ),
                           Gap(20.h),
-                          _requiredLabel('Hashtag'),
+                          _requiredLabel(tr.writeKudoHashtagLabel),
                           Gap(8.h),
                           _hashtagSection(),
                           Gap(20.h),
-                          _label('Image'),
+                          _label(tr.image),
                           Gap(8.h),
                           _imageSection(),
                           Gap(20.h),
@@ -137,24 +134,24 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
       width: double.infinity,
       padding: EdgeInsets.all(12.w),
       decoration: BoxDecoration(
-        color: const Color(0x33E53935),
+        color: AppColors.errorBannerBackground,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: const Color(0xFFE53935)),
+        border: Border.all(color: AppColors.errorMaterial),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(Icons.error_outline, color: const Color(0xFFE53935), size: 20.sp),
+          Icon(Icons.error_outline, color: AppColors.errorMaterial, size: 20.sp),
           Gap(8.w),
           Expanded(
             child: Text(
-              'Bạn cần điền đủ Người nhận, Lời nhắn gửi và Hashtag để gửi Kudos!',
-              style: TextStyle(color: Colors.white, fontSize: 13.sp, height: 1.35),
+              tr.writeKudoValidationBanner,
+              style: TextStyle(color: AppColors.textPrimary, fontSize: 13.sp, height: 1.35),
             ),
           ),
           InkWell(
             onTap: main.dismissValidationError,
-            child: Icon(Icons.close, color: _textMuted, size: 18.sp),
+            child: Icon(Icons.close, color: AppColors.textMuted, size: 18.sp),
           ),
         ],
       ),
@@ -164,14 +161,14 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
   Widget _requiredLabel(String text) {
     return Text(
       '$text *',
-      style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+      style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, fontWeight: FontWeight.w600),
     );
   }
 
   Widget _label(String text) {
     return Text(
       text,
-      style: TextStyle(color: Colors.white, fontSize: 14.sp, fontWeight: FontWeight.w600),
+      style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp, fontWeight: FontWeight.w600),
     );
   }
 
@@ -195,11 +192,11 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                   height: 36.w,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
-                    color: _fieldBg,
+                    color: AppColors.fieldBackground,
                     borderRadius: BorderRadius.circular(6.r),
-                    border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+                    border: Border.all(color: AppColors.white15),
                   ),
-                  child: Text(a.$1, style: TextStyle(color: Colors.white, fontSize: 13.sp)),
+                  child: Text(a.$1, style: TextStyle(color: AppColors.textPrimary, fontSize: 13.sp)),
                 ),
               ),
             ),
@@ -225,11 +222,11 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                       width: 72.w,
                       height: 72.w,
                       decoration: BoxDecoration(
-                        color: const Color(0xFF1A3A4A),
+                        color: AppColors.avatarPlaceholder,
                         borderRadius: BorderRadius.circular(8.r),
-                        border: Border.all(color: _accent.withValues(alpha: 0.3)),
+                        border: Border.all(color: AppColors.accent.withValues(alpha: 0.3)),
                       ),
-                      child: Icon(Icons.image, color: _accent.withValues(alpha: 0.6), size: 28.sp),
+                      child: Icon(Icons.image, color: AppColors.accent.withValues(alpha: 0.6), size: 28.sp),
                     ),
                     Positioned(
                       top: -6,
@@ -239,10 +236,10 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                         child: Container(
                           padding: EdgeInsets.all(2.w),
                           decoration: const BoxDecoration(
-                            color: Color(0xFFE53935),
+                            color: AppColors.errorMaterial,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(Icons.close, size: 14.sp, color: Colors.white),
+                          child: Icon(Icons.close, size: 14.sp, color: AppColors.textPrimary),
                         ),
                       ),
                     ),
@@ -253,13 +250,13 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
         Gap(8.h),
         OutlinedButton.icon(
           onPressed: main.onAddImageTap,
-          icon: Icon(Icons.add, color: _accent, size: 18.sp),
+          icon: Icon(Icons.add, color: AppColors.accent, size: 18.sp),
           label: Text(
-            'Image (Tối đa ${WriteKudo.maxImages})',
-            style: TextStyle(color: _accent, fontSize: 13.sp),
+            tr.writeKudoAddImageButton(WriteKudo.maxImages),
+            style: TextStyle(color: AppColors.accent, fontSize: 13.sp),
           ),
           style: OutlinedButton.styleFrom(
-            side: BorderSide(color: _accent.withValues(alpha: 0.5)),
+            side: BorderSide(color: AppColors.accent.withValues(alpha: 0.5)),
           ),
         ),
       ],
@@ -279,14 +276,14 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                 label: Text(main.hashtags[i], style: TextStyle(fontSize: 12.sp)),
                 deleteIcon: const Icon(Icons.close, size: 16),
                 onDeleted: () => main.onRemoveHashtag(i),
-                backgroundColor: _fieldBg,
-                side: BorderSide(color: _accent.withValues(alpha: 0.4)),
-                labelStyle: const TextStyle(color: Colors.white),
+                backgroundColor: AppColors.fieldBackground,
+                side: BorderSide(color: AppColors.accent.withValues(alpha: 0.4)),
+                labelStyle: const TextStyle(color: AppColors.textPrimary),
               ),
             ActionChip(
-              label: Text('+ Hashtag (Tối đa 5)', style: TextStyle(color: _accent, fontSize: 12.sp)),
-              backgroundColor: _fieldBg,
-              side: BorderSide(color: _accent.withValues(alpha: 0.4)),
+              label: Text(tr.writeKudoAddHashtagChip, style: TextStyle(color: AppColors.accent, fontSize: 12.sp)),
+              backgroundColor: AppColors.fieldBackground,
+              side: BorderSide(color: AppColors.accent.withValues(alpha: 0.4)),
               onPressed: main.onAddHashtagTap,
             ),
           ],
@@ -304,25 +301,25 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
     return TextField(
       controller: controller,
       maxLines: maxLines,
-      style: TextStyle(color: Colors.white, fontSize: 14.sp),
+      style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp),
       decoration: InputDecoration(
         hintText: hint,
-        hintStyle: TextStyle(color: _textMuted, fontSize: 14.sp),
+        hintStyle: TextStyle(color: AppColors.textMuted, fontSize: 14.sp),
         filled: true,
-        fillColor: _fieldBg,
+        fillColor: AppColors.fieldBackground,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+          borderSide: BorderSide(color: AppColors.white20),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: BorderSide(color: Colors.white.withValues(alpha: 0.2)),
+          borderSide: BorderSide(color: AppColors.white20),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.r),
-          borderSide: const BorderSide(color: _accent),
+          borderSide: const BorderSide(color: AppColors.accent),
         ),
-        suffixIcon: suffix != null ? Icon(suffix, color: _textMuted) : null,
+        suffixIcon: suffix != null ? Icon(suffix, color: AppColors.textMuted) : null,
         contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
       ),
     );
@@ -335,15 +332,15 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
         Checkbox(
           value: main.sendAnonymous,
           onChanged: (v) => main.onAnonymousChanged(v ?? false),
-          activeColor: _accent,
-          checkColor: _background,
+          activeColor: AppColors.accent,
+          checkColor: AppColors.background,
         ),
         Expanded(
           child: Padding(
             padding: EdgeInsets.only(top: 10.h),
             child: Text(
-              'Gửi lời cám ơn và ghi nhận ẩn danh',
-              style: TextStyle(color: Colors.white, fontSize: 14.sp),
+              tr.writeKudoAnonymousCheckbox,
+              style: TextStyle(color: AppColors.textPrimary, fontSize: 14.sp),
             ),
           ),
         ),
@@ -355,8 +352,8 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
     return Container(
       padding: EdgeInsets.fromLTRB(20.w, 12.h, 20.w, 24.h),
       decoration: BoxDecoration(
-        color: _background,
-        border: Border(top: BorderSide(color: Colors.white.withValues(alpha: 0.1))),
+        color: AppColors.background,
+        border: Border(top: BorderSide(color: AppColors.white10)),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -365,8 +362,8 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
             child: TextButton(
               onPressed: main.onPreviewTap,
               child: Text(
-                'Xem trước',
-                style: TextStyle(color: _accent, fontSize: 14.sp, fontWeight: FontWeight.w600),
+                tr.writeKudoPreviewButton,
+                style: TextStyle(color: AppColors.accent, fontSize: 14.sp, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -376,10 +373,10 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                 child: OutlinedButton.icon(
                   onPressed: main.onCancelTap,
                   icon: const Icon(Icons.close, size: 18),
-                  label: Text('Hủy', style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
+                  label: Text(tr.writeKudoCancelButton, style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w600)),
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    side: BorderSide(color: Colors.white.withValues(alpha: 0.3)),
+                    foregroundColor: AppColors.textPrimary,
+                    side: BorderSide(color: AppColors.white30),
                     padding: EdgeInsets.symmetric(vertical: 14.h),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
                   ),
@@ -393,16 +390,16 @@ class WriteKudoScreen extends BaseScreen<WriteKudo> {
                       ? SizedBox(
                           width: 18.w,
                           height: 18.w,
-                          child: const CircularProgressIndicator(strokeWidth: 2, color: Colors.black),
+                          child: const CircularProgressIndicator(strokeWidth: 2, color: AppColors.black),
                         )
                       : const Icon(Icons.send_rounded, size: 18),
                   label: Text(
-                    main.vm.isSubmitting ? 'Đang gửi...' : 'Gửi đi',
+                    main.vm.isSubmitting ? tr.writeKudoSendingButton : tr.writeKudoSendButton,
                     style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.w700),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: _accent,
-                    foregroundColor: _background,
+                    backgroundColor: AppColors.accent,
+                    foregroundColor: AppColors.background,
                     padding: EdgeInsets.symmetric(vertical: 14.h),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.r)),
                   ),
